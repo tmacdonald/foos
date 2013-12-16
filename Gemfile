@@ -27,7 +27,12 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# Uses devise for authentication
 gem 'devise', '~> 3.2.2'
+
+# use anjlab to include sass version of bootstrap
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                              :github => 'anjlab/bootstrap-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
