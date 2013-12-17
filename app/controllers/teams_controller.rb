@@ -18,6 +18,7 @@ class TeamsController < ApplicationController
 
   #GET /teams/1
   def show
+    @recent_games = Game.where("team1_id = ? OR team2_id = ?", @team.id, @team.id)
   end
 
   # POST /teams
@@ -25,7 +26,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
 
     if @team.save
-      redirect_to @team, notice: 'Team was successfully created.'
+      redirect_to teams_url, notice: 'Team was successfully created.'
     else
       render action: 'new'
     end
@@ -34,7 +35,7 @@ class TeamsController < ApplicationController
   # PUT/PATCH /teams/1
   def update
     if @team.update(team_params)
-      redirect_to @team, notice: 'Team was successfully updated.'
+      redirect_to teams_url, notice: 'Team was successfully updated.'
     else
       render action: 'edit'
     end

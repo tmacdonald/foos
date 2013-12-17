@@ -8,6 +8,8 @@ Foos::Application.routes.draw do
 
   resources :teams
 
+  resources :games
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
