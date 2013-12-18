@@ -18,12 +18,14 @@ class TeamsController < ApplicationController
 
   #GET /teams/1
   def show
-    @recent_games = Game.where("team1_id = ? OR team2_id = ?", @team.id, @team.id)
+    @recent_games = Game.where("team1_id = ? OR team2_id = ?", @team.id, @team.id).order(created_at: :desc)
   end
 
   # POST /teams
   def create
     @team = Team.new(team_params)
+
+    @team.ladder_rank = Team.maximum('ladder_rank') + 1
 
     if @team.save
       redirect_to teams_url, notice: 'Team was successfully created.'
