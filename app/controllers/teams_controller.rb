@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.all
+    @teams = Team.order(ladder_rank: :asc)
   end
 
   # GET /teams/new
