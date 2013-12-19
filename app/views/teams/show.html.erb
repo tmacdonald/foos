@@ -1,5 +1,7 @@
 <h1><%= @team.name %></h1>
 
+<%= link_to 'New Game', new_game_path(:team1 => @team.id), :class => 'btn btn-primary' %>
+
 <h2>Recent games</h2>
 
 <table class="table table-striped">
@@ -20,7 +22,7 @@
       <td><%= game.team1score %></td>
       <td><%= game.team2.name %></td>
       <td><%= game.team2score %></td>
-      <td><%= game.created_at %></td>
+      <td><%= game.created_at.to_formatted_s(:long)  %></td>
     </tr>
     <% end %>
   </tbody>

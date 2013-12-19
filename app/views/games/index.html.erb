@@ -1,5 +1,3 @@
-<h1>Games</h1>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -18,7 +16,7 @@
       <td><%= game.team1score %></td>
       <td><%= game.team2.name %></td>
       <td><%= game.team2score %></td>
-      <td><%= game.created_at %></td>
+      <td><%= game.created_at.to_formatted_s(:long)  %></td>
     </tr>
     <% end %>
   </tbody>

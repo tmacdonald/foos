@@ -10,25 +10,41 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :team1 %>
-    <%= collection_select(:game, :team1_id, @teams, :id, :name) %>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :team1 %>
+        <%= collection_select(:game, :team1_id, @teams, :id, :name, { :selected => params[:team1] }, {:class=>'form-control'}) %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :team1score, "Score" %>
+        <%= f.text_field :team1score, :class => 'form-control' %>
+      </div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label :team1score %>
-    <%= f.text_field :team1score, :class => 'form-control' %>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :team2 %>
+        <%= collection_select(:game, :team2_id, @teams, :id, :name, { :selected => params[:team2] }, {:class => 'form-control'}) %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :team2score, "Score" %>
+        <%= f.text_field :team2score, :class => 'form-control' %>
+      </div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label :team2 %>
-    <%= collection_select(:game, :team2_id, @teams, :id, :name) %>
-  </div>
+  
 
-  <div class="form-group">
-    <%= f.label :team2score %>
-    <%= f.text_field :team2score, :class => 'form-control' %>
-  </div>
+  
+
+  
 
   <%= f.submit "Save", :class => "btn btn-default" %>
 <% end %>

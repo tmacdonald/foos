@@ -10,7 +10,7 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
-    @teams = Team.all
+    @teams = Team.order(name: :asc)
   end
 
   # GET /games/1/edit
