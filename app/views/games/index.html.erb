@@ -1,0 +1,27 @@
+<h1>Games</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Team 1</th>
+      <th>Score</th>
+      <th>Team 2</th>
+      <th>Score</th>
+      <th>Played</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @games.each do |game| %>
+    <tr>
+      <td><%= game.team1.name %></td>
+      <td><%= game.team1score %></td>
+      <td><%= game.team2.name %></td>
+      <td><%= game.team2score %></td>
+      <td><%= game.created_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Game', new_game_path %>

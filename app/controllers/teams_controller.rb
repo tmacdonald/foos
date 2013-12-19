@@ -4,7 +4,19 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.all
+    @teams = Team.order(points: :desc)
+  end
+
+  # GET /ladder
+  def ladder
+    @teams = Team.order(ladder_rank: :asc)
+    render 'teams/index'
+  end
+
+  # GET /rankings
+  def rankings
+    @teams = Team.order(points: :desc)
+    render 'teams/index'
   end
 
   # GET /teams/new
@@ -18,14 +30,17 @@ class TeamsController < ApplicationController
 
   #GET /teams/1
   def show
+    @recent_games = Game.where("team1_id = ? OR team2_id = ?", @team.id, @team.id).order(created_at: :desc)
   end
 
   # POST /teams
   def create
     @team = Team.new(team_params)
 
+    @team.ladder_rank = Team.maximum('ladder_rank') + 1
+
     if @team.save
-      redirect_to @team, notice: 'Team was successfully created.'
+      redirect_to teams_url, notice: 'Team was successfully created.'
     else
       render action: 'new'
     end
@@ -34,7 +49,7 @@ class TeamsController < ApplicationController
   # PUT/PATCH /teams/1
   def update
     if @team.update(team_params)
-      redirect_to @team, notice: 'Team was successfully updated.'
+      redirect_to teams_url, notice: 'Team was successfully updated.'
     else
       render action: 'edit'
     end
