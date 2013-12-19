@@ -2,7 +2,7 @@
 
 <h2>Games</h2>
 
-<table class="table table-striped">
+<table class="table">
 	<thead>
     <tr>
       <th>Team 1</th>
@@ -15,7 +15,7 @@
 
   <tbody>
   <% @recent_games.each do |game| %>
-    <tr>
+    <tr class="<%= "success" if (@team.id == game.team1.id and game.team1score > game.team2score) or (@team.id == game.team2.id and game.team2score > game.team1score) %> <%= "danger" if (@team.id == game.team1.id and game.team1score < game.team2score) or (@team.id == game.team2.id and game.team2score < game.team1score) %>">
       <td><%= game.team1.name %></td>
       <td><%= game.team1score %></td>
       <td><%= game.team2.name %></td>
