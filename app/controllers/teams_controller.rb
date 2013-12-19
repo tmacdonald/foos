@@ -7,6 +7,18 @@ class TeamsController < ApplicationController
     @teams = Team.order(points: :desc)
   end
 
+  # GET /ladder
+  def ladder
+    @teams = Team.order(ladder_rank: :asc)
+    render 'teams/index'
+  end
+
+  # GET /rankings
+  def rankings
+    @teams = Team.order(points: :desc)
+    render 'teams/index'
+  end
+
   # GET /teams/new
   def new
     @team = Team.new

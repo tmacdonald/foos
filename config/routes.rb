@@ -8,6 +8,9 @@ Foos::Application.routes.draw do
 
   resources :teams
 
+  get 'ladder' => 'teams#ladder'
+  get 'rankings' => 'teams#rankings'
+
   resources :games
 
   # Example of regular route:
