@@ -37,7 +37,8 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
 
-    @team.ladder_rank = Team.maximum('ladder_rank') + 1
+    rank = Team.maximum('ladder_rank')
+    @team.ladder_rank = rank.nil? ? 1 : (rank + 1)
 
     if @team.save
       redirect_to teams_url, notice: 'Team was successfully created.'
