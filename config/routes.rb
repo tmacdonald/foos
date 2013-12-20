@@ -15,6 +15,8 @@ Foos::Application.routes.draw do
 
   namespace :api do
     resources :teams, :defaults => { :format => 'json' }
+
+    resources :games, :defaults => { :format => 'json' }
   end
 
   # Example of regular route:
