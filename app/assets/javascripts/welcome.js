@@ -10,20 +10,13 @@ var teamModule = angular.module('foos.teams', ['foos.teams.controllers', 'foos.t
       .when('/teams/new', { templateUrl: '/assets/teams/form.html', controller: 'NewTeamController' })
       .when('/teams/:id', { templateUrl: '/assets/teams/show.html', controller: 'TeamController' })
       .when('/teams', { templateUrl: '/assets/teams/index.html', controller: 'TeamsController' })
-      .when('/ladder', { templateUrl: '/assets/teams/ladder.html', controller: 'LadderController' })
-      .when('/rankings', { templateUrl: '/assets/teams/rankings.html', controller: 'RankingsController' });
+      .when('/ladder', { templateUrl: '/assets/teams/ladder.html', controller: 'TeamsController' })
+      .when('/rankings', { templateUrl: '/assets/teams/rankings.html', controller: 'TeamsController' });
   });
 
 angular.module('foos.teams.controllers', [])
   .controller('LadderController', function($scope, TeamService) {
 
-  })
-  .controller('RankingsController', function($scope, TeamService) {
-    $scope.teams = [];
-
-    TeamService.query().$promise.then(function(data) { 
-      $scope.teams = data;
-    });
   })
   .controller('TeamsController', function($scope, TeamService) {
     $scope.teams = [];
