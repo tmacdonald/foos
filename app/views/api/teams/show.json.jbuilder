@@ -1,0 +1,1 @@
+json.extract! @team, :id, :name, :ladder_rank, :points

@@ -28,17 +28,17 @@ ActiveRecord::Schema.define(version: 20131217163322) do
   add_index "games", ["team1_id"], name: "index_games_on_team1_id", using: :btree
   add_index "games", ["team2_id"], name: "index_games_on_team2_id", using: :btree
 
-  create_table "team_users", force: true do |t|
-    t.integer "user_id"
-    t.integer "team_id"
-  end
-
   create_table "teams", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "points",      default: 500
     t.integer  "ladder_rank", default: 0
+  end
+
+  create_table "teams_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "team_id"
   end
 
   create_table "users", force: true do |t|

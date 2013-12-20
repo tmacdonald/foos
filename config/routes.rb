@@ -13,6 +13,10 @@ Foos::Application.routes.draw do
 
   resources :games
 
+  namespace :api do
+    resources :teams, :defaults => { :format => 'json' }
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
