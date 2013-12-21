@@ -1,5 +1,18 @@
-<ul data-ng-controller="TeamsController" data-ng-init="find()">
-  <li data-ng-repeat="team in teams | orderBy: 'name'">
-    <a href="#/teams/{{team.id}}">{{team.name}}</a>
-  </li>
+<div data-ng-controller="TeamsController" data-ng-init="find()">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Ladder Rank</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="team in teams">
+        <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
+        <td>{{team.ladder_rank}}</td>
+        <td>{{team.points}}</td>
+      </tr>
+    </tbody>
+  </table>
 </ul>

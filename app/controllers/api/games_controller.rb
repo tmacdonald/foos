@@ -3,9 +3,15 @@ class Api::GamesController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
 
-  # GET /games
+  # GET /teams/:team_id/games
   def index
-    @games = Game.all
+    @games = Game.where("team1_id = ? OR team2_id = ?", params[:team_id], params[:team_id])
+  end
+
+  # GET /teams/:team_id/games/recent
+  def recent
+    @games = Game.where("team1_id = ? OR team2_id = ?", params[:team_id], params[:team_id]).order(created_at: :desc).limit(5)
+    render 'index'
   end
 
   #GET /games/1

@@ -8,4 +8,42 @@
   <p>{{team.points}}</p>
 
   <h2>Recent Games</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Opponent</th>
+        <th>Result</th>
+        <th>Date Played</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="game in recent_games" data-ng-class="{'success':($parent.team_id == game.team1.id && game.team1score > game.team2score) || ($parent.team_id == game.team2.id && game.team2score > game.team1score), 'danger': ($parent.team_id == game.team1.id && game.team1score < game.team2score) || ($parent.team_id == game.team2.id && game.team2score < game.team1score)}">
+
+        <td>
+          <div data-ng-if="$parent.team_id == game.team1.id">
+            {{game.team2.name}}
+          </div>
+          <div data-ng-if="$parent.team_id == game.team2.id">
+            {{game.team1.name}}
+        </td>
+
+        <td>
+          <div data-ng-if="$parent.team_id == game.team1.id && game.team1score > game.team2score">
+            won {{game.team1score}} - {{game.team2score}}
+          </div>
+          <div data-ng-if="$parent.team_id == game.team1.id && game.team2score > game.team1score">
+            lost {{game.team2score}} - {{game.team1score}}
+          </div>
+          <div data-ng-if="$parent.team_id == game.team2.id && game.team1score > game.team2score">
+            lost {{game.team1score}} - {{game.team2score}}
+          </div>
+          <div data-ng-if="$parent.team_id == game.team2.id && game.team2score > game.team1score">
+            won {{game.team2score}} - {{game.team1score}}
+          </div>
+        </td>
+        <td>{{game.created_at | date: 'medium'}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

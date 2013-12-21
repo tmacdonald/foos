@@ -14,11 +14,17 @@ Foos::Application.routes.draw do
   resources :games
 
   namespace :api do
-    resources :teams, :defaults => { :format => 'json' } do 
-      resources :games, :defaults => { :format => 'json' }
+    resources :teams, defaults: { :format => 'json' } do 
+      resources :games, 
+        only: [:index],
+        defaults: { :format => 'json' } do 
+          get 'recent', on: :collection
+      end
     end
 
-    resources :games, :defaults => { :format => 'json' }
+    resources :games, 
+      only: [:show, :create, :update, :destroy],
+      defaults: { :format => 'json' }
   end
 
   # Example of regular route:

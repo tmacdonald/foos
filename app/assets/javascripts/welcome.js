@@ -15,7 +15,7 @@ var teamModule = angular.module('foos.teams', ['foos.teams.controllers', 'foos.t
   });
 
 angular.module('foos.teams.controllers', [])
-  .controller('TeamsController', function($scope, $routeParams, TeamService) {
+  .controller('TeamsController', function($scope, $http, $routeParams, TeamService) {
     $scope.find = function(query) {
       TeamService.query(query).$promise.then(function(teams) {
         $scope.teams = teams;
@@ -23,8 +23,17 @@ angular.module('foos.teams.controllers', [])
     };
 
     $scope.findOne = function() {
-      TeamService.get({ id: $routeParams.id }).$promise.then(function(team) {
+      $scope.team_id = $routeParams.id;
+
+      TeamService.get({ id: $scope.team_id }).$promise.then(function(team) {
         $scope.team = team;
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/teams/' + $scope.team_id + '/games/recent'        
+      }).then(function(games) {
+        $scope.recent_games = games.data;
       });
     };
   })
@@ -34,7 +43,11 @@ angular.module('foos.teams.controllers', [])
 
 angular.module('foos.teams.services', ['ngResource'])
   .factory('TeamService', ['$resource', function($resource) {
-    return $resource('/api/teams/:id', { id: '@id' });
+    return $resource('/api/teams/:id', 
+      { id: '@id' },
+      {
+        'update': { method: 'PUT' },
+      });
   }]);
 
 angular.module('foos.games', ['foos.games.controllers', 'foos.games.services'])
@@ -61,5 +74,9 @@ angular.module('foos.games.controllers', [])
 
 angular.module('foos.games.services', [])
   .factory('GameService', ['$resource', function($resource) {
-    return $resource('/api/games/:id', { id: '@id' });
+    return $resource('/api/games/:id', 
+      { id: '@id' },
+      {
+        'update': { method: 'PUT' }
+      });
   }]);
