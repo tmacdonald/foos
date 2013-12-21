@@ -1,4 +1,4 @@
-var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foos.teams']);
+var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foos.teams', 'foos.games']);
 
 app.config(function($routeProvider) {
   $routeProvider.otherwise({ redirectTo: '/teams' });
@@ -35,4 +35,31 @@ angular.module('foos.teams.controllers', [])
 angular.module('foos.teams.services', ['ngResource'])
   .factory('TeamService', ['$resource', function($resource) {
     return $resource('/api/teams/:id', { id: '@id' });
+  }]);
+
+angular.module('foos.games', ['foos.games.controllers', 'foos.games.services'])
+  .config(function($routeProvider) {
+    $routeProvider
+      .when('/games/new', { templateUrl: '/assets/games/form.html' })
+      .when('/games', { templateUrl: '/assets/games/index.html' });
+  });
+
+angular.module('foos.games.controllers', [])
+  .controller('GamesController', function($scope, $routeParams, GameService) {
+    $scope.find = function(query) {
+      GameService.query(query).$promise.then(function(games) {
+        $scope.games = games;
+      });
+    };
+
+    $scope.findOne = function() {
+      GameService.get({ id: $routeParams.id }).$promise.then(function(game) {
+        $scope.game = game;
+      });
+    };
+  });
+
+angular.module('foos.games.services', [])
+  .factory('GameService', ['$resource', function($resource) {
+    return $resource('/api/games/:id', { id: '@id' });
   }]);
