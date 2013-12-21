@@ -1,3 +1,5 @@
-<ul>
-  <li data-ng-repeat="team in teams | orderBy: 'name'">{{team.name}}</li>
+<ul data-ng-controller="TeamsController" data-ng-init="find()">
+  <li data-ng-repeat="team in teams | orderBy: 'name'">
+    <a href="#/teams/{{team.id}}">{{team.name}}</a>
+  </li>
 </ul>
