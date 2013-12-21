@@ -25,9 +25,10 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
-    if @game.save
+    point_change = calculate_points_change(@game.team1.points, @game.team2.points, @game.team1score, @game.team2score)
+    @game.points_change = point_change
 
-      point_change = calculate_points_change(@game.team1.points, @game.team2.points, @game.team1score, @game.team2score)
+    if @game.save
 
       logger.debug "Point change: #{point_change}"
 

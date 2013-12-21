@@ -36,6 +36,19 @@ angular.module('foos.teams.controllers', [])
         $scope.recent_games = games.data;
       });
     };
+
+    $scope.isWinner = function(game) {
+      return ($scope.team_id == game.team1.id && game.team1score > game.team2score) ||
+             ($scope.team_id == game.team2.id && game.team2score > game.team1score)
+    };
+
+    $scope.isCurrentTeam = function(team_id) {
+      return team_id == $scope.team_id;
+    };
+
+    $scope.getScore = function(game) {
+      return Math.max(game.team1score, game.team2score) + ' - ' + Math.min(game.team1score, game.team2score);
+    }
   })
   .controller('NewTeamController', function($scope) {
 

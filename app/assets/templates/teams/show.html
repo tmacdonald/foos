@@ -14,34 +14,29 @@
       <tr>
         <th>Opponent</th>
         <th>Result</th>
+        <th>Points</th>
         <th>Date Played</th>
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-repeat="game in recent_games" data-ng-class="{'success':($parent.team_id == game.team1.id && game.team1score > game.team2score) || ($parent.team_id == game.team2.id && game.team2score > game.team1score), 'danger': ($parent.team_id == game.team1.id && game.team1score < game.team2score) || ($parent.team_id == game.team2.id && game.team2score < game.team1score)}">
+      <tr data-ng-repeat="game in recent_games" data-ng-class="{'success':$parent.isWinner(game), 'danger': !$parent.isWinner(game)}">
 
         <td>
-          <div data-ng-if="$parent.team_id == game.team1.id">
+          <div data-ng-if="$parent.isCurrentTeam(game.team1.id)">
             {{game.team2.name}}
           </div>
-          <div data-ng-if="$parent.team_id == game.team2.id">
+          <div data-ng-if="$parent.isCurrentTeam(game.team2.id)">
             {{game.team1.name}}
         </td>
 
         <td>
-          <div data-ng-if="$parent.team_id == game.team1.id && game.team1score > game.team2score">
-            won {{game.team1score}} - {{game.team2score}}
-          </div>
-          <div data-ng-if="$parent.team_id == game.team1.id && game.team2score > game.team1score">
-            lost {{game.team2score}} - {{game.team1score}}
-          </div>
-          <div data-ng-if="$parent.team_id == game.team2.id && game.team1score > game.team2score">
-            lost {{game.team1score}} - {{game.team2score}}
-          </div>
-          <div data-ng-if="$parent.team_id == game.team2.id && game.team2score > game.team1score">
-            won {{game.team2score}} - {{game.team1score}}
-          </div>
+          <span data-ng-switch data-on="$parent.isWinner(game)">
+            <span data-ng-switch-when="true">won</span>
+            <span data-ng-switch-when="false">lost</span>
+          </span>
+          {{$parent.getScore(game)}}
         </td>
+        <td>{{game.points_change}}</td>
         <td>{{game.created_at | date: 'medium'}}</td>
       </tr>
     </tbody>
