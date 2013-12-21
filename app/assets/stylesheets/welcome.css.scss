@@ -9,6 +9,9 @@
 .reveal.ng-enter.ng-enter-active {
   opacity:1;
 }
+.reveal.ng-leave.ng-leave-active {
+  opacity:0;
+}
 
 .nav-list {
   padding: 0;
@@ -21,7 +24,7 @@
   line-height:1.1em;
 }
 
-.slide-reveal.ng-enter {
+.slide-reveal.ng-enter, .slide-reveal.ng-leave {
   -webkit-transition:0.5s linear all;
   -moz-transition:0.5s linear all;
   -o-transition:0.5s linear all;
@@ -51,12 +54,12 @@
 .foldout.ng-hide-add.ng-hide-active,
 .foldout.ng-enter,
 .foldout.ng-move {
-  opacity:0;
+  left: -100%
 }
 
 .foldout.ng-move.ng-move-active,
 .foldout.ng-hide-remove.ng-hide-remove-active,
 .foldout.ng-hide-add,
 .foldout.ng-enter.ng-enter-active {
-  opacity:1;
+  left: 0;
 }

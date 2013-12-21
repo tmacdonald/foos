@@ -7,7 +7,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-repeat="team in teams | orderBy: 'points'">
+      <tr data-ng-repeat="team in teams | orderBy: 'points':true">
         <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
         <td>{{team.points}}</td>
       </tr>
