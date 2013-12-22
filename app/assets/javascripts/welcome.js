@@ -66,7 +66,7 @@ angular.module('foos.teams.services', ['ngResource'])
 angular.module('foos.games', ['foos.games.controllers', 'foos.games.services'])
   .config(function($routeProvider) {
     $routeProvider
-      .when('/games/new', { templateUrl: '/assets/games/form.html' })
+      .when('/games/new', { templateUrl: '/assets/games/form.html', controller: "NewGameController" })
       .when('/games', { templateUrl: '/assets/games/index.html' });
   });
 
@@ -81,6 +81,19 @@ angular.module('foos.games.controllers', [])
     $scope.findOne = function() {
       GameService.get({ id: $routeParams.id }).$promise.then(function(game) {
         $scope.game = game;
+      });
+    };
+  })
+  .controller('NewGameController', function($scope, $location, GameService, TeamService) {
+    $scope.game = new GameService();
+
+    TeamService.query().$promise.then(function(teams) {
+      $scope.teams = teams;
+    });
+
+    $scope.save = function() {
+      $scope.game.$save().then(function() {
+        $location.path('/teams');
       });
     };
   });

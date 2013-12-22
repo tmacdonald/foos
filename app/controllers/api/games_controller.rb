@@ -22,6 +22,8 @@ class Api::GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
+    logger.debug @game.inspect
+
     point_change = calculate_points_change(@game.team1.points, @game.team2.points, @game.team1score, @game.team2score)
     @game.points_change = point_change
 
@@ -67,6 +69,22 @@ class Api::GamesController < ApplicationController
     end
 
     def game_params
-      params.require(:game).permit(:name)
+      params.require(:game).permit(:team1_id, :team2_id, :team1score, :team2score)
+    end
+
+    def calculate_points_change (points1, points2, score1, score2)
+      w = score1 > score2 ? 1 : 0
+      gd = (score1 - score2).abs
+
+      g = (11 + gd) / 8.0
+      g = 1 if gd == 1
+      g = 1.5 if gd == 2
+
+      we = 1.0 / ((10 ** (-(points1 - points2)/400.0)) + 1)
+      k = 20
+
+      logger.debug "#{w}, #{g}, #{w}, #{we}"
+
+      (k * g * (w - we)).ceil
     end
 end
