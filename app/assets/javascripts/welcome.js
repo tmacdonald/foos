@@ -50,8 +50,14 @@ angular.module('foos.teams.controllers', [])
       return Math.max(game.team1score, game.team2score) + ' - ' + Math.min(game.team1score, game.team2score);
     }
   })
-  .controller('NewTeamController', function($scope) {
+  .controller('NewTeamController', function($scope, $location, TeamService) {
+    $scope.team = new TeamService();
 
+    $scope.save = function() {
+      $scope.team.$save().then(function() {
+        $location.path('/teams');
+      });
+    };
   });
 
 angular.module('foos.teams.services', ['ngResource'])
