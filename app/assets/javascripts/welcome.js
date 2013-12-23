@@ -5,17 +5,17 @@ app.config(function($routeProvider) {
 });
 
 var teamModule = angular.module('foos.teams', ['foos.teams.controllers', 'foos.teams.services'])
-  .config(function($routeProvider) {
+  .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/teams/new', { templateUrl: '/assets/teams/form.html', controller: 'NewTeamController' })
       .when('/teams/:id', { templateUrl: '/assets/teams/show.html' })
       .when('/teams', { templateUrl: '/assets/teams/index.html' })
       .when('/ladder', { templateUrl: '/assets/teams/ladder.html'})
       .when('/rankings', { templateUrl: '/assets/teams/rankings.html' });
-  });
+  }]);
 
 angular.module('foos.teams.controllers', [])
-  .controller('TeamsController', function($scope, $http, $routeParams, TeamService) {
+  .controller('TeamsController', ['$scope','$http','$routeParams','TeamService', function($scope, $http, $routeParams, TeamService) {
     $scope.find = function(query) {
       TeamService.query(query).$promise.then(function(teams) {
         $scope.teams = teams;
@@ -49,8 +49,8 @@ angular.module('foos.teams.controllers', [])
     $scope.getScore = function(game) {
       return Math.max(game.team1score, game.team2score) + ' - ' + Math.min(game.team1score, game.team2score);
     }
-  })
-  .controller('NewTeamController', function($scope, $location, TeamService) {
+  }])
+  .controller('NewTeamController', ['$scope','$location','TeamService', function($scope, $location, TeamService) {
     $scope.team = new TeamService();
 
     $scope.save = function() {
@@ -58,7 +58,7 @@ angular.module('foos.teams.controllers', [])
         $location.path('/teams');
       });
     };
-  });
+  }]);
 
 angular.module('foos.teams.services', ['ngResource'])
   .factory('TeamService', ['$resource', function($resource) {
@@ -70,14 +70,14 @@ angular.module('foos.teams.services', ['ngResource'])
   }]);
 
 angular.module('foos.games', ['foos.games.controllers', 'foos.games.services'])
-  .config(function($routeProvider) {
+  .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/games/new', { templateUrl: '/assets/games/form.html', controller: "NewGameController" })
       .when('/games', { templateUrl: '/assets/games/index.html' });
-  });
+  }]);
 
 angular.module('foos.games.controllers', [])
-  .controller('GamesController', function($scope, $routeParams, GameService) {
+  .controller('GamesController', ['$scope','$routeParams','GameService', function($scope, $routeParams, GameService) {
     $scope.find = function(query) {
       GameService.query(query).$promise.then(function(games) {
         $scope.games = games;
@@ -89,8 +89,8 @@ angular.module('foos.games.controllers', [])
         $scope.game = game;
       });
     };
-  })
-  .controller('NewGameController', function($scope, $location, GameService, TeamService) {
+  }])
+  .controller('NewGameController', ['$scope','$location','GameService','TeamService', function($scope, $location, GameService, TeamService) {
     $scope.game = new GameService();
 
     TeamService.query().$promise.then(function(teams) {
@@ -102,7 +102,7 @@ angular.module('foos.games.controllers', [])
         $location.path('/teams');
       });
     };
-  });
+  }]);
 
 angular.module('foos.games.services', [])
   .factory('GameService', ['$resource', function($resource) {
