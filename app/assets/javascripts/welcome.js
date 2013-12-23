@@ -55,7 +55,7 @@ angular.module('foos.teams.controllers', [])
 
     $scope.save = function() {
       $scope.team.$save().then(function() {
-        $location.path('/teams');
+        $location.path('/rankings');
       });
     };
   }]);
@@ -99,7 +99,7 @@ angular.module('foos.games.controllers', [])
 
     $scope.save = function() {
       $scope.game.$save().then(function() {
-        $location.path('/teams');
+        $location.path('/rankings');
       });
     };
   }]);
