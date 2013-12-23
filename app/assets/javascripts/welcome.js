@@ -1,7 +1,7 @@
 var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foos.teams', 'foos.games']);
 
 app.config(function($routeProvider) {
-  $routeProvider.otherwise({ redirectTo: '/teams' });
+  $routeProvider.otherwise({ redirectTo: '/rankings' });
 });
 
 var teamModule = angular.module('foos.teams', ['foos.teams.controllers', 'foos.teams.services'])
