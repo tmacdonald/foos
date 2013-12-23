@@ -1,0 +1,16 @@
+<div data-ng-controller="TeamsController" data-ng-init="find()">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="team in teams | orderBy: 'ladder_rank'">
+        <td>{{$index + 1}}</td>
+        <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

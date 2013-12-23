@@ -7,11 +7,11 @@ app.config(function($routeProvider) {
 var teamModule = angular.module('foos.teams', ['foos.teams.controllers', 'foos.teams.services'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/teams/new', { templateUrl: '/assets/teams/form.html', controller: 'NewTeamController' })
-      .when('/teams/:id', { templateUrl: '/assets/teams/show.html' })
-      .when('/teams', { templateUrl: '/assets/teams/index.html' })
-      .when('/ladder', { templateUrl: '/assets/teams/ladder.html'})
-      .when('/rankings', { templateUrl: '/assets/teams/rankings.html' });
+      .when('/teams/new', { templateUrl: '/templates/teams/form.html', controller: 'NewTeamController' })
+      .when('/teams/:id', { templateUrl: '/templates/teams/show.html' })
+      .when('/teams', { templateUrl: '/templates/teams/index.html' })
+      .when('/ladder', { templateUrl: '/templates/teams/ladder.html'})
+      .when('/rankings', { templateUrl: '/templates/teams/rankings.html' });
   }]);
 
 angular.module('foos.teams.controllers', [])
@@ -72,8 +72,8 @@ angular.module('foos.teams.services', ['ngResource'])
 angular.module('foos.games', ['foos.games.controllers', 'foos.games.services'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/games/new', { templateUrl: '/assets/games/form.html', controller: "NewGameController" })
-      .when('/games', { templateUrl: '/assets/games/index.html' });
+      .when('/games/new', { templateUrl: '/templates/games/form.html', controller: "NewGameController" })
+      .when('/games', { templateUrl: '/templates/games/index.html' });
   }]);
 
 angular.module('foos.games.controllers', [])

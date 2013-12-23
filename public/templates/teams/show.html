@@ -1,0 +1,44 @@
+<div data-ng-controller="TeamsController" data-ng-init="findOne()">
+  <h1>{{team.name}}</h1>
+
+  <h2>Ladder Rank</h2>
+  <p>{{team.ladder_rank}}</p>
+
+  <h2>Points</h2>
+  <p>{{team.points}}</p>
+
+  <h2>Recent Games</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Opponent</th>
+        <th>Result</th>
+        <th>Points</th>
+        <th>Date Played</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="game in recent_games" data-ng-class="{'success':$parent.isWinner(game), 'danger': !$parent.isWinner(game)}">
+
+        <td>
+          <div data-ng-if="$parent.isCurrentTeam(game.team1.id)">
+            {{game.team2.name}}
+          </div>
+          <div data-ng-if="$parent.isCurrentTeam(game.team2.id)">
+            {{game.team1.name}}
+        </td>
+
+        <td>
+          <span data-ng-switch data-on="$parent.isWinner(game)">
+            <span data-ng-switch-when="true">won</span>
+            <span data-ng-switch-when="false">lost</span>
+          </span>
+          {{$parent.getScore(game)}}
+        </td>
+        <td>{{game.points_change}}</td>
+        <td>{{game.created_at | date: 'medium'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
