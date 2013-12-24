@@ -22,6 +22,8 @@ class Api::GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
+    logger.debug @game.inspect
+
     if @game.valid?
       point_change = calculate_points_change(@game.team1.points, @game.team2.points, @game.team1score, @game.team2score)
       @game.points_change = point_change
