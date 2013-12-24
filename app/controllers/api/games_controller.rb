@@ -22,14 +22,10 @@ class Api::GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
-    logger.debug @game.inspect
-
     point_change = calculate_points_change(@game.team1.points, @game.team2.points, @game.team1score, @game.team2score)
     @game.points_change = point_change
 
     if @game.save
-
-      logger.debug "Point change: #{point_change}"
 
       if (@game.team1score > @game.team2score && @game.team1.ladder_rank > @game.team2.ladder_rank) ||
         (@game.team1score < @game.team2score && @game.team1.ladder_rank < @game.team2.ladder_rank)
@@ -42,7 +38,7 @@ class Api::GamesController < ApplicationController
       @game.team1.update(points: @game.team1.points + point_change)
       @game.team2.update(points: @game.team2.points - point_change)
 
-      render action: 'show', status: :created, location: @game
+      render action: 'show', status: :created
     else
       render json: @game.errors, status: :unprocessable_entity
     end

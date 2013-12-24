@@ -6,12 +6,8 @@ Foos::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
-  resources :teams
-
-  get 'ladder' => 'teams#ladder'
-  get 'rankings' => 'teams#rankings'
-
-  resources :games
+  get 'ladder', to: redirect('/#ladder')
+  get 'rankings', to: redirect('/#rankings')
 
   namespace :api do
     resources :teams, defaults: { :format => 'json' } do 
@@ -26,6 +22,10 @@ Foos::Application.routes.draw do
       only: [:show, :create, :update, :destroy],
       defaults: { :format => 'json' }
   end
+
+  get '/teams/:id', to: redirect('/#/teams/%{id}')
+
+  get 'games/new', to: redirect('/#/games/new')
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
