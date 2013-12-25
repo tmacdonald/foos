@@ -119,6 +119,18 @@ angular.module('foos.games.controllers', [])
         $location.path('/rankings');
       });
     };
+
+    $scope.$watch('game.team1_id', function() {
+      console.log('team1_id changed');
+    });
+
+    $scope.$watch('game.team2_id', function() {
+      console.log('team2_id changed');
+    });
+
+    $scope.$watch('game.team2score', function() {
+      console.log('team2score changed');
+    });
   }]);
 
 angular.module('foos.games.services', [])
