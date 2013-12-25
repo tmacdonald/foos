@@ -108,6 +108,8 @@ angular.module('foos.games.controllers', [])
   }])
   .controller('NewGameController', ['$scope','$location','GameService','TeamService', function($scope, $location, GameService, TeamService) {
     $scope.game = new GameService();
+    $scope.game.team1_id = 1;
+    $scope.game.team2_id = 2;
     $scope.game.team1score = 10;
 
     TeamService.query().$promise.then(function(teams) {
@@ -119,18 +121,6 @@ angular.module('foos.games.controllers', [])
         $location.path('/rankings');
       });
     };
-
-    $scope.$watch('game.team1_id', function(newValue, oldValue) {
-      console.log('team1_id changed', oldValue, newValue);
-    });
-
-    $scope.$watch('game.team2_id', function(newValue, oldValue) {
-      console.log('team2_id changed', oldValue, newValue);
-    });
-
-    $scope.$watch('game.team2score', function(newValue, oldValue) {
-      console.log('team2score changed', oldValue, newValue);
-    });
   }]);
 
 angular.module('foos.games.services', [])
