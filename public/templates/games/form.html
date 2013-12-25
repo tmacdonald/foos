@@ -4,7 +4,7 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label for="team1">Winner</label>
-        <select class="form-control" name="team1" data-ng-model="game.team1_id" data-ng-options="t.id as t.name for t in teams | orderBy: 'name'"></select>
+        <select class="form-control" name="team1" data-ng-model="game.team1_id" data-ng-options="t.id as t.name for t in teams"></select>
       </div>
     </div>
     <div class="col-sm-6">
@@ -19,7 +19,7 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label for="team2">Loser</label>
-        <select class="form-control" name="team2" data-ng-model="game.team2_id" data-ng-options="t.id as t.name for t in teams | orderBy: 'name'"></select> 
+        <select class="form-control" name="team2" data-ng-model="game.team2_id" data-ng-options="t.id as t.name for t in teams"></select> 
       </div>
     </div>
     <div class="col-sm-6">
