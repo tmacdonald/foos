@@ -120,16 +120,16 @@ angular.module('foos.games.controllers', [])
       });
     };
 
-    $scope.$watch('game.team1_id', function() {
-      console.log('team1_id changed');
+    $scope.$watch('game.team1_id', function(newValue, oldValue) {
+      console.log('team1_id changed', oldValue, newValue);
     });
 
-    $scope.$watch('game.team2_id', function() {
-      console.log('team2_id changed');
+    $scope.$watch('game.team2_id', function(newValue, oldValue) {
+      console.log('team2_id changed', oldValue, newValue);
     });
 
-    $scope.$watch('game.team2score', function() {
-      console.log('team2score changed');
+    $scope.$watch('game.team2score', function(newValue, oldValue) {
+      console.log('team2score changed', oldValue, newValue);
     });
   }]);
 
