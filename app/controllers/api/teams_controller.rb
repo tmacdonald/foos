@@ -5,7 +5,7 @@ class Api::TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.all
+    @teams = Team.order(:name)
   end
 
   #GET /teams/1
