@@ -4,13 +4,13 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label for="team1">Winner</label>
-        <select class="form-control" id="team1" data-ng-model="game.team1_id" data-ng-options="t.id as t.name for t in teams | orderBy: 'name'"></select>
+        <select class="form-control" name="team1" data-ng-model="game.team1_id" data-ng-options="t.id as t.name for t in teams | orderBy: 'name'"></select>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
         <label for="team1score">Score</label>
-        <input class="form-control" type="text" id="team1score" data-ng-model="game.team1score" readonly />
+        <input class="form-control" type="text" name="team1score" data-ng-model="game.team1score" readonly />
       </div>
     </div>
   </div>
@@ -19,13 +19,13 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label for="team2">Loser</label>
-        <select class="form-control" id="team2" data-ng-model="game.team2_id" data-ng-options="t.id as t.name for t in teams | orderBy: 'name'"></select> 
+        <select class="form-control" name="team2" data-ng-model="game.team2_id" data-ng-options="t.id as t.name for t in teams | orderBy: 'name'"></select> 
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
         <label for="team2score">Score</label>
-        <input class="form-control" type="text" id="team2score" data-ng-model="game.team2score" />
+        <input class="form-control" type="text" name="team2score" data-ng-model="game.team2score" />
       </div>
     </div>
   </div>

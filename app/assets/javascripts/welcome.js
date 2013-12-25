@@ -9,6 +9,7 @@ var teamModule = angular.module('foos.teams', ['foos.teams.controllers', 'foos.t
     $routeProvider
       .when('/teams/new', { templateUrl: '/templates/teams/form.html', controller: 'NewTeamController' })
       .when('/teams/:id', { templateUrl: '/templates/teams/show.html' })
+      .when('/teams/:id/games', {templateUrl: '/templates/teams/games.html' })
       .when('/teams', { templateUrl: '/templates/teams/index.html' })
       .when('/ladder', { templateUrl: '/templates/teams/ladder.html'})
       .when('/rankings', { templateUrl: '/templates/teams/rankings.html' });
@@ -38,17 +39,12 @@ angular.module('foos.teams.controllers', [])
     };
 
     $scope.isWinner = function(game) {
-      return ($scope.team_id == game.team1.id && game.team1score > game.team2score) ||
-             ($scope.team_id == game.team2.id && game.team2score > game.team1score)
+      return $scope.team_id == game.team1.id;
     };
 
     $scope.isCurrentTeam = function(team_id) {
       return team_id == $scope.team_id;
     };
-
-    $scope.getScore = function(game) {
-      return Math.max(game.team1score, game.team2score) + ' - ' + Math.min(game.team1score, game.team2score);
-    }
   }])
   .controller('NewTeamController', ['$scope','$location','TeamService', function($scope, $location, TeamService) {
     $scope.team = new TeamService();
@@ -57,6 +53,26 @@ angular.module('foos.teams.controllers', [])
       $scope.team.$save().then(function() {
         $location.path('/rankings');
       });
+    };
+  }])
+  .controller('TeamGamesController', ['$scope','$http','$routeParams', function($scope, $http, $routeParams) {
+    $scope.team_id = $routeParams.id;
+
+    $scope.load_games = function() {
+      $http({
+        method: 'GET',
+        url: '/api/teams/' + $scope.team_id + '/games'
+      }).then(function(games) {
+        $scope.games = games.data;
+      });  
+    };
+
+    $scope.isWinner = function(game) {
+      return $scope.team_id == game.team1.id;
+    };
+
+    $scope.isCurrentTeam = function(team_id) {
+      return team_id == $scope.team_id;
     };
   }]);
 
