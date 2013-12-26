@@ -108,8 +108,6 @@ angular.module('foos.games.controllers', [])
   }])
   .controller('NewGameController', ['$scope','$location','GameService','TeamService', function($scope, $location, GameService, TeamService) {
     $scope.game = new GameService();
-    $scope.game.team1_id = 1;
-    $scope.game.team2_id = 2;
     $scope.game.team1score = 10;
 
     TeamService.query().$promise.then(function(teams) {
