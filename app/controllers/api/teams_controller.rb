@@ -20,7 +20,7 @@ class Api::TeamsController < ApplicationController
     @team.ladder_rank = rank.nil? ? 1 : (rank + 1)
 
     if @team.save
-      render action: 'show', status: :created, location: @team
+      render action: 'show', status: :created
     else
       render json: @team.errors, status: :unprocessable_entity
     end

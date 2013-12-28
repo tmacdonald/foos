@@ -1,5 +1,9 @@
 <form name="form" role="form" data-ng-submit="save()" novalidate>
 
+  <div class="alert alert-danger" data-ng-show="form.$invalid">
+    <strong>Uh-oh!</strong> Looks like there was an error. Take a look below for more details.
+  </div>
+
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group" data-ng-class="{'has-error': form.team1.$invalid}">

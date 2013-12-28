@@ -5,4 +5,6 @@ class Team < ActiveRecord::Base
   def games 
     team1games + team2games
   end
+
+  validates :name, presence: true
 end
