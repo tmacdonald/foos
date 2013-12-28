@@ -117,6 +117,17 @@ angular.module('foos.games.controllers', [])
     $scope.save = function() {
       $scope.game.$save().then(function() {
         $location.path('/rankings');
+      }, function(reason) {
+        if (reason.status === 422) {
+          $scope.errors = {};
+          var errors = reason.data.errors;
+          for (var error in errors) {
+            if (errors.hasOwnProperty(error)) {
+              $scope.form[error].$setValidity('validation', false);
+              $scope.errors[error] = errors[error].join(', ');
+            }
+          }
+        }
       });
     };
   }]);
