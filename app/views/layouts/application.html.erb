@@ -9,6 +9,15 @@
   <script src="http://code.angularjs.org/1.2.3/angular-resource.js"></script>
   <script src="http://code.angularjs.org/1.2.3/angular-animate.js"></script>
 
+  <script>
+    <% unless current_user.nil? %>
+      var user = {
+        id: <%= current_user.id %>,
+        email: "<%= current_user.email %>"
+      };
+    <% end %>
+  </script>
+
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
