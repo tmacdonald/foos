@@ -15,12 +15,18 @@ Foos::Application.routes.draw do
         only: [:index],
         defaults: { :format => 'json' } do 
           get 'recent', on: :collection
-      end
+        end
     end
 
     resources :games, 
       only: [:show, :create, :update, :destroy],
       defaults: { :format => 'json' }
+
+    resources :users,
+      only: [:show],
+      defaults: { :format => 'json' } do
+        get 'profile', on: :collection
+      end
   end
 
   get '/teams/:id', to: redirect('/#/teams/%{id}')

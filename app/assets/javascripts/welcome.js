@@ -4,6 +4,12 @@ app.config(function($routeProvider) {
   $routeProvider.otherwise({ redirectTo: '/rankings' });
 });
 
+var userModule = angular.module('foos.users', ['foos.users.controllers', 'foos.users.services'])
+  .config(['$routeProvider', function($routeProvider) {
+    $routeProvider
+      .when('/users/profile', { templateUrl: '/templates'})
+  }]);
+
 var teamModule = angular.module('foos.teams', ['foos.teams.controllers', 'foos.teams.services'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
