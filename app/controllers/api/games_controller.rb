@@ -22,25 +22,9 @@ class Api::GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
-    logger.debug @game.inspect
-
     if @game.valid?
-      point_change = calculate_points_change(@game.team1.points, @game.team2.points, @game.team1score, @game.team2score)
-      @game.points_change = point_change
-
-      if @game.save
-
-        if (@game.team1score > @game.team2score && @game.team1.ladder_rank > @game.team2.ladder_rank) ||
-          (@game.team1score < @game.team2score && @game.team1.ladder_rank < @game.team2.ladder_rank)
-
-            temp = @game.team1.ladder_rank
-            @game.team1.update(ladder_rank: @game.team2.ladder_rank)
-            @game.team2.update(ladder_rank: temp)
-        end
-
-        @game.team1.update(points: @game.team1.points + point_change)
-        @game.team2.update(points: @game.team2.points - point_change)
-
+      
+      if record_game @game
         render action: 'show', status: :created
       else
         render json: { errors: @game.errors.as_json }, status: :unprocessable_entity
@@ -76,6 +60,30 @@ class Api::GamesController < ApplicationController
       params.require(:game).permit(:team1_id, :team2_id, :team1score, :team2score)
     end
 
+    def record_game (game) 
+      point_change = calculate_points_change(game.team1.points, game.team2.points, game.team1score, game.team2score)
+      game.points_change = point_change
+
+      result = game.save
+      if result
+        record_ladder game
+
+        game.team1.update(points: game.team1.points + point_change)
+        game.team2.update(points: game.team2.points - point_change)
+      end
+      result
+    end
+
+    def record_ladder (game) 
+      if (game.team1score > game.team2score && game.team1.ladder_rank > game.team2.ladder_rank) ||
+        (game.team1score < game.team2score && game.team1.ladder_rank < game.team2.ladder_rank)
+
+          temp = game.team1.ladder_rank
+          game.team1.update(ladder_rank: game.team2.ladder_rank)
+          game.team2.update(ladder_rank: temp)
+      end
+    end
+
     def calculate_points_change (points1, points2, score1, score2)
       w = score1 > score2 ? 1 : 0
       gd = (score1 - score2).abs
@@ -86,8 +94,6 @@ class Api::GamesController < ApplicationController
 
       we = 1.0 / ((10 ** (-(points1 - points2)/400.0)) + 1)
       k = 20
-
-      logger.debug "#{w}, #{g}, #{w}, #{we}"
 
       (k * g * (w - we)).ceil
     end
