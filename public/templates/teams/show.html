@@ -13,14 +13,6 @@
     </div>
   </div>
 
-  <div data-ng-if="team.stats.current_streak > 1">
-    <p>Currently on a {{team.stats.current_streak}} game win streak</p>
-  </div>
-
-  <div data-ng-if="team.stats.current_streak < -1">
-    <p>Currently on a {{Math.abs(team.stats.current_streak)}} game losing streak</p>
-  </div>
-
   <h2>Recent Games</h2>
 
   <table class="table">
@@ -55,4 +47,14 @@
       </tr>
     </tbody>
   </table>
+
+  <div data-ng-if="team.stats.current_streak > 1">
+    <p>Currently on a {{team.stats.current_streak}} game win streak</p>
+  </div>
+
+  <div data-ng-if="team.stats.current_streak < -1">
+    <p>Currently on a {{Math.abs(team.stats.current_streak)}} game losing streak</p>
+  </div>
+
+  <p>Longest win streak: {{team.stats.longest_win_streak}} games, Longest losing streak: {{team.stats.longest_loss_streak}} games</p>
 </div>
