@@ -35,6 +35,7 @@ angular.module('foos.teams.controllers', [])
     };
 
     $scope.findOne = function() {
+      $scope.Math = window.Math;
       $scope.team_id = $routeParams.id;
 
       TeamService.get({ id: $scope.team_id }).$promise.then(function(team) {

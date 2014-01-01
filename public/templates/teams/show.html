@@ -13,24 +13,13 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-4">
-      <h2>Current Streak</h2>
-      <p>{{team.stats.current_streak}}</p>
-    </div>
-
-    <div class="col-sm-4">
-      <h2>Longest Win Streak</h2>
-      <p>{{team.stats.longest_win_streak}}</p>
-    </div>
-
-    <div class="col-sm-4">
-      <h2>Longest Losing Streak</h2>
-      <p>{{team.stats.longest_loss_streak}}</p>
-    </div>
+  <div data-ng-if="team.stats.current_streak > 1">
+    <p>Currently on a {{team.stats.current_streak}} game win streak</p>
   </div>
 
-  
+  <div data-ng-if="team.stats.current_streak < -1">
+    <p>Currently on a {{Math.abs(team.stats.current_streak)}} game losing streak</p>
+  </div>
 
   <h2>Recent Games</h2>
 
