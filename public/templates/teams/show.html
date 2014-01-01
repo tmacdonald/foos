@@ -14,6 +14,7 @@
   </div>
 
   <h2>Recent Games</h2>
+  <a href="#/teams/{{team.id}}/games">see all games</a>
 
   <table class="table">
     <thead>
@@ -56,5 +57,7 @@
     <p>Currently on a {{Math.abs(team.stats.current_streak)}} game losing streak</p>
   </div>
 
-  <p>Longest win streak: {{team.stats.longest_win_streak}} games, Longest losing streak: {{team.stats.longest_loss_streak}} games</p>
+  <p>
+    <span data-ng-pluralize data-count="team.stats.longest_win_streak" data-when="{'0': 'Has not won a game', 'one': 'Longest winning streak: 1 game', 'other': 'Longest win streak: {} games'}"></span>,
+    <span data-ng-pluralize data-count="team.stats.longest_loss_streak" data-when="{'0': 'Has not lost a game', 'one': 'Longest losing streak: 1 game', 'other': 'Longest losing streak: {} games'}"></span>
 </div>
