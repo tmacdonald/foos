@@ -20,6 +20,8 @@ class Api::TeamsController < ApplicationController
     @team.ladder_rank = rank.nil? ? 1 : (rank + 1)
 
     if @team.save
+      @team.stats = TeamStats.new :current_streak => 0, :longest_win_streak => 0, :longest_loss_streak => 0
+
       render action: 'show', status: :created
     else
       render json: @team.errors, status: :unprocessable_entity

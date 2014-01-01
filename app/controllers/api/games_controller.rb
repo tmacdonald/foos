@@ -64,6 +64,28 @@ class Api::GamesController < ApplicationController
       point_change = calculate_points_change(game.team1.points, game.team2.points, game.team1score, game.team2score)
       game.points_change = point_change
 
+      if game.team1.stats.current_streak >= 0
+        game.team1.stats.current_streak = game.team1.stats.current_streak + 1
+      else
+        game.team1.stats.current_streak = 1
+      end
+      if game.team1.stats.current_streak > game.team1.stats.longest_win_streak
+        game.team1.stats.longest_win_streak = game.team1.stats.current_streak
+      end
+
+      game.team1.stats.save
+
+      if game.team2.stats.current_streak <= 0
+        game.team2.stats.current_streak = game.team2.stats.current_streak - 1
+      else
+        game.team2.stats.current_streak = -1
+      end
+      if game.team2.stats.current_streak.abs > game.team2.stats.longest_loss_streak
+        game.team2.stats.longest_loss_streak = game.team2.stats.current_streak.abs
+      end
+
+      game.team2.stats.save
+
       result = game.save
       if result
         record_ladder game

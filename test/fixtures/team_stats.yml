@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_id: 
+  current_streak: 1
+  longest_win_streak: 1
+  longest_loss_streak: 1
+
+two:
+  team_id: 
+  current_streak: 1
+  longest_win_streak: 1
+  longest_loss_streak: 1
