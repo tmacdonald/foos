@@ -20,7 +20,7 @@ class Api::TeamsController < ApplicationController
     @team.ladder_rank = rank.nil? ? 1 : (rank + 1)
 
     if @team.save
-      @team.stats = TeamStats.new :current_streak => 0, :longest_win_streak => 0, :longest_loss_streak => 0
+      @team.stats = TeamStats.new :wins => 0, :losses => 0, :current_streak => 0, :longest_win_streak => 0, :longest_loss_streak => 0
 
       render action: 'show', status: :created
     else

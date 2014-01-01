@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140101025843) do
+ActiveRecord::Schema.define(version: 20140101210300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20140101025843) do
     t.integer  "longest_loss_streak"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "wins",                default: 0
+    t.integer  "losses",              default: 0
   end
 
   add_index "team_stats", ["team_id"], name: "index_team_stats_on_team_id", using: :btree

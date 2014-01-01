@@ -64,6 +64,7 @@ class Api::GamesController < ApplicationController
       point_change = calculate_points_change(game.team1.points, game.team2.points, game.team1score, game.team2score)
       game.points_change = point_change
 
+      game.team1.stats.wins = game.team1.stats.wins + 1
       if game.team1.stats.current_streak >= 0
         game.team1.stats.current_streak = game.team1.stats.current_streak + 1
       else
@@ -75,6 +76,7 @@ class Api::GamesController < ApplicationController
 
       game.team1.stats.save
 
+      game.team2.stats.losses = game.team2.stats.losses + 1
       if game.team2.stats.current_streak <= 0
         game.team2.stats.current_streak = game.team2.stats.current_streak - 1
       else
