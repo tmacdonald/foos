@@ -5,7 +5,7 @@ class Api::TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.order(:name)
+    @teams = Team.includes(:stats, :users).order(:name)
   end
 
   #GET /teams/1
@@ -45,7 +45,7 @@ class Api::TeamsController < ApplicationController
 
   private
     def set_team
-      @team = Team.find(params[:id])
+      @team = Team.includes(:stats).references(:stats).find(params[:id])
     end
 
     def team_params
