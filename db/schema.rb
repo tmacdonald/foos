@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140101210300) do
+ActiveRecord::Schema.define(version: 20140102013010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "challenges", force: true do |t|
+    t.integer  "challenger_id"
+    t.integer  "challengee_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "challenges", ["challengee_id"], name: "index_challenges_on_challengee_id", using: :btree
+  add_index "challenges", ["challenger_id"], name: "index_challenges_on_challenger_id", using: :btree
 
   create_table "games", force: true do |t|
     t.integer  "team1_id"

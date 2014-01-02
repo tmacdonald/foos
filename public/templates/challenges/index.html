@@ -1,0 +1,17 @@
+<div data-ng-controller="ChallengesController" data-ng-init="find()">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Challenger</th>
+        <th>Challengee</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="challenge in challenges">
+        <td>{{challenge.challenger.name}}</td>
+        <td>{{challenge.challengee.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</ul>

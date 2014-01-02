@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  challenger_id: 
+  challengee_id: 
+
+two:
+  challenger_id: 
+  challengee_id: 

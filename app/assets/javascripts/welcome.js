@@ -1,4 +1,6 @@
-var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foos.teams', 'foos.games']);
+//= require challenges
+
+var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foos.teams', 'foos.games', 'foos.challenges']);
 
 app.config(function($routeProvider) {
   $routeProvider.otherwise({ redirectTo: '/rankings' });
