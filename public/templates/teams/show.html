@@ -16,7 +16,6 @@
   </div>
 
   <h2>Recent Games</h2>
-  <a href="#/teams/{{team.id}}/games">see all games</a>
 
   <table class="table">
     <thead>
@@ -32,10 +31,10 @@
 
         <td>
           <div data-ng-if="$parent.isCurrentTeam(game.team1.id)">
-            {{game.team2.name}}
+            <a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a>
           </div>
           <div data-ng-if="$parent.isCurrentTeam(game.team2.id)">
-            {{game.team1.name}}
+            <a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a>
         </td>
 
         <td>
@@ -49,7 +48,15 @@
         <td>{{game.created_at | date: 'medium'}}</td>
       </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">
+          <a href="#/teams/{{team.id}}/games">see all games</a>
+        </td>
+      </tr>
+    </tfoot>
   </table>
+
 
   <div data-ng-if="team.stats.current_streak > 1">
     <p>Currently on a {{team.stats.current_streak}} game win streak</p>
