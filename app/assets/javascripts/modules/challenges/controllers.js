@@ -1,10 +1,3 @@
-angular.module('foos.challenges', ['foos.challenges.controllers', 'foos.challenges.services'])
-  .config(['$routeProvider', function($routeProvider) {
-    $routeProvider
-      .when('/challenges/new', { templateUrl: '/templates/challenges/form.html' })
-      .when('/challenges', { templateUrl: '/templates/challenges/index.html' });
-  }]);
-
 angular.module('foos.challenges.controllers', []) 
   .controller('ChallengesController', ['$scope', 'ChallengeService', 'TeamService', function($scope, Challenge, Team) {
     $scope.find = function() {
@@ -30,13 +23,4 @@ angular.module('foos.challenges.controllers', [])
         
       });
     }
-  }]);
-
-angular.module('foos.challenges.services', [])
-  .factory('ChallengeService', ['$resource', function($resource) {
-    return $resource('/api/challenges/:id', 
-      { id: '@id' },
-      {
-        'update': { method: 'PUT' }
-      });
   }]);
