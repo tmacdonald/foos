@@ -15,6 +15,7 @@ class Api::ChallengesController < ApplicationController
   # POST /challenges
   def create
     @challenge = Challenge.new(challenge_params)
+    @challenge.challenger = current_user.teams.first
 
     if @challenge.save
       render action: 'show', status: :created
@@ -44,6 +45,6 @@ class Api::ChallengesController < ApplicationController
     end
 
     def challenge_params
-      params.require(:challenge).permit(:challenger_id, :challengee_id)
+      params.require(:challenge).permit(:challengee_id)
     end
 end

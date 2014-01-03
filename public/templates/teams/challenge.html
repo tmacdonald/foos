@@ -1,0 +1,23 @@
+<div data-ng-controller="ChallengesController" data-ng-init="initChallenge()">
+
+  <div data-ng-repeat="notification in notifications" class="alert alert-success">
+    {{notification}}
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Points</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="team in teams | orderBy: 'points':true" data-ng-class="{'active': team.current_user}">
+        <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
+        <td>{{team.points}}</td>
+        <td><a data-ng-disabled="hasChallenged(team)" data-ng-show="team.id != user.team.id" href="" data-ng-click="challenge(team)" class="btn btn-danger pull-right">Challenge</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

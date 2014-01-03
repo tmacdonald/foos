@@ -1,22 +1,11 @@
-<form data-ng-controller="ChallengesController" name="form" role="form" data-ng-submit="save()" data-ng-init="initForm()" novalidate>
+<form data-ng-controller="ChallengesController" name="form" role="form" data-ng-submit="save()" data-ng-init="initChallenge()" novalidate>
 
   <div class="alert alert-danger" data-ng-show="form.$invalid">
     <strong>Uh-oh!</strong> Looks like there was an error. Take a look below for more details.
   </div>
 
   <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group" data-ng-class="{'has-error': form.challenger.$invalid}">
-        <label for="challenger">Challenger</label>
-        <select class="form-control" name="challenger" data-ng-model="challenge.challenger_id" data-ng-options="t.id as t.name for t in teams">
-          <option value="">select a team</option>
-        </select>
-        <span class="help-block">
-          {{errors.challenger}}
-        </span>
-      </div>
-    </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="form-group" data-ng-class="{'has-error': form.challengee.$invalid}">
         <label for="challengee">Challengee</label>
         <select class="form-control" name="challengee" data-ng-model="challenge.challengee_id" data-ng-options="t.id as t.name for t in teams">

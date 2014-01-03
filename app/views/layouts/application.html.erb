@@ -15,7 +15,11 @@
       is_logged_in = true;
       var user = {
         id: <%= current_user.id %>,
-        email: "<%= current_user.email %>"
+        email: "<%= current_user.email %>",
+        team: {
+          id: <%= current_user.teams.first.id %>,
+          name: "<%= current_user.teams.first.name %>"
+        }
       };
     <% end %>
   </script>
