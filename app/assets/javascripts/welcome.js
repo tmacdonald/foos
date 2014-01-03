@@ -2,16 +2,12 @@
 //= require modules/users/module
 //= require modules/teams/module
 //= require modules/games/module
+//= require modules/authentication
 
-var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foos.users', 'foos.teams', 'foos.games', 'foos.challenges']);
+var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foos.users', 'foos.teams', 'foos.games', 'foos.challenges', 'foos.authentication']);
 
-app.config(['$routeProvider', 'AuthenticationService', function($routeProvider, Auth) {
-  if (Auth.isLoggedIn()) {
-    $routeProvider.otherwise({ redirectTo: '/users/profile' });
-  } else {
-    $routeProvider.otherwise({ redirectTo: '/rankings' });
-  }
-  
+app.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.otherwise({ redirectTo: '/rankings' });
 }]);
 
 
