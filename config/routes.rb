@@ -20,7 +20,9 @@ Foos::Application.routes.draw do
 
     resources :games, 
       only: [:show, :create, :update, :destroy],
-      defaults: { :format => 'json' }
+      defaults: { :format => 'json' } do 
+        get 'all', on: :collection
+      end
 
     resources :users,
       only: [:show],

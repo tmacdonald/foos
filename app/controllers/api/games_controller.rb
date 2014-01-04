@@ -14,6 +14,12 @@ class Api::GamesController < ApplicationController
     render 'index'
   end
 
+  # GET /games/all
+  def all
+    @games = Game.includes(:team1, :team2).order(created_at: :desc).limit(5)
+    render 'index'
+  end
+
   #GET /games/1
   def show
   end
