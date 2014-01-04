@@ -23,7 +23,7 @@ angular.module('foos.games.controllers', [])
     $scope.save = function() {
       $scope.errors = {};
       $scope.game.$save().then(function() {
-        $location.path('/rankings');
+        $location.path('/');
       }, function(reason) {
         if (reason.status === 422) {
           var errors = reason.data.errors;

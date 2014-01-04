@@ -44,16 +44,20 @@ angular.module('foos.teams.controllers', [])
       });
     };
   }])
-  .controller('TeamGamesController', ['$scope','$http','$routeParams', function($scope, $http, $routeParams) {
+  .controller('TeamGamesController', ['$scope','$http','$routeParams', 'TeamService', function($scope, $http, $routeParams, Team) {
     $scope.team_id = $routeParams.id;
 
-    $scope.load_games = function() {
+    $scope.init = function() {
+      Team.get({ id: $scope.team_id }).$promise.then(function(team) {
+        $scope.team = team;
+      });
+
       $http({
         method: 'GET',
         url: '/api/teams/' + $scope.team_id + '/games'
       }).then(function(games) {
         $scope.games = games.data;
-      });  
+      });
     };
 
     $scope.isWinner = function(game) {
