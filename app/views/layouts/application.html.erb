@@ -25,12 +25,21 @@
   <nav class="navbar navbar-default" role="navigation">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><%= link_to 'New Game', '/#/games/new' unless current_user.nil? %></li>
+        <li><%= link_to 'New Game', '/#/games/new' %></li>
+        <li><%= link_to 'Dashboard', '/#/dashboard' %></li>
         <li><%= link_to 'Ladder', '/#/ladder' %></li>
         <li><%= link_to 'Rankings', '/#/rankings' %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) unless current_user.nil? %></li>
+        <% unless current_user.nil? %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email %> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to('Logout', destroy_user_session_path, :method => :delete)%></li>
+          </ul>
+        </li>
+        <% end %>
+
         <li><%= link_to('sign in', new_user_session_path) if current_user.nil? %></li>
       </ul>
     </div>
