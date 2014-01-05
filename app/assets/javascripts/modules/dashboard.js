@@ -10,7 +10,7 @@ angular.module('foos.dashboard')
     $scope.init = function() {
       $http({
         method: 'GET',
-        url: '/api/games/all'        
+        url: '/api/games/recent'        
       }).then(function(games) {
         $scope.recent_games = games.data;
       });  

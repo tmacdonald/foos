@@ -12,6 +12,7 @@ Foos::Application.routes.draw do
   namespace :api do
     resources :teams, defaults: { :format => 'json' } do 
       resources :games, 
+        controller: :team_games,
         only: [:index],
         defaults: { :format => 'json' } do 
           get 'recent', on: :collection
@@ -21,7 +22,7 @@ Foos::Application.routes.draw do
     resources :games, 
       only: [:show, :create, :update, :destroy],
       defaults: { :format => 'json' } do 
-        get 'all', on: :collection
+        get 'recent', on: :collection
       end
 
     resources :users,
