@@ -3,32 +3,7 @@
 <h1>Dashboard</h1>
 
 <div class="row">
-  <div class="col-sm-6">
-    <h2>Ladder</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-ng-repeat="team in teams | orderBy: 'ladder_rank' | limitTo:5" data-ng-class="{'active': team.current_user}">
-          <td>{{$index + 1}}</td>
-          <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="2">
-            <a href="#/ladder">Show entire ladder</a>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-
-  <div class="col-sm-6">
+  <div class="col-sm-7">
     <h2>Rankings</h2>
     <table class="table">
       <thead>
@@ -47,6 +22,31 @@
         <tr>
           <td colspan="2">
             <a href="#/rankings">Show all rankings</a>
+          </td>
+        </tr>
+      </tfoot>
+    </table>    
+  </div>
+
+  <div class="col-sm-5">
+    <h2>Ladder</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="team in teams | orderBy: 'ladder_rank' | limitTo:5" data-ng-class="{'active': team.current_user}">
+          <td>{{$index + 1}}</td>
+          <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            <a href="#/ladder">Show entire ladder</a>
           </td>
         </tr>
       </tfoot>
