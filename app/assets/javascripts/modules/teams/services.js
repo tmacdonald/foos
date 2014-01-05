@@ -4,5 +4,7 @@ angular.module('foos.teams.services', ['ngResource'])
       { id: '@id' },
       {
         'update': { method: 'PUT' },
+        'games': { method: 'GET', url: '/api/teams/:id/games', isArray: true },
+        'recent_games': { method: 'GET', url: '/api/teams/:id/games/recent', isArray: true}
       });
   }]);
