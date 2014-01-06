@@ -57,37 +57,42 @@
 <div class="row">
   <div class="col-sm-12">
 
-    <h2>Recent Games</h2>
+    <p data-ng-if="recent_games.length == 0">No games have been played yet. <a href="/#/games/new">Record a game</a>.</p>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Winner</th>
-          <th>Score</th>
-          <th>Loser</th>
-          <th>Points</th>
-          <th>Date Played</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-ng-repeat="game in recent_games">
+    <div data-ng-if="recent_games.length > 0">
 
-          <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
-          <td>{{game.team1score}} - {{game.team2score}}</td>
-          <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
-          <td>{{game.points_change}}</td>
+      <h2>Recent Games</h2>
 
-          <td>
-            <div data-ng-if="$parent.playedToday(game)">
-              {{game.created_at | date: 'h:mm a'}} today
-            </div>
-            <div data-ng-if="!$parent.playedToday(game)">
-              {{game.created_at | date: 'EEEE, MMMM d'}}
-            </div>
-            
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Winner</th>
+            <th>Score</th>
+            <th>Loser</th>
+            <th>Points</th>
+            <th>Date Played</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="game in recent_games">
+
+            <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
+            <td>{{game.team1score}} - {{game.team2score}}</td>
+            <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
+            <td>{{game.points_change}}</td>
+
+            <td>
+              <div data-ng-if="$parent.playedToday(game)">
+                {{game.created_at | date: 'h:mm a'}} today
+              </div>
+              <div data-ng-if="!$parent.playedToday(game)">
+                {{game.created_at | date: 'EEEE, MMMM d'}}
+              </div>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>  
