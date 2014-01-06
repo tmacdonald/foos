@@ -57,7 +57,6 @@
     </tfoot>
   </table>
 
-
   <div data-ng-if="team.stats.current_streak > 1">
     <p>Currently on a {{team.stats.current_streak}} game win streak</p>
   </div>
@@ -69,4 +68,5 @@
   <p>
     <span data-ng-pluralize data-count="team.stats.longest_win_streak" data-when="{'0': 'Has never won', 'one': 'Longest winning streak: 1 game', 'other': 'Longest win streak: {} games'}"></span>,
     <span data-ng-pluralize data-count="team.stats.longest_loss_streak" data-when="{'0': 'has never lost', 'one': 'Longest losing streak: 1 game', 'other': 'Longest losing streak: {} games'}"></span>
+  </p>
 </div>
