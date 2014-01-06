@@ -3,6 +3,7 @@ angular.module('foos.games.services', [])
     return $resource('/api/games/:id', 
       { id: '@id' },
       {
-        'update': { method: 'PUT' }
+        'update': { method: 'PUT' },
+        'recent_games': { method: 'GET', url: '/api/games/recent', isArray: true}
       });
   }]);

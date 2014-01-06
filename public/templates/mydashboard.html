@@ -1,0 +1,98 @@
+<div data-ng-controller="MyDashboardController" data-ng-init="init()">
+
+<h1>Dashboard</h1>
+
+<div class="row">
+  <div class="col-sm-7">
+    <h2>Rankings</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="team in rankings | orderBy: 'points':true | limitTo:5" data-ng-class="{'active': team.current_user}">
+          <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
+          <td>{{team.points}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            <a href="#/rankings">Show all rankings</a>
+          </td>
+        </tr>
+      </tfoot>
+    </table>    
+  </div>
+
+  <div class="col-sm-5">
+    <h2>Ladder</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="team in ladder | orderBy: 'ladder_rank' | limitTo:5" data-ng-class="{'active': team.current_user}">
+          <td>{{$index + 1}}</td>
+          <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            <a href="#/ladder">Show entire ladder</a>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+
+    <p data-ng-if="recent_games.length == 0">No games have been played yet. <a href="/#/games/new">Record a game</a>.</p>
+
+    <div data-ng-if="recent_games.length > 0">
+
+      <h2>Recent Games</h2>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Winner</th>
+            <th>Score</th>
+            <th>Loser</th>
+            <th>Points</th>
+            <th>Date Played</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="game in recent_games">
+
+            <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
+            <td>{{game.team1score}} - {{game.team2score}}</td>
+            <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
+            <td>{{game.points_change}}</td>
+
+            <td>
+              <div data-ng-if="$parent.playedToday(game)">
+                {{game.created_at | date: 'h:mm a'}} today
+              </div>
+              <div data-ng-if="!$parent.playedToday(game)">
+                {{game.created_at | date: 'EEEE, MMMM d'}}
+              </div>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>  

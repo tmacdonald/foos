@@ -8,7 +8,19 @@ class Api::TeamsController < ApplicationController
     @teams = Team.includes(:stats, :users).order(:name)
   end
 
-  #GET /teams/1
+  # GET /teams/ladder
+  def ladder
+    @teams = Team.includes(:users).order(:ladder_rank)
+    render 'index'
+  end
+
+  # GET / teams/rankings
+  def rankings
+    @teams = Team.includes(:stats, :users).order(points: :desc)
+    render 'index'
+  end
+
+  # GET /teams/1
   def show
   end
 
