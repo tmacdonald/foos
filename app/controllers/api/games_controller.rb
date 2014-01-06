@@ -6,6 +6,10 @@ class Api::GamesController < ApplicationController
   # GET /games
   def index
     @games = Game.order(created_at: :desc)
+
+    if (params[:team1_id] && params[:team2_id])
+      @games = @games.where('(team1_id = ? AND team2_id = ?) OR (team1_id = ? AND team2_id = ?)', params[:team1_id], params[:team2_id], params[:team2_id], params[:team1_id])
+    end
   end
 
   # GET /games/recent

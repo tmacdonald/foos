@@ -1,7 +1,7 @@
 angular.module('foos.games.controllers', [])
   .controller('GamesController', ['$scope','$routeParams','GameService', function($scope, $routeParams, GameService) {
-    $scope.find = function(query) {
-      GameService.query(query).$promise.then(function(games) {
+    $scope.find = function() {
+      GameService.query({ team1_id: $routeParams.team1_id, team2_id: $routeParams.team2_id }).$promise.then(function(games) {
         $scope.games = games;
       });
     };
