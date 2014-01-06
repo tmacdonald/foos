@@ -26,15 +26,19 @@ angular.module('foos.dashboard')
       return (new $window.Date(game.created_at)).toDateString() == (new $window.Date()).toDateString();
     };
   }])
-  .controller('MyDashboardController', ['$scope', '$http', '$window', '$location', 'TeamService', function($scope, $http, $window, $location, Team) {
+  .controller('MyDashboardController', ['$scope', '$http', '$window', '$location', 'TeamService', 'GameService', function($scope, $http, $window, $location, Team, Game) {
     $scope.init = function() {
       if (!current_user) {
         $location.path('/dashboard');
       }
 
-      var current_team_id = current_user.teams[0].id;
+      $scope.current_team_id = current_user.teams[0].id;
 
-      Team.recent_games({ id: current_team_id }).$promise.then(function(games) {
+      Team.recent_games({ id: $scope.current_team_id }).$promise.then(function(games) {
+        $scope.team_recent_games = games;
+      });
+
+      Game.recent_games().$promise.then(function(games) {
         $scope.recent_games = games;
       });
 
