@@ -1,11 +1,24 @@
 <div data-ng-controller="GamesController" data-ng-init="find()">
   <table class="table">
+   <thead>
+      <tr>
+        <th>Winner</th>
+        <th>Score</th>
+        <th>Loser</th>
+        <th>Points</th>
+        <th>Date Played</th>
+      </tr>
+    </thead>
     <tbody>
       <tr data-ng-repeat="game in games">
-        <td>{{game.team1.name}}</td>
-        <td>{{game.team1score}}</td>
-        <td>{{game.team2.name}}</td>
-        <td>{{game.team2score}}</td>
+        <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
+        <td>{{game.team1score}} - {{game.team2score}}</td>
+        <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
+        <td>{{game.points_change}}</td>
+
+        <td>
+          {{game.created_at | date: 'EEEE, MMMM d'}}
+        </td>
       </tr>
     </tbody>
   </table>
