@@ -50,7 +50,7 @@ angular.module('foos.teams.controllers', [])
       });
 
       Team.games({ id: $scope.team_id }).$promise.then(function(games) {
-        $scopes.games = games;
+        $scope.games = games;
       });
     };
 
