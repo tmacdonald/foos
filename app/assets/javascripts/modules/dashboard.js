@@ -8,47 +8,42 @@ angular.module('foos.dashboard', [])
 angular.module('foos.dashboard')
   .controller('DashboardController', ['$scope', '$http', '$window', '$location', 'TeamService', 'GameService', function($scope, $http, $window, $location, Team, Game) {
 
-    $scope.init = function() {
+    $scope.dashboard = function() {
       if (current_user) {
         $location.path('/mydashboard');
+      } else {
+        Game.recent_games().$promise.then(function(games) {
+          $scope.recent_games = games;
+        });
+
+        Team.query().$promise.then(function(teams) {
+          $scope.teams = teams;
+        });  
       }
-
-      Game.recent_games().$promise.then(function(games) {
-        $scope.recent_games = games;
-      });
-
-      Team.query().$promise.then(function(teams) {
-        $scope.teams = teams;
-      });
     };
 
-    $scope.playedToday = function(game) {
-      return (new $window.Date(game.created_at)).toDateString() == (new $window.Date()).toDateString();
-    };
-  }])
-  .controller('MyDashboardController', ['$scope', '$http', '$window', '$location', 'TeamService', 'GameService', function($scope, $http, $window, $location, Team, Game) {
-    $scope.init = function() {
+    $scope.my_dashboard = function() {
       if (!current_user) {
         $location.path('/dashboard');
+      } else {
+        $scope.current_team_id = current_user.teams[0].id;
+
+        Team.recent_games({ id: $scope.current_team_id }).$promise.then(function(games) {
+          $scope.team_recent_games = games;
+        });
+
+        Game.recent_games().$promise.then(function(games) {
+          $scope.recent_games = games;
+        });
+
+        Team.ladder().$promise.then(function(teams) {
+          $scope.ladder = teams;
+        });
+
+        Team.rankings().$promise.then(function(teams) {
+          $scope.rankings = teams;
+        });  
       }
-
-      $scope.current_team_id = current_user.teams[0].id;
-
-      Team.recent_games({ id: $scope.current_team_id }).$promise.then(function(games) {
-        $scope.team_recent_games = games;
-      });
-
-      Game.recent_games().$promise.then(function(games) {
-        $scope.recent_games = games;
-      });
-
-      Team.ladder().$promise.then(function(teams) {
-        $scope.ladder = teams;
-      });
-
-      Team.rankings().$promise.then(function(teams) {
-        $scope.rankings = teams;
-      });
     };
 
     $scope.playedToday = function(game) {
