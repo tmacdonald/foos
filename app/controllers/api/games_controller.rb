@@ -35,8 +35,14 @@ class Api::GamesController < ApplicationController
 
   # DELETE /games/1
   def destroy
-    @game.destroy
-    head :no_content
+    count = Game.where('team1_id = ? OR team1_id = ? OR team2_id = ? OR team2_id = ?', @game.team1_id, @game.team2_id, @game.team1_id, @game.team2_id).where('created_at > ?', @game.created_at).count
+
+    if count == 0
+      @game.destroy
+      head :no_content
+    else
+      render json: { error: 'Cannot delete game because other games depend on the outcome' }, status: :failed_dependency
+    end
   end
 
   private

@@ -23,7 +23,7 @@ Foos::Application.routes.draw do
     end
 
     resources :games, 
-      only: [:index, :show, :create],
+      only: [:index, :show, :create, :destroy],
       defaults: { :format => 'json' } do 
         get 'recent', on: :collection
       end

@@ -2,6 +2,8 @@ class Game < ActiveRecord::Base
   before_create :calculate_points
   after_create :update_ladder, :update_points, :update_stats
 
+  after_destroy :rollback_ladder, :rollback_points, :rollback_stats
+
   belongs_to :team1, class_name: "Team", foreign_key: "team1_id"
   belongs_to :team2, class_name: "Team", foreign_key: "team2_id"
 
@@ -30,12 +32,20 @@ class Game < ActiveRecord::Base
     def update_ladder
       game = self
 
-      if (game.team1score > game.team2score && game.team1.ladder_rank > game.team2.ladder_rank) ||
-        (game.team1score < game.team2score && game.team1.ladder_rank < game.team2.ladder_rank)
+      if game.team1.ladder_rank > game.team2.ladder_rank
+        temp = game.team1.ladder_rank
+        game.team1.update(ladder_rank: game.team2.ladder_rank)
+        game.team2.update(ladder_rank: temp)        
+      end
+    end
 
-          temp = game.team1.ladder_rank
-          game.team1.update(ladder_rank: game.team2.ladder_rank)
-          game.team2.update(ladder_rank: temp)
+    def rollback_ladder
+      game = self
+
+      if game.team1.ladder_rank < game.team2.ladder_rank
+        temp = game.team1.ladder_rank
+        game.team1.update(ladder_rank: game.team2.ladder_rank)
+        game.team2.update(ladder_rank: temp)        
       end
     end
 
@@ -46,6 +56,13 @@ class Game < ActiveRecord::Base
       game.team2.update(points: game.team2.points - game.points_change)
     end
 
+    def rollback_points
+      game = self
+
+      game.team1.update(points: game.team1.points - game.points_change)
+      game.team2.update(points: game.team2.points + game.points_change)
+    end
+
     def update_stats
       game = self
 
@@ -54,5 +71,15 @@ class Game < ActiveRecord::Base
 
       game.team1.stats.update(wins: game.team1.stats.wins + 1, current_streak: team1_streak)
       game.team2.stats.update(losses: game.team2.stats.losses + 1, current_streak: team2_streak)
+    end
+
+    def rollback_stats
+      game = self
+
+      team1_streak = game.team1.stats.calculate_current_streak
+      team2_streak = game.team2.stats.calculate_current_streak
+
+      game.team1.stats.update(wins: game.team1.stats.wins - 1, current_streak: team1_streak)
+      game.team2.stats.update(losses: game.team2.stats.losses - 1, current_streak: team2_streak)
     end
 end
