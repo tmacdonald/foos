@@ -11,12 +11,14 @@
       <tr>
         <th>Name</th>
         <th>Points</th>
+        <th>Wins</th>
       </tr>
     </thead>
     <tbody>
       <tr data-ng-repeat="team in teams | orderBy: 'points':true" data-ng-class="{'active': team.current_user}">
         <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
         <td>{{team.points}}</td>
+        <td>{{team.stats.wins}}</td>
       </tr>
     </tbody>
   </table>

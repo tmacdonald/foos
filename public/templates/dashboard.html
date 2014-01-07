@@ -10,12 +10,14 @@
         <tr>
           <th>Name</th>
           <th>Points</th>
+          <th>Wins</th>
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="team in teams | orderBy: 'points':true | limitTo:5" data-ng-class="{'active': team.current_user}">
+        <tr data-ng-repeat="team in teams | orderBy: 'points':true | limitTo:5">
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
           <td>{{team.points}}</td>
+          <td>{{team.stats.wins}}</td>
         </tr>
       </tbody>
       <tfoot>
@@ -38,7 +40,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="team in teams | orderBy: 'ladder_rank' | limitTo:5" data-ng-class="{'active': team.current_user}">
+        <tr data-ng-repeat="team in teams | orderBy: 'ladder_rank' | limitTo:5">
           <td>{{$index + 1}}</td>
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
         </tr>
