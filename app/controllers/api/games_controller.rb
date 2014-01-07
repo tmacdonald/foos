@@ -18,6 +18,12 @@ class Api::GamesController < ApplicationController
     render 'index'
   end
 
+  # GET /games/calculate?score1=10&score2=4&points1=500&points2=500
+  def calculate
+    points = Game.calculate_points params[:score1].to_i, params[:score2].to_i, params[:points1].to_i, params[:points2].to_i
+    render json: { points: points }, status: :ok
+  end
+
   #GET /games/1
   def show
   end

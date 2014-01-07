@@ -26,6 +26,7 @@ Foos::Application.routes.draw do
       only: [:index, :show, :create, :destroy],
       defaults: { :format => 'json' } do 
         get 'recent', on: :collection
+        get 'calculate', on: :collection
       end
 
     resources :users,

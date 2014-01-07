@@ -13,20 +13,24 @@ class Game < ActiveRecord::Base
   validates :team1score, numericality: { :equal_to => 10 }
   validates :team2score, numericality: { :greater_than_or_equal_to => 0, :less_than => 10 }
 
+  def self.calculate_points(score1, score2, points1, points2)
+    w = score1 > score2 ? 1 : 0
+    gd = (score1 - score2).abs
+
+    g = (11 + gd) / 8.0
+    g = 1 if gd == 1
+    g = 1.5 if gd == 2
+
+    we = 1.0 / ((10 ** (-(points1 - points2)/400.0)) + 1)
+    k = 20
+
+    (k * g * (w - we)).ceil
+  end
+
   private 
 
     def calculate_points
-      w = self.team1score > self.team2score ? 1 : 0
-      gd = (self.team1score - self.team2score).abs
-
-      g = (11 + gd) / 8.0
-      g = 1 if gd == 1
-      g = 1.5 if gd == 2
-
-      we = 1.0 / ((10 ** (-(self.team1.points - self.team2.points)/400.0)) + 1)
-      k = 20
-
-      self.points_change = (k * g * (w - we)).ceil
+      self.points_change = Game.calculate_points(self.team1score, self.team2score, self.team1.points, self.team2.points)
     end
 
     def update_ladder
