@@ -2,12 +2,7 @@ angular.module('foos.teams.controllers', [])
   .controller('TeamsController', ['$scope','$http','$routeParams','TeamService', function($scope, $http, $routeParams, Team) {
     $scope.find = function(query) {
       Team.query(query).$promise.then(function(teams) {
-        $scope.teams = teams.map(function(team) {
-          if (team.users.some(function(user) {
-            team.current_user = true;
-          }));
-          return team;
-        });
+        $scope.teams = teams;
       });
     };
 
