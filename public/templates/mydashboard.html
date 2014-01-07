@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="team in rankings | orderBy: 'points':true | limitTo:5" data-ng-class="{'active': team.current_user}">
+        <tr data-ng-repeat="team in rankings | orderBy: 'points':true | limitTo:5" data-ng-class="{'active': team.id == current_team_id}">
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
           <td>{{team.points}}</td>
         </tr>
@@ -38,7 +38,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="team in ladder | orderBy: 'ladder_rank' | limitTo:5" data-ng-class="{'active': team.current_user}">
+        <tr data-ng-repeat="team in ladder | orderBy: 'ladder_rank' | limitTo:5" data-ng-class="{'active': team.id == current_team_id}">
           <td>{{$index + 1}}</td>
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
         </tr>
@@ -106,7 +106,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr data-ng-repeat="game in recent_games">
+          <tr data-ng-repeat="game in recent_games" data-ng-class="{'active': game.team1.id == current_team_id || game.team2.id == current_team_id}">
             <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
             <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
             <td>{{game.team1score}} - {{game.team2score}}</td>
