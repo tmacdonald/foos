@@ -1,14 +1,9 @@
 class TeamStats < ActiveRecord::Base
   belongs_to :team
 
-  def current_streak
-    logger.debug self.team_id
-
+  def calculate_current_streak
     last_win = Game.where(:team1_id => self.team_id).order(created_at: :desc).first
     last_loss = Game.where(:team2_id => self.team_id).order(created_at: :desc).first
-
-    logger.debug last_win
-    logger.debug last_loss
 
     if last_win.nil? and last_loss.nil?
       0
@@ -21,5 +16,13 @@ class TeamStats < ActiveRecord::Base
     else
       -1 * Game.where(:team2_id => self.team_id).where('created_at > ?', last_win.created_at).count
     end
+  end
+
+  def calculate_wins
+    Game.where(:team1_id => self.team_id).count
+  end
+
+  def calculate_losses
+    Game.where(:team2_id => self.team_id).count
   end
 end
