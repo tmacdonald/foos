@@ -4,6 +4,7 @@ angular.module('foos.games.services', [])
       { id: '@id' },
       {
         'update': { method: 'PUT' },
-        'recent_games': { method: 'GET', url: '/api/games/recent', isArray: true}
+        'recent_games': { method: 'GET', url: '/api/games/recent', isArray: true},
+        'simulate': { method: 'GET', url: '/api/games/calculate' }
       });
   }]);
