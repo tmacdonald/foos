@@ -1,12 +1,13 @@
 angular.module('foos.teams.controllers', [])
-  .controller('TeamsController', ['$scope','$http','$routeParams','TeamService', function($scope, $http, $routeParams, Team) {
-    $scope.find = function(query) {
+  .controller('TeamsController', ['$scope','$http','$routeParams','$location','TeamService', function($scope, $http, $routeParams, $location, Team) {
+
+    $scope.index = function(query) {
       Team.query(query).$promise.then(function(teams) {
         $scope.teams = teams;
       });
-    };
+    }
 
-    $scope.findOne = function() {
+    $scope.show = function() {
       $scope.Math = window.Math;
       $scope.team_id = $routeParams.id;
 
@@ -19,27 +20,19 @@ angular.module('foos.teams.controllers', [])
       });
     };
 
-    $scope.isWinner = function(game) {
-      return $scope.team_id == game.team1.id;
+    $scope.add = function() {
+      $scope.team = new Team();
     };
-
-    $scope.isCurrentTeam = function(team_id) {
-      return team_id == $scope.team_id;
-    };
-  }])
-  .controller('NewTeamController', ['$scope','$location','TeamService', function($scope, $location, TeamService) {
-    $scope.team = new TeamService();
 
     $scope.save = function() {
       $scope.team.$save().then(function() {
         $location.path('/rankings');
       });
     };
-  }])
-  .controller('TeamGamesController', ['$scope','$http','$routeParams', 'TeamService', function($scope, $http, $routeParams, Team) {
-    $scope.team_id = $routeParams.id;
 
-    $scope.init = function() {
+    $scope.games = function() {
+      $scope.team_id = $routeParams.id;
+
       Team.get({ id: $scope.team_id }).$promise.then(function(team) {
         $scope.team = team;
       });
