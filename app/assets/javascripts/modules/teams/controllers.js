@@ -49,4 +49,11 @@ angular.module('foos.teams.controllers', [])
     $scope.isCurrentTeam = function(team_id) {
       return team_id == $scope.team_id;
     };
+
+    $scope.winPercentage = function(team) {
+      if (team.stats.wins == 0 && team.stats.losses == 0) {
+        return 0;
+      }
+      return 100.0 * team.stats.wins / (team.stats.wins + team.stats.losses);
+    };
   }]);
