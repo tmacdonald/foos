@@ -1,58 +1,43 @@
 <div data-ng-controller="DashboardController" data-ng-init="dashboard()">
 
-<h1>Dashboard</h1>
-
 <div class="row">
-  <div class="col-sm-7">
-    <h2>Rankings</h2>
+  <div class="col-sm-12">
+    <h2>Standings</h2>
     <table class="table">
       <thead>
         <tr>
+          <th></th>
           <th>Name</th>
           <th>Points</th>
           <th>Win %</th>
+          <th>Ladder</th>
+          <th>Streak</th>
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="team in teams | orderBy: 'points':true | limitTo:5">
+        <tr data-ng-repeat="team in teams">
+          <th>{{$index + 1}}
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
           <td>{{team.points}}</td>
           <td>{{winPercentage(team) | number: 0}}</td>
+          <td>{{team.ladder_rank}}</td>
+          <td>
+            <span data-ng-if="team.stats.current_streak < 0">L{{-1 * team.stats.current_streak}}</span>
+            <span data-ng-if="team.stats.current_streak > 0">W{{team.stats.current_streak}}</span>
+          </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3">
+          <td colspan="4">
             <a href="#/rankings">Show all rankings</a>
+          </td>
+          <td colspan="2">
+            <a href="#/ladder">View ladder</a>
           </td>
         </tr>
       </tfoot>
     </table>    
-  </div>
-
-  <div class="col-sm-5">
-    <h2>Ladder</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-ng-repeat="team in teams | orderBy: 'ladder_rank' | limitTo:5">
-          <td>{{$index + 1}}</td>
-          <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="2">
-            <a href="#/ladder">Show entire ladder</a>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
   </div>
 </div>
 

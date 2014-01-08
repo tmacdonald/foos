@@ -5,7 +5,7 @@ class Api::TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.includes(:stats, :users).order(:name)
+    @teams = Team.filter(params).includes(:stats, :users)
   end
 
   # GET /teams/ladder
@@ -16,7 +16,7 @@ class Api::TeamsController < ApplicationController
 
   # GET / teams/rankings
   def rankings
-    @teams = Team.includes(:stats, :users).order(points: :desc)
+    @teams = Team.includes(:stats, :users)
     render 'index'
   end
 

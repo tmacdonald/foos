@@ -11,19 +11,24 @@
           <th>Points</th>
           <th>Win %</th>
           <th>Ladder Rank</th>
+          <th>Streak</th>
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="team in rankings | orderBy: 'points':true | limitTo:5" data-ng-class="{'active': team.id == current_team_id}">
+        <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.id == current_team_id}">
           <td>{{$index + 1}}
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
           <td>{{team.points}}</td>
           <td>{{winPercentage(team) | number: 0}}</td>
           <td>{{team.ladder_rank}}</td>
+          <td>
+            <span data-ng-if="team.stats.current_streak < 0">L{{-1 * team.stats.current_streak}}</span>
+            <span data-ng-if="team.stats.current_streak > 0">W{{team.stats.current_streak}}</span>
+          </td>
         </tr>
       </tbody>
       <tbody data-ng-if="teamInvisibleInStandings">
-        <tr data-ng-if="teamInvisibleInStandings > 6">
+        <tr data-ng-if="teamInvisibleInStandings > limit + 1">
           <td>...</td>
         </tr>
         <tr data-ng-class="{'active': team.id == current_team_id}">
@@ -32,6 +37,10 @@
           <td>{{team.points}}</td>
           <td>{{winPercentage(team) | number: 0}}</td>
           <td>{{team.ladder_rank}}</td>
+          <td>
+            <span data-ng-if="team.stats.current_streak < 0">L{{-1 * team.stats.current_streak}}</span>
+            <span data-ng-if="team.stats.current_streak > 0">W{{team.stats.current_streak}}</span>
+          </td>
         </tr>
       </tbody>
       <tfoot>
@@ -39,8 +48,8 @@
           <td colspan="4">
             <a href="#/rankings">Show all rankings</a>
           </td>
-          <td>
-            <a href="#/ladder">Show entire ladder</a>
+          <td colspan="2">
+            <a href="#/ladder">View ladder</a>
           </td>
         </tr>
       </tfoot>

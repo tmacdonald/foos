@@ -9,6 +9,8 @@ angular.module('foos.dashboard')
   .controller('DashboardController', ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', function($scope, $http, $window, $location, $q, Team, Game) {
 
     $scope.dashboard = function() {
+      $scope.limit = 5;
+
       if (current_user) {
         $location.path('/mydashboard');
       } else {
@@ -16,29 +18,30 @@ angular.module('foos.dashboard')
           $scope.recent_games = games;
         });
 
-        Team.query().$promise.then(function(teams) {
+        Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
           $scope.teams = teams;
         });  
       }
     };
 
     $scope.my_dashboard = function() {
+      $scope.limit = 5;
+
       if (!current_user) {
         $location.path('/dashboard');
       } else {
         $scope.current_team_id = current_user.teams[0].id;  
         $scope.teamInvisibleInStandings = false;
 
-        var teamPromise = Team.rankings().$promise.then(function(teams) {
+        var teamPromise = Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
           var i;
 
-          $scope.rankings = teams;
+          $scope.teams = teams;
 
-          // TODO Replace hard-coded 5
           for (i = 0; i < teams.length; i = i + 1) {
             if (teams[i].id == $scope.current_team_id) {
               $scope.team = teams[i];
-              if (i > 4) {
+              if (i > $scope.limit - 1) {
                 $scope.teamInvisibleInStandings = i + 1;
               }
               break;

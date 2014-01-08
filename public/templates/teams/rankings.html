@@ -1,4 +1,4 @@
-<div data-ng-controller="TeamsController" data-ng-init="index()">
+<div data-ng-controller="TeamsController" data-ng-init="index({ order: '-points' })">
 
   <div class="alert alert-info">
     <p>Points are earned by winning games.</p>
@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-repeat="team in teams | orderBy: 'points':true" data-ng-class="{'active': team.current_user}">
+      <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.current_user}">
         <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
         <td>{{team.points}}</td>
         <td>{{winPercentage(team) | number: 0}}</td>

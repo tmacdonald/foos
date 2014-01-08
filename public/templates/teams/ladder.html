@@ -1,4 +1,4 @@
-<div data-ng-controller="TeamsController" data-ng-init="index()">
+<div data-ng-controller="TeamsController" data-ng-init="index({ order: '+ladder_rank' })">
 
   <div class="alert alert-info">
     <p>A team can move up the ladder by defeating teams higher up on the ladder</p>
@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-repeat="team in teams | orderBy: 'ladder_rank'" data-ng-class="{'active': team.current_user}">
+      <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.current_user}">
         <td>{{$index + 1}}</td>
         <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
       </tr>

@@ -8,4 +8,20 @@ class Team < ActiveRecord::Base
   end
 
   validates :name, presence: true
+
+  def self.filter(attributes) 
+    attributes.inject(self) do |scope, (key, value)|
+      return scope if value.blank?
+      case key.to_sym
+      when :limit
+        scope.limit(value)
+      when :order # order=(+|-)field
+        order, attribute = value[0], value[1, value.length]
+        order = (order == "+") ? :asc : :desc
+        scope.order("#{attribute} #{order}")
+      else
+        scope
+      end
+    end
+  end
 end
