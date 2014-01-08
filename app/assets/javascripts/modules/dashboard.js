@@ -6,7 +6,7 @@ angular.module('foos.dashboard', [])
   }]);
 
 angular.module('foos.dashboard')
-  .controller('DashboardController', ['$scope', '$http', '$window', '$location', 'TeamService', 'GameService', function($scope, $http, $window, $location, Team, Game) {
+  .controller('DashboardController', ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', function($scope, $http, $window, $location, $q, Team, Game) {
 
     $scope.dashboard = function() {
       if (current_user) {
@@ -26,22 +26,33 @@ angular.module('foos.dashboard')
       if (!current_user) {
         $location.path('/dashboard');
       } else {
-        $scope.current_team_id = current_user.teams[0].id;
+        $scope.current_team_id = current_user.teams[0].id;  
+        $scope.teamInvisibleInStandings = false;
 
-        Team.recent_games({ id: $scope.current_team_id }).$promise.then(function(games) {
-          $scope.team_recent_games = games;
-        });
+        var teamPromise = Team.rankings().$promise.then(function(teams) {
+          var i;
 
-        Game.recent_games().$promise.then(function(games) {
-          $scope.recent_games = games;
-        });
-
-        Team.ladder().$promise.then(function(teams) {
-          $scope.ladder = teams;
-        });
-
-        Team.rankings().$promise.then(function(teams) {
           $scope.rankings = teams;
+
+          // TODO Replace hard-coded 5
+          for (i = 0; i < teams.length; i = i + 1) {
+            if (teams[i].id == $scope.current_team_id) {
+              $scope.team = teams[i];
+              if (i > 4) {
+                $scope.teamInvisibleInStandings = i + 1;
+              }
+              break;
+            }
+          }
+
+        }).then(function() {
+          Team.recent_games({ id: $scope.current_team_id }).$promise.then(function(games) {
+            $scope.team_recent_games = games;
+          });
+
+          Game.recent_games().$promise.then(function(games) {
+            $scope.recent_games = games;
+          });
         });  
       }
     };
