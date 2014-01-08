@@ -10,8 +10,6 @@
           <th>Name</th>
           <th>Points</th>
           <th>Win %</th>
-          <th>Ladder Rank</th>
-          <th>Streak</th>
         </tr>
       </thead>
       <tbody>
@@ -20,11 +18,6 @@
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
           <td>{{team.points}}</td>
           <td>{{winPercentage(team) | number: 0}}</td>
-          <td>{{team.ladder_rank}}</td>
-          <td>
-            <span data-ng-if="team.stats.current_streak < 0">L{{-1 * team.stats.current_streak}}</span>
-            <span data-ng-if="team.stats.current_streak > 0">W{{team.stats.current_streak}}</span>
-          </td>
         </tr>
       </tbody>
       <tbody data-ng-if="teamInvisibleInStandings">
@@ -36,20 +29,12 @@
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
           <td>{{team.points}}</td>
           <td>{{winPercentage(team) | number: 0}}</td>
-          <td>{{team.ladder_rank}}</td>
-          <td>
-            <span data-ng-if="team.stats.current_streak < 0">L{{-1 * team.stats.current_streak}}</span>
-            <span data-ng-if="team.stats.current_streak > 0">W{{team.stats.current_streak}}</span>
-          </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="4">
             <a href="#/rankings">Show all rankings</a>
-          </td>
-          <td colspan="2">
-            <a href="#/ladder">View ladder</a>
           </td>
         </tr>
       </tfoot>

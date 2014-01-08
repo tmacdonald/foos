@@ -16,11 +16,11 @@ angular.module('foos.dashboard')
       } else {
         Game.recent_games().$promise.then(function(games) {
           $scope.recent_games = games;
+        }).then(function() {
+          Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
+            $scope.teams = teams;
+          });    
         });
-
-        Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
-          $scope.teams = teams;
-        });  
       }
     };
 
