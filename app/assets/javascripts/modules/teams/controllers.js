@@ -8,6 +8,10 @@ angular.module('foos.teams.controllers', [])
     }
 
     $scope.show = function() {
+      if (current_user && current_user.teams) {
+        $scope.my_team = current_user.teams[0];
+      }
+
       $scope.Math = window.Math;
       $scope.team_id = $routeParams.id;
 

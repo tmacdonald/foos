@@ -17,15 +17,11 @@ Foos::Application.routes.draw do
         defaults: { :format => 'json' } do 
           get 'recent', on: :collection
         end
-
-      get 'ladder', on: :collection
-      get 'rankings', on: :collection
     end
 
     resources :games, 
       only: [:index, :show, :create, :destroy],
       defaults: { :format => 'json' } do 
-        get 'recent', on: :collection
         get 'calculate', on: :collection
       end
 

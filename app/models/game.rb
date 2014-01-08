@@ -13,6 +13,27 @@ class Game < ActiveRecord::Base
   validates :team1score, numericality: { :equal_to => 10 }
   validates :team2score, numericality: { :greater_than_or_equal_to => 0, :less_than => 10 }
 
+  def self.filter(attributes)
+    attributes.inject(self) do |scope, (key, value)|
+      return scope if value.blank?
+      case key.to_sym
+      when :team
+        scope.where('team1_id = ? OR team2_id = ?', value, value)
+      when :teams
+        teams = value.split(',')
+        scope.where(:team1_id => teams).where(:team2_id => teams)
+      when :limit
+        scope.limit(value)
+      when :order # order=(+|-)field
+        order, attribute = value[0], value[1, value.length]
+        order = (order == "+") ? :asc : :desc
+        scope.order("#{attribute} #{order}")
+      else
+        scope
+      end
+    end
+  end
+
   def self.calculate_points(score1, score2, points1, points2)
     w = score1 > score2 ? 1 : 0
     gd = (score1 - score2).abs

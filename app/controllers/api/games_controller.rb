@@ -5,17 +5,7 @@ class Api::GamesController < ApplicationController
 
   # GET /games
   def index
-    @games = Game.order(created_at: :desc)
-
-    if (params[:team1_id] && params[:team2_id])
-      @games = @games.where('(team1_id = ? AND team2_id = ?) OR (team1_id = ? AND team2_id = ?)', params[:team1_id], params[:team2_id], params[:team2_id], params[:team1_id])
-    end
-  end
-
-  # GET /games/recent
-  def recent 
-    @games = Game.order(created_at: :desc).limit(5)
-    render 'index'
+    @games = Game.filter(params)
   end
 
   # GET /games/calculate?score1=10&score2=4&points1=500&points2=500

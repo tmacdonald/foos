@@ -11,6 +11,19 @@ angular.module('foos.games.controllers', [])
         $scope.game = game;
       });
     };
+
+    $scope.vs = function() {
+      if (current_user && current_user.teams) {
+        $scope.current_team_id = current_user.teams[0].id;
+      }
+
+      var team1_id = $routeParams.team1_id;
+      var team2_id = $routeParams.team2_id;
+
+      GameService.query({ teams: [team1_id, team2_id].join(',') }).$promise.then(function(games) {
+        $scope.games = games;
+      });
+    }
   }])
   .controller('GameSimulationController', ['$scope', 'GameService', function($scope, Game) {
     $scope.simulation = {

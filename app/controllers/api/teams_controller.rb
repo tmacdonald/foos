@@ -8,18 +8,6 @@ class Api::TeamsController < ApplicationController
     @teams = Team.filter(params).includes(:stats, :users)
   end
 
-  # GET /teams/ladder
-  def ladder
-    @teams = Team.includes(:users).order(:ladder_rank)
-    render 'index'
-  end
-
-  # GET / teams/rankings
-  def rankings
-    @teams = Team.includes(:stats, :users)
-    render 'index'
-  end
-
   # GET /teams/1
   def show
   end

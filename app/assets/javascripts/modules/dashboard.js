@@ -14,7 +14,7 @@ angular.module('foos.dashboard')
       if (current_user) {
         $location.path('/mydashboard');
       } else {
-        Game.recent_games().$promise.then(function(games) {
+        Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
           $scope.recent_games = games;
         }).then(function() {
           Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
@@ -53,7 +53,7 @@ angular.module('foos.dashboard')
             $scope.team_recent_games = games;
           });
 
-          Game.recent_games().$promise.then(function(games) {
+          Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
             $scope.recent_games = games;
           });
         });  
