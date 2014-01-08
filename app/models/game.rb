@@ -71,7 +71,7 @@ class Game < ActiveRecord::Base
       game = self
 
       team1_streak = game.team1.stats.current_streak < 0 ? 1 : game.team1.stats.current_streak + 1
-      team2_streak = game.team2.stats.current_streak > 0 ? 1 : game.team2.stats.current_streak - 1
+      team2_streak = game.team2.stats.current_streak > 0 ? -1 : game.team2.stats.current_streak - 1
 
       game.team1.stats.update(wins: game.team1.stats.wins + 1, current_streak: team1_streak)
       game.team2.stats.update(losses: game.team2.stats.losses + 1, current_streak: team2_streak)
