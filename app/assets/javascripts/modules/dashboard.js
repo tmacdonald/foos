@@ -46,6 +46,13 @@ angular.module('foos.dashboard')
       }
     };
 
+    $scope.winPercentage = function(team) {
+      if (team.stats.wins == 0 && team.stats.losses == 0) {
+        return 0;
+      }
+      return 100.0 * team.stats.wins / (team.stats.wins + team.stats.losses);
+    };
+
     $scope.playedToday = function(game) {
       return (new $window.Date(game.created_at)).toDateString() == (new $window.Date()).toDateString();
     };
