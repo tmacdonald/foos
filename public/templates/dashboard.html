@@ -33,37 +33,6 @@
 
 <div class="row">
   <div class="col-sm-12">
-
-    <p data-ng-if="recent_games.length == 0">No games have been played yet. <a href="/#/games/new">Record a game</a>.</p>
-
-    <div data-ng-if="recent_games.length > 0">
-
-      <h2>Recent Games</h2>
-
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Winner</th>
-            <th>Loser</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-ng-repeat="game in recent_games">
-
-            <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
-            <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
-            <td>{{game.team1score}} - {{game.team2score}}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3">
-              <a href="#/games">Show all games</a>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
+    <div data-ng-include data-src="'templates/recent_games.html'"></div>
   </div>
 </div>  
