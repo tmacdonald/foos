@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.current_user}">
+      <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.id == my_team.id}">
         <td>{{$index + 1}}</td>
         <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
       </tr>

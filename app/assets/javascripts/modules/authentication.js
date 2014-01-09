@@ -1,10 +1,16 @@
 angular.module('foos.authentication', []);
 
 angular.module('foos.authentication')
-  .service('AuthenticationService', '$window', [function($window) {
+  .factory('Authentication', ['$window', function($window) {
     return {
-      getCurrentUser: function() {
+      user: function() {
         return $window.current_user;
+      },
+      team: function() {
+        var user = this.user();
+        if (user && user.teams) {
+          return user.teams[0];
+        }
       }
     };
   }]);

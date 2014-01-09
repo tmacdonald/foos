@@ -1,5 +1,7 @@
 angular.module('foos.teams.controllers', [])
-  .controller('TeamsController', ['$scope','$http','$routeParams','$location','TeamService', function($scope, $http, $routeParams, $location, Team) {
+  .controller('TeamsController', ['$scope','$http','$routeParams','$location','TeamService', 'Authentication', function($scope, $http, $routeParams, $location, Team, Auth) {
+
+    $scope.my_team = Auth.team();
 
     $scope.index = function(query) {
       Team.query(query).$promise.then(function(teams) {
@@ -8,10 +10,6 @@ angular.module('foos.teams.controllers', [])
     }
 
     $scope.show = function() {
-      if (current_user && current_user.teams) {
-        $scope.my_team = current_user.teams[0];
-      }
-
       $scope.Math = window.Math;
       $scope.team_id = $routeParams.id;
 

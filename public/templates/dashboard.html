@@ -44,16 +44,16 @@
         <thead>
           <tr>
             <th>Winner</th>
-            <th>Score</th>
             <th>Loser</th>
+            <th>Score</th>
           </tr>
         </thead>
         <tbody>
           <tr data-ng-repeat="game in recent_games">
 
             <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
-            <td>{{game.team1score}} - {{game.team2score}}</td>
             <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
+            <td>{{game.team1score}} - {{game.team2score}}</td>
           </tr>
         </tbody>
         <tfoot>

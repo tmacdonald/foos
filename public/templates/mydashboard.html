@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.id == current_team_id}">
+        <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.id == my_team.id}">
           <td>{{$index + 1}}
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
           <td>{{team.points}}</td>
@@ -24,7 +24,7 @@
         <tr data-ng-if="teamInvisibleInStandings > limit + 1">
           <td>...</td>
         </tr>
-        <tr data-ng-class="{'active': team.id == current_team_id}">
+        <tr data-ng-class="{'active': team.id == my_team.id}">
           <td>{{teamInvisibleInStandings}}</td>
           <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
           <td>{{team.points}}</td>
@@ -69,7 +69,7 @@
         <tfoot>
           <tr>
             <td colspan="3">
-              <a href="#/teams/{{current_team_id}}/games">Show all of my games</a>
+              <a href="#/teams/{{my_team.id}}/games">Show all of my games</a>
             </td>
           </tr>
         </tfoot>
@@ -94,7 +94,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr data-ng-repeat="game in recent_games" data-ng-class="{'active': game.team1.id == current_team_id || game.team2.id == current_team_id}">
+          <tr data-ng-repeat="game in recent_games" data-ng-class="{'active': game.team1.id == my_team.id || game.team2.id == my_team.id}">
             <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
             <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
             <td>{{game.team1score}} - {{game.team2score}}</td>

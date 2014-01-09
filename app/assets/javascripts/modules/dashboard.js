@@ -6,14 +6,12 @@ angular.module('foos.dashboard', [])
   }]);
 
 angular.module('foos.dashboard')
-  .controller('DashboardController', ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', function($scope, $http, $window, $location, $q, Team, Game) {
+  .controller('DashboardController', ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', 'Authentication', function($scope, $http, $window, $location, $q, Team, Game, Auth) {
 
     $scope.dashboard = function() {
       $scope.limit = 5;
 
-      if (current_user) {
-        $scope.my_team = current_user.teams[0];    
-      }
+      $scope.my_team = Auth.team();
 
       if ($scope.my_team) {
         $location.path('/mydashboard');
@@ -31,9 +29,8 @@ angular.module('foos.dashboard')
     $scope.my_dashboard = function() {
       $scope.limit = 5;
 
-      if (current_user) {
-        $scope.my_team = current_user.teams[0];    
-      }
+      $scope.user = Auth.user();
+      $scope.my_team = Auth.team();
 
       if (!$scope.my_team) {
         $location.path('/dashboard');
