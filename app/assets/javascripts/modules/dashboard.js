@@ -11,18 +11,19 @@ angular.module('foos.dashboard')
     $scope.dashboard = function() {
       $scope.limit = 5;
 
-      $scope.my_team = current_user.teams[0];  
+      if (current_user) {
+        $scope.my_team = current_user.teams[0];    
+      }
 
       if ($scope.my_team) {
         $location.path('/mydashboard');
       } else {
-        Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
-          $scope.recent_games = games;
-          $scope.total = games.total;
+        Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
+          $scope.teams = teams;
         }).then(function() {
-          Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
-            $scope.teams = teams;
-          });    
+          Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
+            $scope.recent_games = games;
+          });
         });
       }
     };
@@ -30,7 +31,9 @@ angular.module('foos.dashboard')
     $scope.my_dashboard = function() {
       $scope.limit = 5;
 
-      $scope.my_team = current_user.teams[0];  
+      if (current_user) {
+        $scope.my_team = current_user.teams[0];    
+      }
 
       if (!$scope.my_team) {
         $location.path('/dashboard');

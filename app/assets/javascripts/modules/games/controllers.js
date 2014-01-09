@@ -1,10 +1,27 @@
 angular.module('foos.games.controllers', [])
   .controller('GamesController', ['$scope','$routeParams','GameService', function($scope, $routeParams, GameService) {
     $scope.find = function() {
-      GameService.query({ team1_id: $routeParams.team1_id, team2_id: $routeParams.team2_id }).$promise.then(function(games, data) {
+      $scope.page_size = 10;
+      $scope.offset = 0;
+
+      GameService.query({offset: $scope.offset, limit: $scope.page_size}, function(games, headers) {
         $scope.games = games;
-        console.log(data);
+        $scope.total = headers('x-total-resources');
+        $scope.pages = Math.ceil($scope.total / $scope.page_size);
       });
+    };
+
+    $scope.goToPage = function(page) {
+      $scope.offset = (page - 1) * $scope.page_size;
+      GameService.query({offset: $scope.offset, limit: $scope.page_size}, function(games, headers) {
+        $scope.games = games;
+        $scope.total = headers('x-total-resources');
+        $scope.pages = Math.ceil($scope.total / $scope.page_size);
+      });
+    }
+
+    $scope.getNumber = function(number) {
+      return new Array(number);
     };
 
     $scope.findOne = function() {

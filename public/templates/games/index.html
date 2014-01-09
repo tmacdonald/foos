@@ -22,4 +22,10 @@
       </tr>
     </tbody>
   </table>
+
+  <ul class="pagination">
+    <li data-ng-repeat="i in getNumber(pages) track by $index">
+      <a href="" data-ng-click="goToPage($index + 1)">{{$index + 1}}</a>
+    </li>
+  </ul>
 </div>
