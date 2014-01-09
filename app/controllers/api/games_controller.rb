@@ -6,6 +6,7 @@ class Api::GamesController < ApplicationController
   # GET /games
   def index
     @games = Game.filter(params)
+    response.headers['X-Total-Resources'] = Game.count.to_s
   end
 
   # GET /games/calculate?score1=10&score2=4&points1=500&points2=500

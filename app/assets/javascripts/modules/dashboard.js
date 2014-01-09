@@ -11,11 +11,14 @@ angular.module('foos.dashboard')
     $scope.dashboard = function() {
       $scope.limit = 5;
 
-      if (current_user) {
+      $scope.my_team = current_user.teams[0];  
+
+      if ($scope.my_team) {
         $location.path('/mydashboard');
       } else {
         Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
           $scope.recent_games = games;
+          $scope.total = games.total;
         }).then(function() {
           Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
             $scope.teams = teams;
@@ -27,10 +30,12 @@ angular.module('foos.dashboard')
     $scope.my_dashboard = function() {
       $scope.limit = 5;
 
-      if (!current_user) {
+      $scope.my_team = current_user.teams[0];  
+
+      if (!$scope.my_team) {
         $location.path('/dashboard');
       } else {
-        $scope.current_team_id = current_user.teams[0].id;  
+        
         $scope.teamInvisibleInStandings = false;
 
         var teamPromise = Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
@@ -39,7 +44,7 @@ angular.module('foos.dashboard')
           $scope.teams = teams;
 
           for (i = 0; i < teams.length; i = i + 1) {
-            if (teams[i].id == $scope.current_team_id) {
+            if (teams[i].id == $scope.my_team.id) {
               $scope.team = teams[i];
               if (i > $scope.limit - 1) {
                 $scope.teamInvisibleInStandings = i + 1;
@@ -49,9 +54,9 @@ angular.module('foos.dashboard')
           }
 
         }).then(function() {
-          Team.recent_games({ id: $scope.current_team_id }).$promise.then(function(games) {
+          Team.recent_games({ id: $scope.my_team.id }).$promise.then(function(games) {
             $scope.team_recent_games = games;
-          });
+          });  
 
           Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
             $scope.recent_games = games;
