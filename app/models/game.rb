@@ -14,7 +14,7 @@ class Game < ActiveRecord::Base
   validates :team2score, numericality: { :greater_than_or_equal_to => 0, :less_than => 10 }
 
   def self.filter(attributes)
-    attributes.inject(self) do |scope, (key, value)|
+    attributes.inject(self.all) do |scope, (key, value)|
       return scope if value.blank?
       case key.to_sym
       when :team
@@ -22,6 +22,8 @@ class Game < ActiveRecord::Base
       when :teams
         teams = value.split(',')
         scope.where(:team1_id => teams).where(:team2_id => teams)
+      when :offset
+        scope.offset(value)
       when :limit
         scope.limit(value)
       when :order # order=(+|-)field

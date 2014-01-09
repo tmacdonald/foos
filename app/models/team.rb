@@ -10,9 +10,11 @@ class Team < ActiveRecord::Base
   validates :name, presence: true
 
   def self.filter(attributes) 
-    attributes.inject(self) do |scope, (key, value)|
+    attributes.inject(self.all) do |scope, (key, value)|
       return scope if value.blank?
       case key.to_sym
+      when :offset
+        scope.offset(value)
       when :limit
         scope.limit(value)
       when :order # order=(+|-)field
