@@ -1,4 +1,42 @@
 angular.module('foos.teams.controllers', [])
+  
+  .controller('VsRecentGamesController', ['$scope', 'GameService', 'Authentication', function($scope, Game, Auth) {
+    $scope.my_team = Auth.team();
+    $scope.limit = 5;
+
+    $scope.$watch('team_id', function(team_id) {
+      Game.query({ teams: [$scope.my_team.id, team_id].join(','), order: '-created_at', limit: 5 }).$promise.then(function(games) {
+        $scope.recent_games = games;
+      });
+    });
+
+    $scope.isWinner = function(game) {
+      return $scope.my_team.id == game.team1.id;
+    };
+
+    $scope.isCurrentTeam = function(team_id) {
+      return team_id == $scope.my_team.id;
+    };
+  }])
+
+  .controller('TeamRecentGamesController', ['$scope', 'TeamService', 'Authentication', function($scope, Team, Auth) {
+    $scope.my_team = Auth.team();
+    $scope.limit = 5;
+
+    $scope.$watch('team_id', function(team_id) {
+      Team.recent_games({ id: team_id }).$promise.then(function(games) {
+        $scope.recent_games = games;
+      });
+    });
+
+    $scope.isWinner = function(game) {
+      return $scope.team_id == game.team1.id;
+    };
+
+    $scope.isCurrentTeam = function(team_id) {
+      return team_id == $scope.team_id;
+    };
+  }])
   .controller('TeamsController', ['$scope','$http','$routeParams','$location','TeamService', 'Authentication', function($scope, $http, $routeParams, $location, Team, Auth) {
 
     $scope.my_team = Auth.team();

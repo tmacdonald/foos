@@ -1,0 +1,43 @@
+<div data-ng-controller="VsRecentGamesController">
+  <p data-ng-if="recent_games.length == 0">You haven't played a game against {{team.name}}. <a href="/#/games/new">Record a game</a>.</p>
+
+  <table class="table" data-ng-if="recent_games.length > 0">
+    <thead>
+      <tr>
+        <th>Opponent</th>
+        <th>Result</th>
+        <th>Points</th>
+        <th>Date Played</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="game in recent_games" data-ng-class="{'success':$parent.isWinner(game), 'danger': !$parent.isWinner(game)}">
+
+        <td>
+          <div data-ng-if="$parent.isCurrentTeam(game.team1.id)">
+            <a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a>
+          </div>
+          <div data-ng-if="$parent.isCurrentTeam(game.team2.id)">
+            <a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a>
+        </td>
+
+        <td>
+          <span data-ng-switch data-on="$parent.isWinner(game)">
+            <span data-ng-switch-when="true">won</span>
+            <span data-ng-switch-when="false">lost</span>
+          </span>
+          {{game.team1score}} - {{game.team2score}}
+        </td>
+        <td>{{game.points_change}}</td>
+        <td>{{game.created_at | date: 'medium'}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">
+          <a href="#/games/{{my_team.id}}/v/{{team.id}}">see all games vs {{team.name}}</a>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

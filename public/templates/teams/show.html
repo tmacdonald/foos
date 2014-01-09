@@ -1,7 +1,5 @@
 <div data-ng-controller="TeamsController" data-ng-init="show()">
 
-  <a href="#/games/{{my_team.id}}/v/{{team.id}}" data-ng-if="my_team">Show my games vs {{team.name}}</a>
-
   <h1>{{team.name}}</h1>
 
   <p>{{team.stats.wins}} - {{team.stats.losses}}</p>
@@ -19,47 +17,13 @@
   </div>
 
   <h2>Recent Games</h2>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Opponent</th>
-        <th>Result</th>
-        <th>Points</th>
-        <th>Date Played</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr data-ng-repeat="game in recent_games" data-ng-class="{'success':$parent.isWinner(game), 'danger': !$parent.isWinner(game)}">
-
-        <td>
-          <div data-ng-if="$parent.isCurrentTeam(game.team1.id)">
-            <a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a>
-          </div>
-          <div data-ng-if="$parent.isCurrentTeam(game.team2.id)">
-            <a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a>
-        </td>
-
-        <td>
-          <span data-ng-switch data-on="$parent.isWinner(game)">
-            <span data-ng-switch-when="true">won</span>
-            <span data-ng-switch-when="false">lost</span>
-          </span>
-          {{game.team1score}} - {{game.team2score}}
-        </td>
-        <td>{{game.points_change}}</td>
-        <td>{{game.created_at | date: 'medium'}}</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4">
-          <a href="#/teams/{{team.id}}/games">see all games</a>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+  <div data-ng-include data-src="'templates/teams/recent_games.html'"></div>
 
   <p data-ng-if="team.stats.current_streak >= 1">Currently on a {{team.stats.current_streak}} game win streak</p>
   <p data-ng-if="team.stats.current_streak <= -1">Currently on a {{Math.abs(team.stats.current_streak)}} game losing streak</p>
+
+  <div data-ng-if="my_team && team.id != my_team.id">
+    <h2>My Games vs {{team.name}}</h2>
+    <div data-ng-include data-src="'templates/teams/vs_recent_games.html'"></div>
+  </div>
 </div>
