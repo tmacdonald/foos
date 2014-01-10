@@ -12,9 +12,9 @@ angular.module('foos.games.controllers', [])
 
     $scope.index = function() {
       $scope.page_size = 10;
-      $scope.offset = 0;
+      $scope.page = 1;
 
-      GameService.query({order: '-created_at', offset: $scope.offset, limit: $scope.page_size}, function(games, headers) {
+      GameService.query({order: '-created_at', offset: ($scope.page - 1) * $scope.page_size, limit: $scope.page_size}, function(games, headers) {
         $scope.games = games;
         $scope.total = headers('x-total-resources');
         $scope.pages = Math.ceil($scope.total / $scope.page_size);
@@ -22,8 +22,8 @@ angular.module('foos.games.controllers', [])
     };
 
     $scope.goToPage = function(page) {
-      $scope.offset = (page - 1) * $scope.page_size;
-      GameService.query({offset: $scope.offset, limit: $scope.page_size}, function(games, headers) {
+      $scope.page = page;
+      GameService.query({order: '-created_at', offset: ($scope.page - 1) * $scope.page_size, limit: $scope.page_size}, function(games, headers) {
         $scope.games = games;
         $scope.total = headers('x-total-resources');
         $scope.pages = Math.ceil($scope.total / $scope.page_size);

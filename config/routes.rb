@@ -17,6 +17,13 @@ Foos::Application.routes.draw do
         defaults: { :format => 'json' } do 
           get 'recent', on: :collection
         end
+
+      resources :streaks,
+        controller: :team_streaks,
+        only: [:index],
+        defaults: { :format => 'json' } do
+          get 'current', on: :collection
+        end
     end
 
     resources :games, 

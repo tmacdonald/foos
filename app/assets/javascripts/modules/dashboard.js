@@ -18,7 +18,7 @@ angular.module('foos.dashboard')
       $scope.teams = teams;
 
       for (i = 0; i < teams.length; i = i + 1) {
-        if (teams[i].id == $scope.my_team.id) {
+        if ($scope.my_team && teams[i].id == $scope.my_team.id) {
           $scope.team = teams[i];
           if (i > $scope.limit - 1) {
             $scope.teamInvisibleInStandings = i + 1;
