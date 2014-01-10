@@ -4,7 +4,6 @@
   <table class="table" data-ng-if="recent_games.length > 0">
     <thead>
       <tr>
-        <th>Opponent</th>
         <th>Result</th>
         <th>Points</th>
         <th>Date Played</th>
@@ -14,14 +13,6 @@
       <tr data-ng-repeat="game in recent_games" data-ng-class="{'success':$parent.isWinner(game), 'danger': !$parent.isWinner(game)}">
 
         <td>
-          <div data-ng-if="$parent.isCurrentTeam(game.team1.id)">
-            <a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a>
-          </div>
-          <div data-ng-if="$parent.isCurrentTeam(game.team2.id)">
-            <a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a>
-        </td>
-
-        <td>
           <span data-ng-switch data-on="$parent.isWinner(game)">
             <span data-ng-switch-when="true">won</span>
             <span data-ng-switch-when="false">lost</span>
@@ -29,7 +20,7 @@
           {{game.team1score}} - {{game.team2score}}
         </td>
         <td>{{game.points_change}}</td>
-        <td>{{game.created_at | date: 'medium'}}</td>
+        <td>{{game.created_at | date: 'EEEE, MMMM d'}}</td>
       </tr>
     </tbody>
     <tfoot>
