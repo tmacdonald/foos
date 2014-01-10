@@ -6,6 +6,28 @@ angular.module('foos.dashboard', [])
   }]);
 
 angular.module('foos.dashboard')
+  .controller('StandingsController', ['$scope', 'TeamService', 'Authentication', function($scope, Team, Auth) {
+    $scope.limit = 5;
+
+    $scope.my_team = Auth.team();
+    $scope.teamInvisibleInStandings = false;
+
+    Team.query({ order: '-points' }).$promise.then(function(teams) {
+      var i;
+
+      $scope.teams = teams;
+
+      for (i = 0; i < teams.length; i = i + 1) {
+        if (teams[i].id == $scope.my_team.id) {
+          $scope.team = teams[i];
+          if (i > $scope.limit - 1) {
+            $scope.teamInvisibleInStandings = i + 1;
+          }
+          break;
+        }
+      }
+    });
+  }])
   .controller('DashboardController', ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', 'Authentication', function($scope, $http, $window, $location, $q, Team, Game, Auth) {
 
     $scope.dashboard = function() {

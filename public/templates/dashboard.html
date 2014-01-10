@@ -3,31 +3,9 @@
 <div class="row">
   <div class="col-sm-12">
     <h2>Standings</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Points</th>
-          <th>Win %</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-ng-repeat="team in teams">
-          <th>{{$index + 1}}
-          <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
-          <td>{{team.points}}</td>
-          <td>{{winPercentage(team) | number: 0}}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="4">
-            <a href="#/rankings">Show all rankings</a>
-          </td>
-        </tr>
-      </tfoot>
-    </table>    
+    
+    <div data-ng-include data-src="'templates/teams/standings.html'"></div>
+
   </div>
 </div>
 
