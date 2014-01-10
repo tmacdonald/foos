@@ -71,7 +71,7 @@ angular.module('foos.games.controllers', [])
     $scope.game = new GameService();
     $scope.game.team1score = 10;
 
-    TeamService.query().$promise.then(function(teams) {
+    TeamService.query({ order: '+name' }).$promise.then(function(teams) {
       $scope.teams = teams;
     });
 
