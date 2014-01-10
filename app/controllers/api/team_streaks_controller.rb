@@ -10,25 +10,38 @@ class Api::TeamStreaksController < ApplicationController
   def current
     streak = 0
     team_id = params[:team_id].to_i
-    game = Game.where("team1_id = ? OR team2_id = ?", team_id, team_id).order(created_at: :desc).last
+    streak_scope = scope params
+    game = streak_scope.where("team1_id = ? OR team2_id = ?", team_id, team_id).order(created_at: :desc).last
     unless game.nil?
       if game.team1_id == team_id
-        last_loss = Game.where(:team2_id => team_id).order(created_at: :desc).last
+        last_loss = streak_scope.where(:team2_id => team_id).order(created_at: :desc).last
         if last_loss.nil?
-          streak = Game.where("team1_id = ? OR team2_id = ?", team_id, team_id).count
+          streak = streak_scope.where("team1_id = ? OR team2_id = ?", team_id, team_id).count
         else
-          streak = Game.where("team1_id = ?", team_id).where('created_at > ?', last_loss.created_at).count
+          streak = streak_scope.where("team1_id = ?", team_id).where('created_at > ?', last_loss.created_at).count
         end
       else
-        last_win = Game.where(:team1_id => team_id).order(created_at: :desc).last
+        last_win = streak_scope.where(:team1_id => team_id).order(created_at: :desc).last
         if last_win.nil?
-          streak = -Game.where("team1_id = ? OR team2_id = ?", team_id, team_id).count
+          streak = -streak_scope.where("team1_id = ? OR team2_id = ?", team_id, team_id).count
         else
-          streak = -Game.where("team2_id = ?", team_id).where('created_at > ?', last_win.created_at).count
+          streak = -streak_scope.where("team2_id = ?", team_id).where('created_at > ?', last_win.created_at).count
         end
       end
     end
     render :json => streak
   end
 
+  private
+    def scope(attributes)
+      attributes.inject(Game.order(created_at: :desc)) do |scope, (key, value)|
+        return scope if value.blank?
+        case key.to_sym
+        when :opponent
+          scope.where('team1_id = ? OR team2_id = ?', value, value)
+        else
+          scope
+        end
+      end
+    end
 end
