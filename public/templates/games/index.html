@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-repeat="game in games" data-ng-class="{'active': game.team1.id == my_team.id || game.team2.id == my_team.id}">
+      <tr data-ng-repeat="game in games" data-ng-class="{'success': my_team.id == game.team1.id, 'danger': my_team.id == game.team2.id}">
         <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
         <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
         <td>{{game.team1score}} - {{game.team2score}}</td>
@@ -25,10 +25,10 @@
   </table>
 
   <ul class="pagination">
-    <li data-ng-show="page - 1 > 0"><a href="" data-ng-click="goToPage(page - 1)">&laquo;</a></li>
-    <li data-ng-repeat="i in getNumber(pages) track by $index">
-      <a href="" data-ng-click="goToPage($index + 1)">{{$index + 1}}</a>
+    <li data-ng-class="{'disabled': page - 1 == 0}"><a href="#/games?page={{page - 1}}">&laquo;</a></li>
+    <li data-ng-repeat="i in getNumber(pages) track by $index" data-ng-class="{'active': $index + 1 == page}">
+      <a href="#/games?page={{$index + 1}}">{{$index + 1}}</a>
     </li>
-    <li data-ng-show="page + 1 <= pages"><a href="" data-ng-click="goToPage(page + 1)">&raquo;</a></li>
+    <li data-ng-class="{'disabled': page == pages}"><a href="#/games?page={{page + 1}}">&raquo;</a></li>
   </ul>
 </div>

@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="game in recent_games" data-ng-class="{'active': game.team1.id == my_team.id || game.team2.id == my_team.id}">
+        <tr data-ng-repeat="game in recent_games" data-ng-class="{'success': my_team.id == game.team1.id, 'danger': my_team.id == game.team2.id}">
           <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
           <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
           <td>{{game.team1score}} - {{game.team2score}}</td>

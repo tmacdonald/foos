@@ -7,12 +7,12 @@ angular.module('foos.games.controllers', [])
       $scope.recent_games = games;
     });
   }])
-  .controller('GamesController', ['$scope','$routeParams','GameService', 'Authentication', function($scope, $routeParams, GameService, Auth) {
+  .controller('GamesController', ['$scope','$routeParams','$location','GameService', 'Authentication', function($scope, $routeParams, $location, GameService, Auth) {
     $scope.my_team = Auth.team();
 
     $scope.index = function() {
       $scope.page_size = 10;
-      $scope.page = 1;
+      $scope.page = $routeParams.page || 1;
 
       GameService.query({order: '-created_at', offset: ($scope.page - 1) * $scope.page_size, limit: $scope.page_size}, function(games, headers) {
         $scope.games = games;
@@ -22,12 +22,7 @@ angular.module('foos.games.controllers', [])
     };
 
     $scope.goToPage = function(page) {
-      $scope.page = page;
-      GameService.query({order: '-created_at', offset: ($scope.page - 1) * $scope.page_size, limit: $scope.page_size}, function(games, headers) {
-        $scope.games = games;
-        $scope.total = headers('x-total-resources');
-        $scope.pages = Math.ceil($scope.total / $scope.page_size);
-      });
+      $location.path('/games?page=' + page)
     }
 
     $scope.getNumber = function(number) {
