@@ -1,0 +1,1 @@
+json.extract! @stats, :wins, :losses, :current_streak

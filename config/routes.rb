@@ -24,6 +24,11 @@ Foos::Application.routes.draw do
         defaults: { :format => 'json' } do
           get 'current', on: :collection
         end
+
+      resources :stats,
+        controller: :team_stats,
+        only: [:index],
+        defaults: { :format => 'json' }
     end
 
     resources :games, 

@@ -17,10 +17,11 @@
 
         <td>
           <div data-ng-if="$parent.isCurrentTeam(game.team1.id)">
-            {{game.team2.name}}
+            <a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a>
           </div>
           <div data-ng-if="$parent.isCurrentTeam(game.team2.id)">
-            {{game.team1.name}}
+            <a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a>
+          </div>
         </td>
 
         <td>

@@ -7,4 +7,10 @@ angular.module('foos.teams.services', ['ngResource'])
         'games': { method: 'GET', url: '/api/teams/:id/games', isArray: true },
         'recent_games': { method: 'GET', url: '/api/teams/:id/games/recent', isArray: true }
       });
+  }])
+  .factory('StatsService', ['$resource', function($resource) {
+    return $resource('/api/teams/:team_id/stats', {}, 
+      {
+        'query': { method: 'GET', isArray: false }
+      });
   }]);

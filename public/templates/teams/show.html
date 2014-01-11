@@ -24,6 +24,7 @@
 
   <div data-ng-if="my_team && team.id != my_team.id">
     <h2>My Games vs {{team.name}}</h2>
+    <div data-ng-include data-src="'templates/teams/vs_stats.html'"></div>
     <div data-ng-include data-src="'templates/teams/vs_recent_games.html'"></div>
   </div>
 </div>

@@ -1,0 +1,7 @@
+<div data-ng-controller="VsStatsController">
+  <p>
+    <span data-ng-if="stats.wins != 0 || stats.losses != 0">{{stats.wins}} - {{stats.losses}}</span>
+    <span data-ng-if="stats.current_streak >= 1">Currently on a {{stats.current_streak}} game win streak vs {{team.name}}</span>
+    <span data-ng-if="stats.current_streak <= -1">Currently on a {{Math.abs(stats.current_streak)}} game losing streak vs {{team.name}}</span>
+  </p>
+</div>
