@@ -28,7 +28,9 @@ angular.module('foos.dashboard')
       }
     });
   }])
-  .controller('DashboardController', ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', 'Authentication', function($scope, $http, $window, $location, $q, Team, Game, Auth) {
+  .controller('DashboardController', 
+    ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', 'TeamGameService', 'Authentication', 
+    function($scope, $http, $window, $location, $q, Team, Game, TeamGame, Auth) {
 
     $scope.dashboard = function() {
       $scope.limit = 5;
@@ -76,7 +78,7 @@ angular.module('foos.dashboard')
           }
 
         }).then(function() {
-          Team.recent_games({ id: $scope.my_team.id }).$promise.then(function(games) {
+          TeamGame.query({ team_id: $scope.my_team.id, order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
             $scope.team_recent_games = games;
           });  
 

@@ -30,12 +30,12 @@ angular.module('foos.teams.controllers', [])
     };
   }])
 
-  .controller('TeamRecentGamesController', ['$scope', 'TeamService', 'Authentication', function($scope, Team, Auth) {
+  .controller('TeamRecentGamesController', ['$scope', 'TeamGameService', 'Authentication', function($scope, Game, Auth) {
     $scope.my_team = Auth.team();
     $scope.limit = 5;
 
     $scope.$watch('team_id', function(team_id) {
-      Team.recent_games({ id: team_id }).$promise.then(function(games) {
+      Game.query({ team_id: team_id, limit: $scope.limit }).$promise.then(function(games) {
         $scope.recent_games = games;
       });
     });
@@ -48,7 +48,7 @@ angular.module('foos.teams.controllers', [])
       return team_id == $scope.team_id;
     };
   }])
-  .controller('TeamsController', ['$scope','$http','$routeParams','$location','TeamService', 'Authentication', function($scope, $http, $routeParams, $location, Team, Auth) {
+  .controller('TeamsController', ['$scope','$http','$routeParams','$location','TeamService', 'TeamGameService', 'Authentication', function($scope, $http, $routeParams, $location, Team, Game, Auth) {
 
     $scope.my_team = Auth.team();
 
@@ -82,15 +82,23 @@ angular.module('foos.teams.controllers', [])
     };
 
     $scope.games = function() {
+      $scope.page_size = 10;
+      $scope.page = parseInt($routeParams.page) || 1;
       $scope.team_id = $routeParams.id;
 
       Team.get({ id: $scope.team_id }).$promise.then(function(team) {
         $scope.team = team;
       });
 
-      Team.games({ id: $scope.team_id }).$promise.then(function(games) {
+      Game.query({ team_id: $scope.team_id, order: '-created_at', offset: ($scope.page - 1) * $scope.page_size, limit: $scope.page_size }, function(games, headers) {
         $scope.games = games;
+        $scope.total = headers('x-total-resources');
+        $scope.pages = Math.ceil($scope.total / $scope.page_size);
       });
+    };
+
+    $scope.getNumber = function(number) {
+      return new Array(number);
     };
 
     $scope.isWinner = function(game) {

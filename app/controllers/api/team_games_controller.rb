@@ -5,14 +5,8 @@ class Api::TeamGamesController < ApplicationController
 
   # GET /teams/:team_id/games
   def index
-    @games = Game.where("team1_id = ? OR team2_id = ?", params[:team_id], params[:team_id]).includes(:team1, :team2).order(created_at: :desc)
+    @games = Game.filter(params).where("team1_id = ? OR team2_id = ?", params[:team_id], params[:team_id]).includes(:team1, :team2)
+    response.headers['X-Total-Resources'] = Game.where("team1_id = ? OR team2_id = ?", params[:team_id], params[:team_id]).count.to_s
     render 'api/games/index'
   end
-
-  # GET /teams/:team_id/games/recent
-  def recent
-    @games = Game.where("team1_id = ? OR team2_id = ?", params[:team_id], params[:team_id]).includes(:team1, :team2).order(created_at: :desc).limit(5)
-    render 'api/games/index'
-  end
-
 end

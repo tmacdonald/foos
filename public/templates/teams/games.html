@@ -36,4 +36,12 @@
       </tr>
     </tbody>
   </table>
+
+  <ul class="pagination" data-ng-show="pages > 1">
+    <li data-ng-class="{'disabled': page - 1 == 0}"><a href="#/teams/{{team.id}}/games?page={{page - 1}}">&laquo;</a></li>
+    <li data-ng-repeat="i in getNumber(pages) track by $index" data-ng-class="{'active': $index + 1 == page}">
+      <a href="#/teams/{{team.id}}/games?page={{$index + 1}}">{{$index + 1}}</a>
+    </li>
+    <li data-ng-class="{'disabled': page == pages}"><a href="#/teams/{{team.id}}/games?page={{page + 1}}">&raquo;</a></li>
+  </ul>
 </div>

@@ -3,10 +3,11 @@ angular.module('foos.teams.services', ['ngResource'])
     return $resource('/api/teams/:id', 
       { id: '@id' },
       {
-        'update': { method: 'PUT' },
-        'games': { method: 'GET', url: '/api/teams/:id/games', isArray: true },
-        'recent_games': { method: 'GET', url: '/api/teams/:id/games/recent', isArray: true }
+        'update': { method: 'PUT' }
       });
+  }])
+  .factory('TeamGameService', ['$resource', function($resource) {
+    return $resource('/api/teams/:team_id/games', {}, {});
   }])
   .factory('StatsService', ['$resource', function($resource) {
     return $resource('/api/teams/:team_id/stats', {}, 
