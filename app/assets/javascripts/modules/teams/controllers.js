@@ -48,7 +48,9 @@ angular.module('foos.teams.controllers', [])
       return team_id == $scope.team_id;
     };
   }])
-  .controller('TeamsController', ['$scope','$http','$routeParams','$location','TeamService', 'TeamGameService', 'Authentication', function($scope, $http, $routeParams, $location, Team, Game, Auth) {
+  .controller('TeamsController', 
+    ['$scope','$http','$routeParams','$location','TeamService', 'ChallengeService', 'TeamGameService', 'Authentication', 
+    function($scope, $http, $routeParams, $location, Team, Challenge, Game, Auth) {
 
     $scope.my_team = Auth.team();
 
@@ -64,10 +66,6 @@ angular.module('foos.teams.controllers', [])
 
       Team.get({ id: $scope.team_id }).$promise.then(function(team) {
         $scope.team = team;
-      });
-
-      Team.recent_games({ id: $scope.team_id }).$promise.then(function(games) {
-        $scope.recent_games = games;
       });
     };
 
@@ -114,5 +112,13 @@ angular.module('foos.teams.controllers', [])
         return 0;
       }
       return 100.0 * team.stats.wins / (team.stats.wins + team.stats.losses);
+    };
+
+    $scope.challenge = function() {
+      var challenge = new Challenge();
+      challenge.challengee_id = $scope.team.id;
+      challenge.$save().then(function() {
+        console.log('You\'ve challenged ' + $scope.team.name);
+      });
     };
   }]);

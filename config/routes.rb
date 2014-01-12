@@ -41,7 +41,9 @@ Foos::Application.routes.draw do
         get 'profile', on: :collection
       end
 
-    resources :challenges, defaults: { :format => 'json' }
+    resources :challenges, 
+      except: [:update],
+      defaults: { :format => 'json' }
   end
 
   get '/teams/:id', to: redirect('/#/teams/%{id}')

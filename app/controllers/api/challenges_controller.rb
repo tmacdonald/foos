@@ -5,7 +5,7 @@ class Api::ChallengesController < ApplicationController
 
   # GET /challenges
   def index
-    @challenges = Challenge.all
+    @challenges = Challenge.filter(params)
   end
 
   #GET /challenges/1
@@ -19,15 +19,6 @@ class Api::ChallengesController < ApplicationController
 
     if @challenge.save
       render action: 'show', status: :created
-    else
-      render json: @challenge.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PUT/PATCH /challenges/1
-  def update
-    if @challenge.update(challenge_params)
-      head :no_content
     else
       render json: @challenge.errors, status: :unprocessable_entity
     end
