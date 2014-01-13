@@ -103,13 +103,12 @@ class Game < ActiveRecord::Base
     def update_challenges
       game = self
 
-      challenge = Challenge
+      challenges = Challenge
         .where("challenger_id = ? OR challengee_id = ?", game.team1_id, game.team1_id)
         .where("challenger_id = ? OR challengee_id = ?", game.team2_id, game.team2_id)
-        .first
 
-      unless challenge.nil?
-        challenge.destroy()
+      challenges.each do |challenge|
+        challenge.destroy
       end
     end
 
