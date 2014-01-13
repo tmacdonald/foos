@@ -1,6 +1,6 @@
 <div data-ng-controller="TeamsController" data-ng-init="show()">
 
-  <a data-ng-if="team.id != my_team.id" href="" class="btn btn-danger" data-ng-click="challenge()">Challenge {{team.name}}</a>
+  <a data-ng-if="my_team && team.id != my_team.id" href="" class="btn btn-danger" data-ng-click="challenge()">Challenge {{team.name}}</a>
 
   <h1>{{team.name}}</h1>
 
