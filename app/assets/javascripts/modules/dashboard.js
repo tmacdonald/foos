@@ -29,8 +29,8 @@ angular.module('foos.dashboard')
     });
   }])
   .controller('DashboardController', 
-    ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', 'TeamGameService', 'Authentication', 
-    function($scope, $http, $window, $location, $q, Team, Game, TeamGame, Auth) {
+    ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', 'TeamGameService', 'ChallengeService', 'Authentication', 
+    function($scope, $http, $window, $location, $q, Team, Game, TeamGame, Challenge, Auth) {
 
     $scope.dashboard = function() {
       $scope.limit = 5;
@@ -84,6 +84,10 @@ angular.module('foos.dashboard')
 
           Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
             $scope.recent_games = games;
+          });
+
+          Challenge.query({ challengee: $scope.my_team.id }).$promise.then(function(challenges) {
+            $scope.challenges = challenges;
           });
         });  
       }

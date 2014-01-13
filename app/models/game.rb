@@ -1,6 +1,6 @@
 class Game < ActiveRecord::Base
   before_create :calculate_points
-  after_create :update_ladder, :update_points, :update_stats
+  after_create :update_ladder, :update_points, :update_stats, :update_challenges
 
   after_destroy :rollback_ladder, :rollback_points, :rollback_stats
 
@@ -98,6 +98,19 @@ class Game < ActiveRecord::Base
 
       game.team1.stats.update(wins: game.team1.stats.wins + 1, current_streak: team1_streak)
       game.team2.stats.update(losses: game.team2.stats.losses + 1, current_streak: team2_streak)
+    end
+
+    def update_challenges
+      game = self
+
+      challenge = Challenge
+        .where("challenger_id = ? OR challengee_id = ?", game.team1_id, game.team1_id)
+        .where("challenger_id = ? OR challengee_id = ?", game.team2_id, game.team2_id)
+        .first
+
+      unless challenge.nil?
+        challenge.destroy()
+      end
     end
 
     def rollback_stats

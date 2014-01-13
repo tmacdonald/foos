@@ -1,5 +1,9 @@
 <div data-ng-controller="DashboardController" data-ng-init="my_dashboard()">
 
+<div class="alert alert-danger" data-ng-if="challenges">
+  You've been challenged to a game by {{challenges[0].challenger.name}}.
+</div>
+
 <div class="row">
   <div class="col-sm-12">
     <h2>Standings</h2>
