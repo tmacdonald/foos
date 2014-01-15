@@ -655,5 +655,9 @@ $container-md:                 $container-desktop;
 $container-large-desktop:      ((720px + $grid-gutter-width));
 $container-lg:                 $container-large-desktop;
 
-@import "twitter/bootstrap"
+@import "twitter/bootstrap";
+
+td > a {
+  display: block;
+}
 

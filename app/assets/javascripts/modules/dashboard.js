@@ -1,15 +1,17 @@
 angular.module('foos.dashboard', [])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/mydashboard', { templateUrl: '/templates/mydashboard.html' })
-      .when('/dashboard', { templateUrl: '/templates/dashboard.html' })
+      .when('/mydashboard', { templateUrl: '/templates/dashboard/mydashboard.html' })
+      .when('/dashboard', { templateUrl: '/templates/dashboard/dashboard.html' })
   }]);
 
 angular.module('foos.dashboard')
-  .controller('StandingsController', ['$scope', 'TeamService', 'Authentication', function($scope, Team, Auth) {
+  .controller('StandingsController', ['$scope', 'TeamService', 'TeamUtils', 'Authentication', function($scope, Team, TeamUtils, Auth) {
     $scope.limit = 5;
 
     $scope.my_team = Auth.team();
+    $scope.winPercentage = TeamUtils.winPercentage;
+
     $scope.teamInvisibleInStandings = false;
 
     Team.query({ order: '-points' }).$promise.then(function(teams) {
@@ -28,79 +30,32 @@ angular.module('foos.dashboard')
       }
     });
   }])
-  .controller('DashboardController', 
-    ['$scope', '$http', '$window', '$location', '$q', 'TeamService', 'GameService', 'TeamGameService', 'ChallengeService', 'Authentication', 
-    function($scope, $http, $window, $location, $q, Team, Game, TeamGame, Challenge, Auth) {
+  .controller('DashboardController', ['$scope', '$location', 'Authentication', function($scope, $location, Auth) {
 
-    $scope.dashboard = function() {
-      $scope.limit = 5;
+    $scope.limit = 5;
+    $scope.my_team = Auth.team();
 
-      $scope.my_team = Auth.team();
+    if ($scope.my_team) {
+      $location.path('/mydashboard');
+    } 
+  }])
 
-      if ($scope.my_team) {
-        $location.path('/mydashboard');
-      } else {
-        Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
-          $scope.teams = teams;
-        }).then(function() {
-          Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
-            $scope.recent_games = games;
-          });
-        });
-      }
-    };
+  .controller('MyRecentGamesController', ['$scope', 'TeamGameService', 'Authentication', function($scope, TeamGame, Auth) {
 
-    $scope.my_dashboard = function() {
-      $scope.limit = 5;
+    $scope.my_team = Auth.team();
 
-      $scope.user = Auth.user();
-      $scope.my_team = Auth.team();
+    TeamGame.query({ team_id: $scope.my_team.id, order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
+      $scope.team_recent_games = games;
+    });  
 
-      if (!$scope.my_team) {
-        $location.path('/dashboard');
-      } else {
-        
-        $scope.teamInvisibleInStandings = false;
+  }])
 
-        var teamPromise = Team.query({ order: '-points', limit: $scope.limit }).$promise.then(function(teams) {
-          var i;
+  .controller('MyDashboardController', ['$scope', '$location', 'Authentication', function($scope, $location, Auth) {
 
-          $scope.teams = teams;
+    $scope.my_team = Auth.team();
 
-          for (i = 0; i < teams.length; i = i + 1) {
-            if (teams[i].id == $scope.my_team.id) {
-              $scope.team = teams[i];
-              if (i > $scope.limit - 1) {
-                $scope.teamInvisibleInStandings = i + 1;
-              }
-              break;
-            }
-          }
+    if (!$scope.my_team) {
+      $location.path('/dashboard');
+    }
 
-        }).then(function() {
-          TeamGame.query({ team_id: $scope.my_team.id, order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
-            $scope.team_recent_games = games;
-          });  
-
-          Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
-            $scope.recent_games = games;
-          });
-
-          Challenge.query({ challengee: $scope.my_team.id }).$promise.then(function(challenges) {
-            $scope.challenges = challenges;
-          });
-        });  
-      }
-    };
-
-    $scope.winPercentage = function(team) {
-      if (team.stats.wins == 0 && team.stats.losses == 0) {
-        return 0;
-      }
-      return 100.0 * team.stats.wins / (team.stats.wins + team.stats.losses);
-    };
-
-    $scope.playedToday = function(game) {
-      return (new $window.Date(game.created_at)).toDateString() == (new $window.Date()).toDateString();
-    };
   }]);

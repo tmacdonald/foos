@@ -14,4 +14,14 @@ angular.module('foos.teams.services', ['ngResource'])
       {
         'query': { method: 'GET', isArray: false }
       });
+  }])
+  .factory('TeamUtils', [function() {
+    return {
+      winPercentage: function(team) {
+        if (team.stats.wins == 0 && team.stats.losses == 0) {
+          return 0;
+        }
+        return 100.0 * team.stats.wins / (team.stats.wins + team.stats.losses);
+      }
+    };
   }]);
