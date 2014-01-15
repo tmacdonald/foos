@@ -1,0 +1,9 @@
+<div data-ng-controller="VsChallengesController">
+  <div data-ng-if="existing_challenges && existing_challenges.length > 0" class="alert alert-danger">
+    You have challenged {{team.name}}
+  </div>
+
+  <div data-ng-if="!existing_challenges || existing_challenges.length == 0">
+    <a data-ng-disabled="existing_challenges && existing_challenges.length > 0" href="" class="btn btn-danger" data-ng-click="challenge()">Challenge {{team.name}}</a>
+  </div>
+</div>

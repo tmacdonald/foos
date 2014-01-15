@@ -6,6 +6,17 @@ angular.module('foos.dashboard', [])
   }]);
 
 angular.module('foos.dashboard')
+  
+  .controller('DashboardChallengesController', ['$scope', 'ChallengeService', 'Authentication', function($scope, Challenge, Auth) {
+
+    $scope.my_team = Auth.team();
+
+    Challenge.query({ challengee: $scope.my_team.id }).$promise.then(function(challenges) {
+      $scope.challenges = challenges;
+    });
+
+  }])
+
   .controller('StandingsController', ['$scope', 'TeamService', 'TeamUtils', 'Authentication', function($scope, Team, TeamUtils, Auth) {
     $scope.limit = 5;
 
