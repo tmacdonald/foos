@@ -43,30 +43,17 @@ angular.module('foos.dashboard')
   }])
   .controller('DashboardController', ['$scope', '$location', 'Authentication', function($scope, $location, Auth) {
 
-    $scope.limit = 5;
     $scope.my_team = Auth.team();
 
-    if ($scope.my_team) {
-      $location.path('/mydashboard');
-    } 
   }])
 
   .controller('MyRecentGamesController', ['$scope', 'TeamGameService', 'Authentication', function($scope, TeamGame, Auth) {
 
+    $scope.limit = 5;
     $scope.my_team = Auth.team();
 
     TeamGame.query({ team_id: $scope.my_team.id, order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
       $scope.team_recent_games = games;
     });  
-
-  }])
-
-  .controller('MyDashboardController', ['$scope', '$location', 'Authentication', function($scope, $location, Auth) {
-
-    $scope.my_team = Auth.team();
-
-    if (!$scope.my_team) {
-      $location.path('/dashboard');
-    }
 
   }]);

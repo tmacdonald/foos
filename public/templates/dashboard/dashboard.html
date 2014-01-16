@@ -7,10 +7,13 @@
     <div data-ng-include data-src="'templates/teams/standings.html'"></div>
 
   </div>
-</div>
-
-<div class="row">
   <div class="col-sm-12">
     <div data-ng-include data-src="'templates/dashboard/recent_games.html'"></div>
   </div>
+
+  <div class="col-sm-12" data-ng-if="my_team">
+    <div data-ng-include data-src="'templates/dashboard/my_recent_games.html'"></div>
+    
+  </div>
+
 </div>  
