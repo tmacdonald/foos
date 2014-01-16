@@ -1,4 +1,4 @@
-<div data-ng-controller="TeamsController" data-ng-init="index({ order: '-points' })">
+<div data-ng-controller="TeamIndexController">
 
   <table class="table">
     <thead>
@@ -9,10 +9,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.id == my_team.id}">
+      <tr data-ng-repeat="team in teams" data-ng-class="{'active': Auth.is_my_team(team.id)}">
         <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
         <td>{{team.points}}</td>
-        <td>{{winPercentage(team) | number: 0}}</td>
+        <td>{{Utils.winPercentage(team) | number: 0}}</td>
       </tr>
     </tbody>
   </table>

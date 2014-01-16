@@ -11,6 +11,9 @@ angular.module('foos.authentication')
         if (user && user.teams) {
           return user.teams[0];
         }
+      },
+      is_my_team: function(team_id) {
+        return this.team() && this.team().id == team_id;
       }
     };
   }]);
