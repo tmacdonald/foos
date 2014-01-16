@@ -8,5 +8,3 @@ angular.module('foos.games', ['foos.games.controllers', 'foos.games.services'])
       .when('/games', { templateUrl: '/templates/games/index.html' });
   }]);
 
-//= require modules/games/controllers
-//= require modules/games/services
