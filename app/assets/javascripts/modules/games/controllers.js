@@ -1,12 +1,4 @@
 angular.module('foos.games.controllers', [])
-  .controller('RecentGamesController', ['$scope', 'GameService', 'Authentication', function($scope, Game, Auth) {
-    $scope.my_team = Auth.team();
-    $scope.limit = 5;
-
-    Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
-      $scope.recent_games = games;
-    });
-  }])
   .controller('GamesController', ['$scope','$routeParams','$location','GameService', 'Authentication', function($scope, $routeParams, $location, GameService, Auth) {
     $scope.my_team = Auth.team();
 
@@ -30,20 +22,8 @@ angular.module('foos.games.controllers', [])
         $scope.game = game;
       });
     };
-
-    $scope.vs = function() {
-      if (current_user && current_user.teams) {
-        $scope.current_team_id = current_user.teams[0].id;
-      }
-
-      var team1_id = $routeParams.team1_id;
-      var team2_id = $routeParams.team2_id;
-
-      GameService.query({ teams: [team1_id, team2_id].join(',') }).$promise.then(function(games) {
-        $scope.games = games;
-      });
-    }
   }])
+
   .controller('GameSimulationController', ['$scope', 'GameService', function($scope, Game) {
     $scope.simulation = {
       score1: 10,
@@ -124,3 +104,6 @@ angular.module('foos.games.controllers', [])
       return new Array(number);
     };
   }]);
+
+//= require 'modules/games/controllers/recent_games_controller'
+//= require 'modules/games/controllers/vs_games_controller'

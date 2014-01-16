@@ -17,11 +17,10 @@ class Game < ActiveRecord::Base
     attributes.inject(self.all) do |scope, (key, value)|
       return scope if value.blank?
       case key.to_sym
-      when :team
+      when :team1_id
         scope.where('team1_id = ? OR team2_id = ?', value, value)
-      when :teams
-        teams = value.split(',')
-        scope.where(:team1_id => teams).where(:team2_id => teams)
+      when :team2_id
+        scope.where('team1_id = ? OR team2_id = ?', value, value)
       when :offset
         scope.offset(value)
       when :limit
