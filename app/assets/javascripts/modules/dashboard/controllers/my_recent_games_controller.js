@@ -5,7 +5,7 @@ angular.module('foos.dashboard.controllers')
     $scope.limit = 5;
     $scope.my_team = Auth.team();
 
-    TeamGame.query({ team_id: $scope.my_team.id, order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
+    TeamGame.query({ team_id: $scope.my_team.id, order: '-played_at', limit: $scope.limit }).$promise.then(function(games) {
       $scope.team_recent_games = games;
     });  
 

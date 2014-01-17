@@ -5,7 +5,7 @@ angular.module('foos.teams.controllers')
     $scope.limit = 5;
 
     $scope.$watch('team_id', function(team_id) {
-      Game.query({ team_id: team_id, order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
+      Game.query({ team_id: team_id, order: '-played_at', limit: $scope.limit }).$promise.then(function(games) {
         $scope.recent_games = games;
       });
     });

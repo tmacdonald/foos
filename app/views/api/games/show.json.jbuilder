@@ -1,1 +1,1 @@
-json.extract! @game, :id, :team1_id, :team2_id, :team1score, :team2score, :points_change, :created_at
+json.extract! @game, :id, :team1_id, :team2_id, :team1score, :team2score, :points_change, :played_at

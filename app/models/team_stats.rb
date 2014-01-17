@@ -3,8 +3,8 @@ class TeamStats < ActiveRecord::Base
 
   def calculate_current_streak(params)
     scope = Game.filter(params)
-    last_win = scope.where(:team1_id => self.team_id).order(created_at: :desc).first
-    last_loss = scope.where(:team2_id => self.team_id).order(created_at: :desc).first
+    last_win = scope.where(:team1_id => self.team_id).order(played_at: :desc).first
+    last_loss = scope.where(:team2_id => self.team_id).order(played_at: :desc).first
 
     if last_win.nil? and last_loss.nil?
       0
@@ -12,10 +12,10 @@ class TeamStats < ActiveRecord::Base
       -1 * scope.where(:team2_id => self.team_id).count
     elsif last_loss.nil?
       scope.where(:team1_id => self.team_id).count
-    elsif last_win.created_at > last_loss.created_at
-      scope.where(:team1_id => self.team_id).where('created_at > ?', last_loss.created_at).count
+    elsif last_win.played_at > last_loss.played_at
+      scope.where(:team1_id => self.team_id).where('played_at > ?', last_loss.played_at).count
     else
-      -1 * scope.where(:team2_id => self.team_id).where('created_at > ?', last_win.created_at).count
+      -1 * scope.where(:team2_id => self.team_id).where('played_at > ?', last_win.played_at).count
     end
   end
 
