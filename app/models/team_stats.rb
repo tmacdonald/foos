@@ -1,7 +1,7 @@
 class TeamStats < ActiveRecord::Base
   belongs_to :team
 
-  def calculate_current_streak(params)
+  def calculate_current_streak(params = {})
     scope = Game.filter(params)
     last_win = scope.where(:team1_id => self.team_id).order(played_at: :desc).first
     last_loss = scope.where(:team2_id => self.team_id).order(played_at: :desc).first
