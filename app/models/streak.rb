@@ -9,14 +9,14 @@ class Streak
         if last_loss.nil?
           streak = streak_scope.where("team1_id = ? OR team2_id = ?", team_id, team_id).count
         else
-          streak = streak_scope.where("team1_id = ?", team_id).where('created_at > ?', last_loss.created_at).count
+          streak = streak_scope.where("team1_id = ?", team_id).where('played_at > ?', last_loss.played_at).count
         end
       else
-        last_win = streak_scope.where(:team1_id => team_id).order(created_at: :desc).last
+        last_win = streak_scope.where(:team1_id => team_id).order(played_at: :desc).last
         if last_win.nil?
           streak = -streak_scope.where("team1_id = ? OR team2_id = ?", team_id, team_id).count
         else
-          streak = -streak_scope.where("team2_id = ?", team_id).where('created_at > ?', last_win.created_at).count
+          streak = -streak_scope.where("team2_id = ?", team_id).where('played_at > ?', last_win.played_at).count
         end
       end
     end

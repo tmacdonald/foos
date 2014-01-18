@@ -3,7 +3,7 @@ angular.module('foos.games.controllers')
     $scope.my_team = Auth.team();
     $scope.limit = 5;
 
-    Game.query({ order: '-created_at', limit: $scope.limit }).$promise.then(function(games) {
+    Game.query({ order: '-played_at', limit: $scope.limit }).$promise.then(function(games) {
       $scope.recent_games = games;
     });
   }]);

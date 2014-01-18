@@ -3,16 +3,3 @@ var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foo
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({ redirectTo: '/dashboard' });
 }]);
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -9,7 +9,7 @@ angular.module('foos.teams.controllers')
       $scope.team = team;
     });
 
-    Game.query({ team_id: $scope.team_id, order: '-created_at', offset: ($scope.page - 1) * $scope.page_size, limit: $scope.page_size }, function(games, headers) {
+    Game.query({ team_id: $scope.team_id, order: '-played_at', offset: ($scope.page - 1) * $scope.page_size, limit: $scope.page_size }, function(games, headers) {
       $scope.games = games;
       $scope.total = headers('x-total-resources');
       $scope.pages = Math.ceil($scope.total / $scope.page_size);

@@ -28,7 +28,7 @@ class TeamsController < ApplicationController
 
   #GET /teams/1
   def show
-    @recent_games = Game.where("team1_id = ? OR team2_id = ?", @team.id, @team.id).order(created_at: :desc)
+    @recent_games = Game.where("team1_id = ? OR team2_id = ?", @team.id, @team.id).order(played_at: :desc)
   end
 
   # POST /teams
