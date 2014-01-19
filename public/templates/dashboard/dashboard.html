@@ -1,6 +1,10 @@
 <div data-ng-controller="DashboardController">
 
 <div class="row">
+  <div class="col-sm-12" data-ng-if="my_team">
+    <div data-ng-include data-src="'templates/dashboard/challenges.html'"></div>
+  </div>
+
   <div class="col-sm-12">
     <h2>Standings</h2>
     

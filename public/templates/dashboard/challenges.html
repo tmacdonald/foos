@@ -1,0 +1,6 @@
+<div data-ng-controller="DashboardChallengesController">
+  <div data-ng-if="challenges && challenges.length > 0">
+    <div class="alert alert-danger" data-ng-repeat="challenge in challenges">You've been challenged by {{challenge.challenger.name}}.</div>
+  </div>
+</div>
+</div>
