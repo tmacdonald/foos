@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  before_create :calculate_points
+  before_create :calculate_points, :update_timestamps
   after_create :update_ladder, :update_points, :update_stats, :update_challenges
 
   after_destroy :rollback_ladder, :rollback_points, :rollback_stats
@@ -52,7 +52,13 @@ class Game < ActiveRecord::Base
   private 
 
     def calculate_points
+      self.team1points = self.team1.points
+      self.team2points = self.team2.points
       self.points_change = Game.calculate_points(self.team1score, self.team2score, self.team1.points, self.team2.points)
+    end
+
+    def update_timestamps
+      self.played_at = Time.now if self.played_at.nil?
     end
 
     def update_ladder

@@ -4,9 +4,12 @@ angular.module('foos.teams.controllers')
 
     $scope.my_team = Auth.team();
 
-    $scope.$watch('team_id', function(team_id) {
-      Challenge.query({ challenger: $scope.my_team.id, challengee: team_id }).$promise.then(function(challenges) {
+    $scope.$watch('team', function(team) {
+      Challenge.query({ challenger: $scope.my_team.id, challengee: team.id }).$promise.then(function(challenges) {
         $scope.existing_challenges = challenges;
+      });
+      Challenge.query({ challenger: team.id, challengee: $scope.my_team.id }).$promise.then(function(challenges) {
+        $scope.already_challenged = challenges;
       });
     });
 
@@ -14,7 +17,6 @@ angular.module('foos.teams.controllers')
       var challenge = new Challenge();
       challenge.challengee_id = $scope.team.id;
       challenge.$save().then(function(data) {
-        console.log(data);
         $scope.existing_challenges = [challenge];
       });
     };
