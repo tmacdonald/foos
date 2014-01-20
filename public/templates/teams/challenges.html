@@ -3,7 +3,11 @@
     You have challenged {{team.name}}
   </div>
 
-  <div data-ng-if="!existing_challenges || existing_challenges.length == 0">
+  <div data-ng-if="already_challenged && already_challenged.length > 0" class="alert alert-danger">
+    {{team.name}} has challenged you
+  </div>
+
+  <div data-ng-if="(!existing_challenges || existing_challenges.length == 0) && (!already_challenged || already_challenged.length == 0) ">
     <a data-ng-disabled="existing_challenges && existing_challenges.length > 0" href="" class="btn btn-danger" data-ng-click="challenge()">Challenge {{team.name}}</a>
   </div>
 </div>
