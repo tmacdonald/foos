@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 20140118021843) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "points_change"
-    t.integer  "team1points"
-    t.integer  "team2points"
     t.datetime "played_at"
     t.boolean  "team1isBlue"
+    t.integer  "team1points"
+    t.integer  "team2points"
   end
 
   add_index "games", ["team1_id"], name: "index_games_on_team1_id", using: :btree

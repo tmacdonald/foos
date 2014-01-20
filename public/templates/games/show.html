@@ -1,0 +1,17 @@
+<div class="row" data-ng-controller="GamesShowController">
+  <div class="col-sm-12">
+    Played {{game.played_at | date: 'medium'}}
+  </div>
+  <div class="col-xs-6">
+    <h2>{{game.team1.name}}</h2>
+  </div>
+  <div class="col-xs-6">
+    <h2>{{game.team2.name}}</h2>
+  </div>
+  <div class="col-xs-6">
+    <h1>{{game.team1score}}</h1>
+  </div>
+  <div class="col-xs-6">
+    <h1>{{game.team2score}}</h1>
+  </div>
+</div>
