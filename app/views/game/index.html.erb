@@ -1,32 +1,5 @@
 <div data-ng-app="foos.gameon" data-ng-controller="GameOnController" data-ng-switch="wizard" class="container">
-
   <div class="wizard_screens">
-    <div class="wizard_screen my-switch-animation" data-ng-switch-when="1">
-      <div class="">
-        <h1>Select Winner</h1>
-        <a href="" data-ng-click="selectTeam1(team)" class="btn btn-primary"  data-ng-repeat="team in teams">{{team.name}}</a>
-      </div>
-    </div>
-    <div class="wizard_screen my-switch-animation" data-ng-switch-when="2">
-      <div class="">
-        <h1>Select Loser</h1>
-            <a href="" data-ng-click="selectTeam2(team)" class="btn btn-primary" data-ng-repeat="team in teams">{{team.name}}</a>
-        </ul>
-      </div>
-    </div>
-    <div class="wizard_screen my-switch-animation" data-ng-switch-when="3">
-      <div class="">
-        <h1>Select Score</h1>
-        <a data-ng-repeat="i in getNumber(10) track by $index" href="" class="btn btn-primary" data-ng-click="selectScore($index)">{{$index}}</a>
-      </div>
-    </div>
-    <div class="wizard_screen my-switch-animation" data-ng-switch-when="4">
-      <div class="">
-        <h1>Confirm</h1>
-        <h2>{{team1.name}} defeated {{team2.name}} 10 - {{game.team2score}}</h2>
-        <a href="" class="btn btn-primary" data-ng-click="confirm()">Confirm</a>
-        <a href="/gameon" class="btn btn-danger">Cancel</a>
-      </div>
-    </div>
+    <div class="wizard_screen my-switch-animation" data-ng-view></div>
   </div>
 </div>
