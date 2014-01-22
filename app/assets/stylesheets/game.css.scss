@@ -1,14 +1,10 @@
 .gameon {
-  background: #333;
-  color: #ccc;
-  
   .wizard_screens {
     position: relative;  
     width: 100%;
 
     .wizard_screen {
       position: absolute;
-      background: #333;
       width: 100%;
 
       &.ng-enter, &.ng-leave {
@@ -16,6 +12,8 @@
       }
 
       .btn {
+        font-size: 2em;
+        margin-bottom: 0.5em;
         width: 100%;
       }
     }
