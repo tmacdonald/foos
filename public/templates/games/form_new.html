@@ -1,29 +1,32 @@
-<div data-ng-show="!game.team1_id">
-  <h2>Winner</h2>
-  <ul>
-    <li data-ng-repeat="team in teams" data-ng-click="selectWinner(team)">
-      {{team.name}}
-    </li>
-  </ul>
-</div>
 
-<div data-ng-show="game.team1_id && !game.team2_id">
-  <h2>Loser</h2>
-  <table>
-    <tr data-ng-repeat="team in teams">
-      <td>
-        <a href="" data-ng-click="selectLoser(team)" class="btn btn-default" data-ng-click="selectLoser(team)">{{team.name}}</a>
-      </td>
-    </tr>
-  </table>
-</div>
+<div class="animate-switch-container">
 
-<div data-ng-show="game.team2_id">
-  <h2>Score (10 - ?)</h2>
-  <ul>
-    <li data-ng-repeat="i in getNumber(10) track by $index">
-      <a href="" class="btn btn-default" data-ng-click="selectScore($index)">{{$index}}</a>
-    </li>
-  </ul>
-</div>
+  <div class="animate-slide" data-ng-show="!game.team1_id">
+    <h2>Winner</h2>
+    <ul>
+      <li data-ng-repeat="team in teams" data-ng-click="selectWinner(team)">
+        {{team.name}}
+      </li>
+    </ul>
+  </div>
 
+  <div class="animate-slide" data-ng-show="game.team1_id && !game.team2_id">
+    <h2>Loser</h2>
+    <table>
+      <tr data-ng-repeat="team in teams">
+        <td>
+          <a href="" data-ng-click="selectLoser(team)" class="btn btn-default" data-ng-click="selectLoser(team)">{{team.name}}</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="animate-slide" data-ng-show="game.team2_id">
+    <h2>Score (10 - ?)</h2>
+    <ul>
+      <li data-ng-repeat="i in getNumber(10) track by $index">
+        <a href="" class="btn btn-default" data-ng-click="selectScore($index)">{{$index}}</a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -40,10 +40,11 @@
   opacity:1;
 }
 
-.foldout.ng-enter,
+.foldout.ng-enter, .foldout.ng-leave,
 .foldout.ng-move,
 .foldout.ng-hide-add,
 .foldout.ng-hide-remove {
+  display: block !important;
   -webkit-transition:0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
   -moz-transition:0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
   -o-transition:0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
@@ -62,4 +63,19 @@
 .foldout.ng-hide-add,
 .foldout.ng-enter.ng-enter-active {
   left: 0;
+}
+
+.foldout.ng-leave {
+  left: 100%;
+}
+
+.slide.ng-hide-add, .slide.ng-leave {
+  display: block !important;
+  -webkit-animation: slideOutLeft 1s;
+  animation: slideOutLeft 1s;
+}
+
+.slide.ng-hide-remove, .slide.ng-enter {
+  -webkit-animation: slideInRight 1s;
+  animation: slideInRight 1s;
 }
