@@ -1,16 +1,80 @@
 .gameon {
   background: #333;
   color: #ccc;
-  position: relative;
+  
+  .wizard_screens {
+    position: relative;  
+    width: 100%;
 
-  .wizard_screen {
-    position: absolute;
-    background: #333;
+    .wizard_screen {
+      position: absolute;
+      background: #333;
+      width: 100%;
 
-    &.ng-enter, &.ng-leave {
-      display: block !important;
+      &.ng-enter, &.ng-leave {
+        display: block !important;
+      }
+
+      .btn {
+        width: 100%;
+      }
     }
   }
+
+  
+}
+
+ul.unstyled > li {
+  list-style-type: none;
+}
+
+.my-switch-animation.ng-enter,
+.my-switch-animation.ng-leave {
+  -webkit-transition:0.5s ease-in-out all;
+  transition:0.5s ease-in-out all;
+
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+}
+
+.my-switch-animation.ng-enter {
+  left:100%;
+}
+
+.my-switch-animation.reverse.ng-enter {
+  left: -100;
+}
+
+.my-switch-animation.ng-leave,
+.my-switch-animation.ng-enter.ng-enter-active {
+  left:0;
+}
+
+.my-switch-animation.ng-leave.ng-leave-active {
+  left:-100%;
+}
+
+.my-switch-animation.reverse.ng-leave.ng-leave-active {
+  left:100%;
+}
+
+.slide.ng-hide-add, .slide.ng-leave {
+  display: block !important;
+  -webkit-animation-name: slideOutLeft;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-delay: 0.1s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-name: slideOutLeft;
+}
+
+.slide.ng-hide-remove, .slide.ng-enter {
+  -webkit-animation-name: slideInRight;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-delay: 0.1s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-name: slideInRight;
 }
 
 @-webkit-keyframes slideInDown {
