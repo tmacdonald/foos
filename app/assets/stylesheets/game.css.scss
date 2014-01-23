@@ -5,6 +5,7 @@
 
     .wizard_screen {
       position: absolute;
+      background: inherit;
       width: 100%;
 
       &.ng-enter, &.ng-leave {
@@ -12,8 +13,8 @@
       }
 
       .btn {
-        font-size: 2em;
-        margin-bottom: 0.5em;
+        font-size: 1em;
+        margin-bottom: 0.3em;
         width: 100%;
       }
     }
@@ -28,8 +29,10 @@ ul.unstyled > li {
 
 .my-switch-animation.ng-enter,
 .my-switch-animation.ng-leave {
-  -webkit-transition:0.5s ease-in-out all;
-  transition:0.5s ease-in-out all;
+  -webkit-transition: 0.2s ease-in-out all;
+  -webkit-transition-delay: 0.1s;
+  transition:0.2s ease-in-out all;
+  transition-delay: 0.1s;
 
   position:absolute;
   top:0;
@@ -38,7 +41,7 @@ ul.unstyled > li {
 }
 
 .my-switch-animation.ng-enter {
-  left:100%;
+  left:110%;
 }
 
 .my-switch-animation.reverse.ng-enter {
@@ -51,7 +54,7 @@ ul.unstyled > li {
 }
 
 .my-switch-animation.ng-leave.ng-leave-active {
-  left:-100%;
+  left:-110%;
 }
 
 .my-switch-animation.reverse.ng-leave.ng-leave-active {
