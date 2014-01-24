@@ -31,7 +31,7 @@ Foos::Application.routes.draw do
     end
 
     resources :games, 
-      only: [:index, :show, :create, :destroy],
+      only: [:index, :show, :create, :destroy, :update],
       defaults: { :format => 'json' } do 
         get 'calculate', on: :collection
       end
