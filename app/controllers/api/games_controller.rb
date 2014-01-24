@@ -32,27 +32,30 @@ class Api::GamesController < ApplicationController
 
   # PUT/PATCH /games/1
   def update
-    # Get all games that happened after the game being updated
-    games_after = Game.where('played_at > ?', @game.played_at).order(played_at: :asc)
-    # Get a copy of those games
-    games_after_copy = games_after.map do |game|
-      game
-    end
 
-    # Delete all games that happened after the game being updated
-    games_after.destroy_all
-    # Delete the game being updated
-    @game.destroy
-    # Create a new game to replace
+    ActiveRecord::Base.transaction do 
+      # Get all games that happened after the game being updated
+      games_after = Game.where('played_at > ?', @game.played_at).order(played_at: :asc)
+      # Get a copy of those games
+      games_after_copy = games_after.map do |game|
+        game
+      end
 
-    new_game = Game.new(game_params)
-    new_game.id = @game.id
-    new_game.played_at = @game.played_at
-    new_game.save
+      # Delete all games that happened after the game being updated
+      games_after.destroy_all
+      # Delete the game being updated
+      @game.destroy
+      # Create a new game to replace
 
-    games_after_copy.each do |game|
-      g = Game.new game.as_json
-      g.save
+      new_game = Game.new(game_params)
+      new_game.id = @game.id
+      new_game.played_at = @game.played_at
+      new_game.save
+
+      games_after_copy.each do |game|
+        g = Game.new game.as_json
+        g.save
+      end
     end
   end
 
