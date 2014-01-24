@@ -9,6 +9,12 @@ app.config(['$routeProvider', function($routeProvider) {
     .otherwise({ redirectTo: '/winner' });
 }]);
 
+app.controller('RedirectController', ['$scope', '$location', function($scope, $location) {
+  if (!$scope.game.team1_id) {
+    $location.path('/');
+  }
+}]);
+
 app.controller('GameOnController', ['$scope', '$window', '$location', 'TeamService', 'GameService', function($scope, $window, $location, Team, Game) {
   $scope.game = new Game();
   $scope.game.team1score = 10;

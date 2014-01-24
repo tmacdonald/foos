@@ -1,2 +1,15 @@
-<h1>Select Score</h1>
-<a data-ng-repeat="i in getNumber(10) track by $index" href="" class="btn btn-primary" data-ng-click="selectScore($index)">{{$index}}</a>
+<div data-ng-controller="RedirectController">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Select Score</h1>
+    </div>
+    <div class="col-xs-6">
+      <h4>Winner</h4>
+      <a href="" class="btn btn-primary" disabled="disabled">{{game.team1score}}</a>
+    </div>
+    <div class="col-xs-6">
+      <h4>Loser</h4>
+      <a data-ng-repeat="i in getNumber(10) track by $index" href="" class="btn btn-primary" data-ng-click="selectScore($index)">{{$index}}</a>
+    </div>
+  </div>
+</div>

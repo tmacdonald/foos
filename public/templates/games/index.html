@@ -19,7 +19,9 @@
 
         <td>
           {{game.played_at | date: 'EEEE, MMMM d'}}
+          <input type="hidden" value="{{game.id}}" />
         </td>
+
       </tr>
     </tbody>
   </table>

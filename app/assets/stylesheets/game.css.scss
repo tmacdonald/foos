@@ -17,10 +17,16 @@
         margin-bottom: 0.3em;
         width: 100%;
       }
+
+      .confirm {
+        .btn {
+          width: auto;
+        }
+      }
     }
   }
 
-  
+
 }
 
 ul.unstyled > li {
