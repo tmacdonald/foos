@@ -1,5 +1,5 @@
 angular.module('foos.games.controllers')
-  .controller('RecentGamesController', ['$scope', '$interval', 'GameService', 'Authentication', function($scope, $interval, Game, Auth) {
+  .controller('RecentGamesController', ['$scope', 'GameService', 'Authentication', function($scope, Game, Auth) {
     $scope.my_team = Auth.team();
     $scope.limit = 5;
 
@@ -10,6 +10,5 @@ angular.module('foos.games.controllers')
     };
 
     $scope.refresh();
-    $interval($scope.refresh, 5000);
 
   }]);
