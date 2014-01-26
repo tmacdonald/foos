@@ -16,7 +16,8 @@ angular.module('foos.app.directives', ['d3'])
         d3Service.d3().then(function(d3) {
           var margin = parseInt(attrs.margin) || 20,
               barHeight = parseInt(attrs.barHeight) || 20,
-              barPadding = parseInt(attrs.barPadding) || 5;
+              barPadding = parseInt(attrs.barPadding) || 5,
+              team_id = attrs.teamId;
 
           var svg = d3.select(element[0])
             .append('svg')
@@ -34,50 +35,78 @@ angular.module('foos.app.directives', ['d3'])
             scope.render(scope.games);
           });
 
-          // watch for data changes and re-render
+          // watch for games changes and re-render
           scope.$watch('games', function(newVals, oldVals) {
             return scope.render(newVals);
           }, true);
 
-          scope.render = function(data) {
+          scope.render = function(games) {
             // remove all previous items before render
             svg.selectAll('*').remove();
 
             // If we don't pass any data, return out of the element
-            if (!data) return;
+            if (!games) return;
+
+            var minPoints = function(game) {
+              if (game.team1.id == team_id) {
+                return game.team1points;
+              } else {
+                return game.team2points - game.points_change;
+              }
+            };
+
+            var maxPoints = function(game) {
+              if (game.team1.id == team_id) {
+                return game.team1points + game.points_change;
+              } else {
+                return game.team2points;
+              }
+            }
 
             // setup variables
             var width = d3.select(element[0]).node().offsetWidth - margin,
                 // calculate the height
-                height = data.length * (barHeight + barPadding),
+                height = 150,
+                barWidth = width / games.length,
                 // Use the category20() scale function for multicolor support
                 color = d3.scale.category20(),
-                // our xScale
-                xScale = d3.scale.linear()
-                  .domain([0, d3.max(data, function(d) {
-                    return d.points_change;
-                  })])
-                  .range([0, width]);
+                // our yScale
+                yScale = d3.scale.linear()
+                  .domain([d3.min(games, minPoints), d3.max(games, maxPoints)])
+                  .range([0, height]);
 
             // set the height based on the calculations above
             svg.attr('height', height);
 
             //create the rectangles for the bar chart
-            svg.selectAll('rect')
-              .data(data).enter()
-                .append('rect')
-                .attr('height', barHeight)
-                .attr('width', 140)
-                .attr('x', Math.round(margin/2))
-                .attr('y', function(d,i) {
-                  return i * (barHeight + barPadding);
+            svg.selectAll('line')
+              .data(games).enter()
+                .append('line')
+                .attr('stroke-width', 2)
+                .attr('x1', function(game,i) {
+                  return i * barWidth;
                 })
-                .attr('fill', function(d) { return color(d.points_change); })
-                .transition()
-                  .duration(1000)
-                  .attr('width', function(d) {
-                    return xScale(d.points_change);
-                  });
+                .attr('x2', function(game,i) {
+                  return (i + 1) * barWidth;
+                })
+                .attr('y1', function(game,i) {
+                  var value = game.team2points;
+                  if (game.team1.id == team_id) {
+                    value = game.team1points;
+                  }
+                  console.log('y1', value, yScale(value));
+                  return height - yScale(value);
+                })
+                .attr('y2', function(game,i) {
+                  var value = game.team2points - game.points_change;
+                  if (game.team1.id == team_id) {
+                    value = game.team1points + game.points_change;
+                  }
+
+                  console.log('y2', value, yScale(value));
+                  return height - yScale(value);
+                })
+                .attr('stroke', function(game, i) { return color(0); })
           };
         });
       }
