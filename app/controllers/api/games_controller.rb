@@ -61,14 +61,26 @@ class Api::GamesController < ApplicationController
 
   # DELETE /games/1
   def destroy
-    count = Game.where('team1_id = ? OR team1_id = ? OR team2_id = ? OR team2_id = ?', @game.team1_id, @game.team2_id, @game.team1_id, @game.team2_id).where('played_at > ?', @game.played_at).count
+    # TODO Do this as a transaction
 
-    if count == 0
-      @game.destroy
-      head :no_content
-    else
-      render json: { error: 'Cannot delete game because other games depend on the outcome' }, status: :failed_dependency
+    # Get all games that happened after the game being deleted
+    games_after = Game.where('played_at > ?', @game.played_at).order(played_at: :asc)
+    # Get a copy of those games
+    games_after_copy = games_after.map do |game|
+      game
     end
+
+    # Delete all games that happened after the game being deleted
+    games_after.destroy_all
+    # Delete the game being deleted
+    @game.destroy
+
+    # Re-add games played after the game being deleted
+    games_after_copy.each do |game|
+      g = Game.new game.as_json
+      g.save
+    end
+    head :no_content
   end
 
   private
