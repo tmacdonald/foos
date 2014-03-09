@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-repeat="game in recent_games" data-ng-class="{'success':$parent.isWinner(game), 'danger': !$parent.isWinner(game)}">
+      <tr data-ng-repeat="game in recent_games | limitTo: 5" data-ng-class="{'success':$parent.isWinner(game), 'danger': !$parent.isWinner(game)}">
 
         <td>
           <div data-ng-if="$parent.isCurrentTeam(game.team1.id)">
