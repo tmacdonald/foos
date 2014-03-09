@@ -35,4 +35,32 @@
       </tr>
     </tfoot>
   </table> 
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Win %</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="team in doubles_teams" data-ng-class="{'active': team.id == my_team.id}">
+        <td>{{$index + 1}}
+        <td>{{team.team1.name}} and {{team.team2.name}}</td>
+        <td>{{team.wins}}</td>
+        <td>{{team.losses}}</td>
+        <td>{{winPercentage(team) | number: 0}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">
+          <a href="#/standings">Show all standings</a>
+        </td>
+      </tr>
+    </tfoot>
+  </table> 
 </div>

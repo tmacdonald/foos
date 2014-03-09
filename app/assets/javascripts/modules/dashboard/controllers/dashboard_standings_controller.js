@@ -1,6 +1,6 @@
 angular.module('foos.dashboard.controllers')
   
-  .controller('StandingsController', ['$scope', 'TeamService', 'TeamUtils', 'Authentication', function($scope, Team, TeamUtils, Auth) {
+  .controller('StandingsController', ['$scope', 'TeamService', 'DoublesTeamService', 'TeamUtils', 'Authentication', function($scope, Team, DoublesTeam, TeamUtils, Auth) {
     $scope.limit = 5;
 
     $scope.my_team = Auth.team();
@@ -23,4 +23,8 @@ angular.module('foos.dashboard.controllers')
         }
       }
     });
+
+    DoublesTeam.query().$promise.then(function(teams) {
+      $scope.doubles_teams = teams;
+    })
   }]);
