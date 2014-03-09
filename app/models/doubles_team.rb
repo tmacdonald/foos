@@ -1,6 +1,6 @@
 class DoublesTeam < ActiveRecord::Base
-  belongs_to :team1, class_name: "Team", foreign_key: "id"
-  belongs_to :team2, class_name: "Team", foreign_key: "id"
+  belongs_to :team1, class_name: "Team"
+  belongs_to :team2, class_name: "Team"
 
   def self.filter(attributes)
     attributes.inject(self.all) do |scope, (key, value)|
