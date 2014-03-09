@@ -61,7 +61,7 @@ angular.module('foos.app.directives', ['d3'])
               } else {
                 return game.team2points;
               }
-            }
+            };
 
             // setup variables
             var width = d3.select(element[0]).node().offsetWidth - margin,
@@ -73,12 +73,11 @@ angular.module('foos.app.directives', ['d3'])
                 // our yScale
                 yScale = d3.scale.linear()
                   .domain([d3.min(games, minPoints), d3.max(games, maxPoints)])
-                  .range([0, height]);
+                  .range([10, height - 20]);
 
             // set the height based on the calculations above
             svg.attr('height', height);
 
-            //create the rectangles for the bar chart
             svg.selectAll('line')
               .data(games).enter()
                 .append('line')
@@ -94,7 +93,6 @@ angular.module('foos.app.directives', ['d3'])
                   if (game.team1.id == team_id) {
                     value = game.team1points;
                   }
-                  console.log('y1', value, yScale(value));
                   return height - yScale(value);
                 })
                 .attr('y2', function(game,i) {
@@ -103,10 +101,27 @@ angular.module('foos.app.directives', ['d3'])
                     value = game.team1points + game.points_change;
                   }
 
-                  console.log('y2', value, yScale(value));
                   return height - yScale(value);
                 })
                 .attr('stroke', function(game, i) { return color(0); })
+
+            svg.selectAll('circle')
+              .data(games).enter()
+                .append('circle')
+                .attr('stroke-width', 2)
+                .attr('fill', '#fff')
+                .attr('stroke', function(game, i) { return color(0); })
+                .attr('r', 5)
+                .attr('cx', function(game, i) {
+                  return (i + 1) * barWidth;
+                })
+                .attr('cy', function(game, i) {
+                  var value = game.team2points - game.points_change;
+                  if (game.team1.id == team_id) {
+                    value = game.team1points + game.points_change;
+                  }
+                  return height - yScale(value);
+                });
           };
         });
       }
