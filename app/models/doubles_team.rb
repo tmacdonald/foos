@@ -16,7 +16,7 @@ class DoublesTeam < ActiveRecord::Base
         scope.order "#{attribute}# #{order}"
       else
         scope
+      end
     end
   end
-
 end

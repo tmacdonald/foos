@@ -36,6 +36,13 @@ Foos::Application.routes.draw do
         get 'calculate', on: :collection
       end
 
+    resources :doubles_teams,
+      only: [:index, :show],
+      defaults: { :format => 'json' }
+
+    resources :doubles_games,
+      defaults: { :format => 'json' }
+
     resources :users,
       only: [:show],
       defaults: { :format => 'json' } do
