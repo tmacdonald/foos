@@ -7,4 +7,5 @@ angular.module('foos.teams.controllers')
     Team.get({ id: $scope.team_id }).$promise.then(function(team) {
       $scope.team = team;
     });
+
   }]);
