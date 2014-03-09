@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140118021843) do
+ActiveRecord::Schema.define(version: 20140309043328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,24 @@ ActiveRecord::Schema.define(version: 20140118021843) do
   add_index "challenges", ["challengee_id"], name: "index_challenges_on_challengee_id", using: :btree
   add_index "challenges", ["challenger_id"], name: "index_challenges_on_challenger_id", using: :btree
 
+  create_table "doubles_games", force: true do |t|
+    t.integer  "team1_id"
+    t.integer  "team2_id"
+    t.integer  "team2score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "doubles_games", ["team1_id"], name: "index_doubles_games_on_team1_id", using: :btree
+  add_index "doubles_games", ["team2_id"], name: "index_doubles_games_on_team2_id", using: :btree
+
+  create_table "doubles_teams", force: true do |t|
+    t.integer "team1_id"
+    t.integer "team2_id"
+    t.integer "wins",     default: 0
+    t.integer "losses",   default: 0
+  end
+
   create_table "games", force: true do |t|
     t.integer  "team1_id"
     t.integer  "team2_id"
@@ -34,10 +52,10 @@ ActiveRecord::Schema.define(version: 20140118021843) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "points_change"
-    t.datetime "played_at"
-    t.boolean  "team1isBlue"
     t.integer  "team1points"
     t.integer  "team2points"
+    t.datetime "played_at"
+    t.boolean  "team1isBlue"
   end
 
   add_index "games", ["team1_id"], name: "index_games_on_team1_id", using: :btree
