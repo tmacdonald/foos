@@ -1,6 +1,6 @@
 class DoublesTeam < ActiveRecord::Base
-  has_one :team1
-  has_one :team2
+  belongs_to :team1, class_name: "Team", foreign_key: "id"
+  belongs_to :team2, class_name: "Team", foreign_key: "id"
 
   def self.filter(attributes)
     attributes.inject(self.all) do |scope, (key, value)|
@@ -18,5 +18,9 @@ class DoublesTeam < ActiveRecord::Base
         scope
       end
     end
+  end
+
+  def self.findTeam(team1_id, team2_id)
+    DoublesTeam.where('team1_id = ? OR team2_id = ?', team1_id, team1_id).where('team1_id = ? OR team2_id = ?', team2_id, team2_id).first
   end
 end

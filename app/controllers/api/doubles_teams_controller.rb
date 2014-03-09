@@ -5,7 +5,7 @@ class Api::DoublesTeamsController < ApplicationController
 
   # GET /doubles_teams
   def index
-    @teams = DoublesTeam.filter(params).includes(:team1, :team2)
+    @doubles_teams = DoublesTeam.filter(params).includes(:team1, :team2)
   end
 
   # GET /doubles_teams/1
@@ -14,6 +14,6 @@ class Api::DoublesTeamsController < ApplicationController
 
   private
     def set_team
-      @team = DoublesTeam.find(params[:id])
+      @doubles_team = DoublesTeam.find(params[:id])
     end
 end
