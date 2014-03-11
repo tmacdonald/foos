@@ -1,4 +1,5 @@
 <div data-ng-controller="StandingsController">
+  <h3>Singles</h3>
   <table class="table">
     <thead>
       <tr>
@@ -36,14 +37,14 @@
     </tfoot>
   </table> 
 
+  <h3>Doubles</h3>
   <table class="table">
     <thead>
       <tr>
         <th></th>
-        <th>Name</th>
+        <th>Team</th>
         <th>Wins</th>
         <th>Losses</th>
-        <th>Win %</th>
       </tr>
     </thead>
     <tbody>
@@ -52,15 +53,7 @@
         <td>{{team.team1.name}} and {{team.team2.name}}</td>
         <td>{{team.wins}}</td>
         <td>{{team.losses}}</td>
-        <td>{{winPercentage(team) | number: 0}}</td>
       </tr>
     </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4">
-          <a href="#/standings">Show all standings</a>
-        </td>
-      </tr>
-    </tfoot>
   </table> 
 </div>
