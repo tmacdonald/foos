@@ -5,7 +5,8 @@ Foos::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
-  get 'gameon' => 'game#index'
+  get 'games/new' => 'game#index'
+  get 'doubles/games/new' => 'doubles_game#index'
 
   get 'ladder', to: redirect('/#ladder')
   get 'rankings', to: redirect('/#rankings')

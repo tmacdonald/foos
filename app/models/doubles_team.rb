@@ -13,7 +13,7 @@ class DoublesTeam < ActiveRecord::Base
       when :order
         order, attribute = value[0], value[1, value.length]
         order = (order == "+") ? :asc : :desc
-        scope.order "#{attribute}# #{order}"
+        scope.order "#{attribute} #{order}"
       else
         scope
       end

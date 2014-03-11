@@ -1,4 +1,4 @@
-angular.module('foos.doubles.teams', ['foos.doubles.teams.services'])
+angular.module('foos.doubles.games', ['foos.doubles.games.services'])
   
 
 //= require modules/doubles/teams/services

@@ -24,7 +24,7 @@ angular.module('foos.dashboard.controllers')
       }
     });
 
-    DoublesTeam.query().$promise.then(function(teams) {
+    DoublesTeam.query({ order: '-wins' }).$promise.then(function(teams) {
       $scope.doubles_teams = teams;
     })
   }]);
