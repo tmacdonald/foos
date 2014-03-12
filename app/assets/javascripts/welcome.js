@@ -78,9 +78,22 @@ angular.module('foos.app.directives', ['d3'])
             // set the height based on the calculations above
             svg.attr('height', height);
 
-            svg.selectAll('line')
+            for (var i = 0; i <= 10; i = i + 1) {
+              svg.append('line')
+                .attr('x1', 0)
+                .attr('x2', width)
+                .attr('y1', height - yScale(i * 100))
+                .attr('y2', height - yScale(i * 100))
+                .attr('stroke-width', 2)
+                .attr('stroke', '#ccc');  
+            }
+
+            
+
+            svg.selectAll('line.points')
               .data(games).enter()
                 .append('line')
+                .attr('class', 'points')
                 .attr('stroke-width', 2)
                 .attr('x1', function(game,i) {
                   return i * barWidth;
