@@ -47,6 +47,8 @@ angular.module('foos.app.directives', ['d3'])
             // If we don't pass any data, return out of the element
             if (!games) return;
 
+            console.log(games);
+
             var minPoints = function(game) {
               if (game.team1.id == team_id) {
                 return game.team1points;
