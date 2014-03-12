@@ -47,8 +47,6 @@ angular.module('foos.app.directives', ['d3'])
             // If we don't pass any data, return out of the element
             if (!games) return;
 
-            console.log(games);
-
             var minPoints = function(game) {
               if (game.team1.id == team_id) {
                 return game.team1points;
@@ -74,7 +72,7 @@ angular.module('foos.app.directives', ['d3'])
                 color = d3.scale.category20(),
                 // our yScale
                 yScale = d3.scale.linear()
-                  .domain([d3.min(games, minPoints), d3.max(games, maxPoints)])
+                  .domain([Math.min(500, d3.min(games, minPoints)), Math.max(d3.max(games, maxPoints), 500)])
                   .range([10, height - 20]);
 
             // set the height based on the calculations above
