@@ -1,4 +1,4 @@
-<div data-ng-controller="RecentGamesController">
+<div data-ng-controller="RecentDoublesGamesController">
   <p data-ng-if="recent_games.length == 0">No games have been played yet. <a href="/#/games/new">Record a game</a>.</p>
 
   <div data-ng-if="recent_games.length > 0">
@@ -13,18 +13,11 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="game in recent_games" data-ng-class="{'success': my_team.id == game.team1.id, 'danger': my_team.id == game.team2.id}">
-          <td><a href="#/teams/{{game.team1.id}}">{{game.team1.name}}</a></td>
-          <td><a href="#/teams/{{game.team2.id}}">{{game.team2.name}}</a></td>
-          <td>{{game.team1score}} - {{game.team2score}}</td>
+          <td>{{game.team1.team1.name}} and {{game.team1.team2.name}}</td>
+          <td>{{game.team2.team1.name}} and {{game.team2.team2.name}} </td>
+          <td>10 - {{game.team2score}}</td>
         </tr>
       </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="3">
-            <a href="#/games">Show all games</a>
-          </td>
-        </tr>
-      </tfoot>
     </table>
   </div>
 </div>

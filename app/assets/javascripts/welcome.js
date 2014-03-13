@@ -1,4 +1,4 @@
-var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foos.users', 'foos.teams', 'foos.doubles.teams', 'foos.games', 'foos.challenges', 'foos.authentication', 'foos.dashboard', 'foos.app.directives']);
+var app = angular.module('foos.app', ['ngRoute', 'ngResource', 'ngAnimate', 'foos.users', 'foos.teams', 'foos.doubles.teams', 'foos.games', 'foos.doubles.games', 'foos.challenges', 'foos.authentication', 'foos.dashboard', 'foos.app.directives']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({ redirectTo: '/dashboard' });

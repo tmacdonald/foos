@@ -1,0 +1,1 @@
+angular.module('foos.doubles.teams.controllers', []);

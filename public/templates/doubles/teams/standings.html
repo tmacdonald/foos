@@ -1,0 +1,20 @@
+<div data-ng-controller="DoublesStandingsController">
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Team</th>
+        <th>Wins</th>
+        <th>Losses</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.id == my_team.id}">
+        <td>{{$index + 1}}
+        <td>{{team.team1.name}} and {{team.team2.name}}</td>
+        <td>{{team.wins}}</td>
+        <td>{{team.losses}}</td>
+      </tr>
+    </tbody>
+  </table> 
+</div>

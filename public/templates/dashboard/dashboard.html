@@ -5,14 +5,32 @@
     <div data-ng-include data-src="'templates/dashboard/challenges.html'"></div>
   </div>
 
-  <div class="col-sm-12">
-    <h2>Standings</h2>
-    
-    <div data-ng-include data-src="'templates/teams/standings.html'"></div>
+  <h2>Singles</h2>
 
+  <h3>Standings</h3>
+
+  <div class="col-sm-12">
+    <div data-ng-include data-src="'templates/teams/standings.html'"></div>
   </div>
+  
+  <h3>Recent Games</h3>
+
   <div class="col-sm-12">
     <div data-ng-include data-src="'templates/dashboard/recent_games.html'"></div>
+  </div>
+
+  <h2>Doubles</h2>
+
+  <h3>Standings</h3>
+
+  <div class="col-sm-12">
+    <div data-ng-include data-src="'templates/doubles/teams/standings.html'"></div>
+  </div>
+
+  <h3>Recent Games</h3>
+
+  <div class="col-sm-12">
+    <div data-ng-include data-src="'templates/dashboard/recent_doubles_games.html'"></div>
   </div>
 
   <div class="col-sm-12" data-ng-if="my_team">
