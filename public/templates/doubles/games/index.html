@@ -1,0 +1,34 @@
+<div data-ng-controller="DoublesGamesIndexController">
+
+  <table class="table">
+   <thead>
+      <tr>
+        <th>Winner</th>
+        <th>Loser</th>
+        <th>Score</th>
+        <th>Date Played</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="game in games" data-ng-class="{'success': my_team.id == game.team1.id, 'danger': my_team.id == game.team2.id}">
+        <td>{{game.team1.team1.name}} and {{game.team1.team2.name}}</td>
+        <td>{{game.team2.team1.name}} and {{game.team2.team2.name}}</td>
+        <td>10 - {{game.team2score}}</td>
+
+        <td>
+          {{game.played_at | date: 'EEEE, MMMM d'}}
+          <input type="hidden" value="{{game.id}}" />
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <ul class="pagination">
+    <li data-ng-class="{'disabled': page - 1 == 0}"><a href="#/doubles/games?page={{page - 1}}">&laquo;</a></li>
+    <li data-ng-repeat="i in getNumber(pages) track by $index" data-ng-class="{'active': $index + 1 == page}">
+      <a href="#/doubles/games?page={{$index + 1}}">{{$index + 1}}</a>
+    </li>
+    <li data-ng-class="{'disabled': page == pages}"><a href="#/doubles/games?page={{page + 1}}">&raquo;</a></li>
+  </ul>
+</div>
