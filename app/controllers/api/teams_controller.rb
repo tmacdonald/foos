@@ -12,6 +12,11 @@ class Api::TeamsController < ApplicationController
   def show
   end
 
+  # GET /doubles
+  def doubles
+    @teams = Team.filter(params).where('wins IS NOT NULL AND losses IS NOT NULL').select('teams.*, sum(d.wins) as wins, sum(d.losses) as losses').joins('left outer join doubles_teams d ON d.team1_id = teams.id OR d.team2_id = teams.id').group('teams.id')
+  end
+
   # POST /teams
   def create
     @team = Team.new(team_params)

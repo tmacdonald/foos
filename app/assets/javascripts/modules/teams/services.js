@@ -3,7 +3,8 @@ angular.module('foos.teams.services', ['ngResource'])
     return $resource('/api/teams/:id', 
       { id: '@id' },
       {
-        'update': { method: 'PUT' }
+        'update': { method: 'PUT' },
+        'doubles': { url: '/api/teams/doubles', method: 'GET', isArray: true }
       });
   }])
   .factory('TeamGameService', ['$resource', function($resource) {

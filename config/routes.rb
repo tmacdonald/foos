@@ -12,7 +12,13 @@ Foos::Application.routes.draw do
   get 'rankings', to: redirect('/#rankings')
 
   namespace :api do
-    resources :teams, defaults: { :format => 'json' } do 
+    resources :teams, 
+      defaults: { :format => 'json' } do 
+
+        collection do 
+          get :doubles
+        end
+
       resources :games, 
         controller: :team_games,
         only: [:index],
