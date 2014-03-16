@@ -1,22 +1,16 @@
-<div data-ng-controller="DoublesTeamsController" data-ng-init="index()">
-
-  <div class="alert alert-info">
-    <p>In Standings, teams are ordered by their win percentage</p>
-  </div>
+<div data-ng-controller="DoublesTeamsIndexController">
 
   <table class="table">
     <thead>
       <tr>
         <th>Name</th>
-        <th>Record</th>
         <th>Wins</th>
         <th>Losses</th>
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-repeat="team in teams | orderBy: 'stats.wins/stats.losses':true" data-ng-class="{'active': team.current_user}">
-        <td><a href="#/teams/{{team.id}}">{{team.name}}</a></td>
-        <td>{{team.stats.wins}} - {{team.stats.losses}}</td>
+      <tr data-ng-repeat="team in teams" data-ng-class="{'active': team.current_user}">
+        <td>{{team.team1.name}} and {{team.team2.name}}</td>
         <td>{{team.wins}}</td>
         <td>{{team.losses}}</td>
       </tr>
